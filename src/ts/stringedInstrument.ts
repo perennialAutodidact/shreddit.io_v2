@@ -20,6 +20,21 @@ export type NoteName =
   | "Cb"
   | "B#";
 
+export type GuitarTuning = "standard" | "drop-d" | "open-d";
+export type MandolinTuning = "standard";
+export type UkuleleType = "standard";
 export interface Fret {
   noteName: NoteName;
+}
+
+export type StringedInstrumentName = "guitar" | "bass" | "mandolin" | "ukulele";
+
+export interface StringData {
+  rootNote: NoteName;
+  frets: Fret[];
+}
+export interface StringedInstrumentState {
+  instrumentType: StringedInstrumentName;
+  strings: StringData[];
+  tuning: "";
 }
