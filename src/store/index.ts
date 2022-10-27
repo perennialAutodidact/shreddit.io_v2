@@ -1,11 +1,18 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import instrumentReducer, {
+  initialState as initialInstrumentState,
+} from "./stringedInstrumentSlice";
+export const initialState = {
+  instrument: initialInstrumentState,
+};
 
-export const initialState = {};
-
-export const reducer = {};
+export const reducer = {
+  instrument: instrumentReducer,
+};
 
 export const store = configureStore({
   reducer: reducer,
+  preloadedState: initialState,
 });
 
 export type AppDispatch = typeof store.dispatch;
