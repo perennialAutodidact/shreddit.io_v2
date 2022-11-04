@@ -1,15 +1,15 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.scss";
 import StringedInstrument from "./components/StringedInstrument";
+import Neck from "components/StringedInstrument/Neck";
+import TeoriaProvider from "components/TeoriaProvider";
 
 function App() {
   return (
     <div className="App">
-      <StringedInstrument
-        bodyStyle={"guitar"}
-        stringNames={["E", "A", "D", "G", "B", "E"]}
-      />
+      <TeoriaProvider>
+        <StringedInstrument />
+      </TeoriaProvider>
     </div>
   );
 }
