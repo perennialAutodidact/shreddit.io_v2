@@ -57,20 +57,10 @@ export type ScaleName =
   | "flamenco";
 
 export type Interval =
-  | "P1"
-  | "m2"
-  | "M2"
-  | "m3"
-  | "M3"
-  | "P4"
-  | "A4"
-  | "d5"
-  | "P5"
-  | "m6"
-  | "M6"
-  | "m7"
-  | "d7"
-  | "M7"
-  | "P8";
+  | `P${number}`
+  | `m${number}`
+  | `M${number}`
+  | `A${number}`
+  | `d${number}`;
 
 export type Note = `${NoteName}${number}`;
