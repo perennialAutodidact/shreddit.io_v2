@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
-import { TeoriaContext } from "components/TeoriaProvider/context";
+import { TeoriaContext } from "common/components/TeoriaProvider/context";
 import Neck from "./Neck";
 import String from "./String";
+import styles from "./StringedInstrument.module.scss";
 
 interface StringedInstrumentProps {}
 
