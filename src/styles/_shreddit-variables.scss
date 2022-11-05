@@ -15,6 +15,7 @@ $M7-color: #67bb41;
 
 $fret-color: #eaeaea;
 $inlay-fret-color: #c9c8c8;
+$fret-border-color: #8a8a8a;
 
 @import url("https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
@@ -40,6 +41,7 @@ $custom-colors: (
   // e.g. $purple: #800080;
   "fret": $fret-color,
   "inlay-fret": $inlay-fret-color,
+  "fret-border": $fret-border-color,
   //     "red": $custom-red,
   //     "overlay": $custom-overlay,
   //     "disabled": $custom-disabled
