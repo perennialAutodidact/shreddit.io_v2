@@ -13,7 +13,10 @@ const StringedInstrument: React.FC<
   const { strings } = useAppSelector((appState) => appState.instrument);
 
   return (
-    <div className="container" id="instrument-container">
+    <div
+      className={`container ${styles.stringedInstrument}`}
+      id="instrument-container"
+    >
       <Neck>
         {strings.map((rootNote) => (
           <String rootNote={rootNote} key={rootNote} />
