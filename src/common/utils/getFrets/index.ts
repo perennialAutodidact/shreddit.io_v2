@@ -1,5 +1,6 @@
 import { Note, Interval } from "ts/musicTheory";
-import { Fret } from "ts/stringedInstrument";
+import { FretData } from "ts/stringedInstrument";
+import { noteToFretData } from "../noteToFretData";
 import {
   intervalsWithAug4,
   intervalsWithDim5,
@@ -21,14 +22,14 @@ export const getFrets = (
     aug4orDim5 === "aug4" ? intervalsWithAug4 : intervalsWithDim5;
   const rootNote = teoria.note(_rootNote);
 
-  const frets: Note[] = fretNumbers.map((fretNumber) => {
+  const frets: FretData[] = fretNumbers.map((fretNumber) => {
     const interval = intervals[fretNumber % neckLength];
-    const note = rootNote.interval(interval);
+    const note: Note = rootNote.interval(interval).toString();
 
-    return note.toString();
+    const fretData: FretData = noteToFretData(note);
+    return fretData;
   });
 
   return frets;
 };
 
-// export { getFrets };

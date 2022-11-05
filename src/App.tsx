@@ -1,7 +1,6 @@
 import React from "react";
-import "./App.scss";
+import "styles/App.scss";
 import StringedInstrument from "./components/StringedInstrument";
-import Neck from "components/StringedInstrument/Neck";
 import TeoriaProvider from "components/TeoriaProvider";
 
 function App() {

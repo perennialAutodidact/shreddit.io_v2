@@ -13,7 +13,7 @@ const StringedInstrument: React.FC<
   const { strings } = useAppSelector((appState) => appState.instrument);
 
   return (
-    <div className="container-fluid d-flex flex-column">
+    <div className="container" id="instrument-container">
       <Neck>
         {strings.map((rootNote) => (
           <String rootNote={rootNote} key={rootNote} />

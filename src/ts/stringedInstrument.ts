@@ -1,4 +1,4 @@
-import { NoteName, ScaleName, Interval, Note } from "./musicTheory";
+import { NoteName, ScaleName, Interval, Note, OctaveNumber } from "ts/musicTheory";
 
 export type GuitarTuningNames = "standard" | "drop-d" | "open-d";
 export type MandolinTuningNames = "standard";
@@ -21,21 +21,8 @@ export type Tunings = {
 
 export interface FretData {
   noteName: NoteName;
-  octave: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
+  octave: OctaveNumber;
 }
-
-export function isNote(value: unknown): value is Note {
-  let _isNote = true
-  if (typeof value !== "string") {
-    return false;
-  } else if(value.length < 2){
-    return false;
-  } else {
-    if(value.slice(0,-1))
-    
-  }
-}
-
 export type StringedInstrumentName =
   | "guitar"
   | "bass"

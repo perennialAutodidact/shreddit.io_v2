@@ -56,6 +56,7 @@ export type ScaleName =
   | "major"
   | "flamenco";
 
+export type OctaveNumber = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
 export type Interval =
   | `P${number}`
   | `m${number}`
@@ -64,3 +65,18 @@ export type Interval =
   | `d${number}`;
 
 export type Note = `${NoteName}${number}`;
+
+export function isNote(value: string): value is Note {
+  let _isNote = true;
+  const noteRegex: RegExp = new RegExp("^[a-g]{1}[#]{0,1}[xb]{0,2}[1-8]{1}$");
+  if (typeof value !== "string") {
+    return false;
+  }
+  if (value.length < 2) {
+    return false;
+  }
+  if (!value.match(noteRegex)) {
+    return false;
+  }
+  return _isNote;
+}
