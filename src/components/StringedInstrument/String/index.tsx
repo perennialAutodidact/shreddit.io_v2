@@ -7,8 +7,7 @@ import { Note } from "ts/musicTheory";
 import { FretData } from "ts/stringedInstrument";
 import styles from "./String.module.scss";
 import Fret from "components/StringedInstrument/Fret";
-import { getFrets } from "common/utils/getFrets";
-import { noteToFretData } from "common/utils/noteToFretData";
+import { getFretDataArray } from "common/utils/getFretDataArray";
 import { INLAY_FRET_INDICES } from "common/constants/stringedInstruments";
 import { BreakpointState } from "ts/breakpoints";
 
@@ -27,8 +26,8 @@ const String: React.FC<StringProps> = ({ rootNote }: StringProps) => {
   const [fretHeight, setFretHeight] = useState<number>(0);
   const instrumentHeightFactor = useMemo(() => 0.75, []);
 
-  const frets: FretData[] = getFrets(rootNote, neckLength, "aug4");
-  const fretZero: FretData = noteToFretData(rootNote);
+  const frets: FretData[] = getFretDataArray(rootNote, neckLength, "aug4");
+  // const fretZero: FretData = noteToFretData(rootNote);
 
   useEffect(() => {
     if (stringRef.current) {
@@ -48,13 +47,13 @@ const String: React.FC<StringProps> = ({ rootNote }: StringProps) => {
 
   return (
     <div className={`d-flex flex-column ${styles.string}`} ref={stringRef}>
-      {fretZero.noteName}
+      {/* {fretZero.noteName} */}
       {frets.map((fret, i) => (
         <Fret
           {...fret}
           isInlay={INLAY_FRET_INDICES.includes(i)}
           height={fretHeight}
-          key={`${fret.noteName}${fret.octave}`}
+          key={`string-${i}-{fret.noteName}${fret.octave}`}
         />
       ))}
     </div>

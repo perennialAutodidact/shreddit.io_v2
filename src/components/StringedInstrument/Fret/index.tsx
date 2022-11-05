@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Note } from "ts/musicTheory";
 import { FretData } from "ts/stringedInstrument";
+import NoteMarker from "components/NoteMarker";
 import styles from "./Fret.module.scss";
 
 interface FretProps extends FretData {
@@ -26,6 +27,7 @@ const Fret = ({ noteName, octave, isInlay, height }: FretProps) => {
       `}
       ref={fretRef}
     >
+      <NoteMarker showMarker={true} />
       {noteName}
     </div>
   );

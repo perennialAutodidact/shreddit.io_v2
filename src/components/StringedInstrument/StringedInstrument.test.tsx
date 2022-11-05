@@ -1,3 +1,5 @@
-import { render } from "common/utils/tests/customRender";
+import { render } from "common/utils/tests/testSetup";
 
-describe("<StringedInstrument/>", () => {});
+describe("<StringedInstrument/>", () => {
+  it("should render without crashing", () => {});
+});
