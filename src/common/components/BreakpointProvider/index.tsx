@@ -28,7 +28,7 @@ const BreakpointProvider = ({ children }: Props) => {
       _breakpoint = "xxl";
     }
     setBreakpoint(_breakpoint);
-  }, [height, width]);
+  }, [height, width, sm, md, lg, xl, xxl]);
 
   const BreakpointContext = createContext({ breakpoint });
 
