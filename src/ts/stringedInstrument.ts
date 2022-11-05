@@ -1,4 +1,10 @@
-import { NoteName, ScaleName, Interval, Note, OctaveNumber } from "ts/musicTheory";
+import {
+  NoteName,
+  ScaleName,
+  Interval,
+  Note,
+  OctaveNumber,
+} from "ts/musicTheory";
 
 export type GuitarTuningNames = "standard" | "drop-d" | "open-d";
 export type MandolinTuningNames = "standard";
@@ -22,6 +28,7 @@ export type Tunings = {
 export interface FretData {
   noteName: NoteName;
   octave: OctaveNumber;
+  interval: Interval;
 }
 export type StringedInstrumentName =
   | "guitar"
