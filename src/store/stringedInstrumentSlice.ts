@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { StringedInstrumentState } from "ts/stringedInstrument";
-import { tunings } from "../common/constants";
+import { tunings } from "common/constants/stringedInstruments";
 const teoria = require("teoria");
 
 export const initialState: StringedInstrumentState = {
