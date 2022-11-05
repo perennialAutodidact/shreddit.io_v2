@@ -5,7 +5,7 @@ import { Note } from "ts/musicTheory";
 import { FretData } from "ts/stringedInstrument";
 import styles from "./String.module.scss";
 import Fret from "components/StringedInstrument/Fret";
-import {getFrets} from "common/utils/getFrets"
+import { getFrets } from "common/utils/getFrets";
 import { noteToFretData } from "common/utils/noteToFretData";
 interface StringProps {
   rootNote: Note;
@@ -14,16 +14,18 @@ interface StringProps {
 const String: React.FC<StringProps> = ({ rootNote }: StringProps) => {
   const { neckLength } = useAppSelector((appState) => appState.instrument);
   const { teoria } = useContext(TeoriaContext);
-  const stringRef = useRef<HTMLDivElement>(null)
+  const stringRef = useRef<HTMLDivElement>(null);
 
-  const frets:FretData[]= getFrets(rootNote, neckLength, 'aug4')
-  const zerothFret: FretData = noteToFretData(rootNote)
+  const frets: FretData[] = getFrets(rootNote, neckLength, "aug4");
+  const zerothFret: FretData = noteToFretData(rootNote);
 
-  useEffect(()=>{
-    if(stringRef.current){
-      stringRef.current.style.maxWidth = `${window.innerWidth / 6}`
+  useEffect(() => {
+    if (stringRef.current) {
+      stringRef.current.style.width = `${window.innerWidth / 6}px`;
+      console.log(window.innerWidth);
+      console.log(stringRef.current);
     }
-  },[stringRef])
+  }, [stringRef]);
 
   return (
     <div className={`d-flex flex-column ${styles.string}`} ref={stringRef}>
