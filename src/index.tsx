@@ -5,6 +5,7 @@ import { store } from "../src/store";
 import "styles/index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import BreakpointProvider from "common/components/BreakpointProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BreakpointProvider>
+        <App />
+      </BreakpointProvider>
     </Provider>
   </React.StrictMode>
 );
