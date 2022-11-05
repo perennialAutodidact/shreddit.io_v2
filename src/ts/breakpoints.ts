@@ -7,3 +7,7 @@ export type BreakpointSizes = {
   xl: number;
   xxl: number;
 };
+
+export type BreakpointState = {
+  breakpoint: Breakpoint;
+};
