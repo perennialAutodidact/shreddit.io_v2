@@ -4,8 +4,8 @@ import { noteToFretData } from "../noteToFretData";
 import {
   intervalsWithAug4,
   intervalsWithDim5,
-  MIN_NECK_LENGTH,
 } from "common/constants/musicTheory";
+import { MIN_NECK_LENGTH } from "common/constants/stringedInstruments";
 
 const teoria = require("teoria");
 
