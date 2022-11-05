@@ -6,7 +6,11 @@ interface NeckProps {
 }
 
 const Neck: React.FC<NeckProps> = ({ children }: NeckProps) => {
-  return <div className={`border border-danger d-flex gap-3 ${styles.neck}`} id="instrument-neck">{children}</div>;
+  return (
+    <div className={`d-flex ${styles.neck}`} id="instrument-neck">
+      {children}
+    </div>
+  );
 };
 
 export default Neck;
