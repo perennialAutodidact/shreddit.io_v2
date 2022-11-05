@@ -5,7 +5,7 @@ import {
   intervalsWithAug4,
   intervalsWithDim5,
   MIN_NECK_LENGTH,
-} from "common/constants";
+} from "common/constants/musicTheory";
 
 const teoria = require("teoria");
 
@@ -32,4 +32,3 @@ export const getFrets = (
 
   return frets;
 };
-

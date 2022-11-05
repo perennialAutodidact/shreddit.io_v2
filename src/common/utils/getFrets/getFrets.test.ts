@@ -1,5 +1,5 @@
 import { getFrets } from "common/utils/getFrets";
-import { MIN_NECK_LENGTH } from "common/constants";
+import { MIN_NECK_LENGTH } from "common/constants/musicTheory";
 import { Note } from "ts/musicTheory";
 import { FretData } from "ts/stringedInstrument";
 
