@@ -13,6 +13,9 @@ $M6-color: #0da5a6;
 $m7-color: #0fa96d;
 $M7-color: #67bb41;
 
+$fret-color: #eaeaea;
+$inlay-fret-color: #c9c8c8;
+
 @import url("https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
 
@@ -33,11 +36,11 @@ $text: "Didact Gothic", sans-serif;
 $heading: "Roboto", sans-serif;
 
 $custom-colors: (
-    // add custom colors here
-    // e.g. $purple: #800080;
-//     "green": $custom-green,
-//     "yellow": $custom-yellow,
-//     "red": $custom-red,
-//     "overlay": $custom-overlay,
-//     "disabled": $custom-disabled
+  // add custom colors here
+  // e.g. $purple: #800080;
+  "fret": $fret-color,
+  "inlay-fret": $inlay-fret-color,
+  //     "red": $custom-red,
+  //     "overlay": $custom-overlay,
+  //     "disabled": $custom-disabled
 );
