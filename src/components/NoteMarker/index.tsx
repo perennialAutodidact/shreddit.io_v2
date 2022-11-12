@@ -1,14 +1,35 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { Interval, NoteName } from "ts/musicTheory";
 import styles from "./NoteMarker.module.scss";
 
 type NoteMarkerProps = {
-  showMarker: boolean;
+  interval: Interval;
+  noteName: NoteName;
+  size: number;
 };
 
-const NoteMarker = ({ showMarker }: NoteMarkerProps) => {
+const NoteMarker = ({ noteName, interval, size }: NoteMarkerProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current && size) {
+      ref.current.style.height = `${size}px`;
+      ref.current.style.width = `${size}px`;
+    }
+  }, [size]);
+
   return (
     <div
-      className={`rounded-circle border-dark border-3 ${styles.noteMarker}`}
+      className={`
+        rounded-circle
+        shadow
+        border border-dark border-2  
+        position-absolute
+        bg-${interval}
+        ${styles.noteMarker}
+      `}
+      ref={ref}
+      data-testid="NoteMarker"
     ></div>
   );
 };

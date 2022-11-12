@@ -1,3 +1,4 @@
+import { NrRange, NumbersToN } from "ts-number-range";
 import {
   NoteName,
   ScaleName,
@@ -5,7 +6,7 @@ import {
   Note,
   OctaveNumber,
 } from "ts/musicTheory";
-
+import { MIN_NECK_LENGTH } from "common/constants/stringedInstruments";
 export type GuitarTuningNames = "standard" | "drop-d" | "open-d";
 export type MandolinTuningNames = "standard";
 export type UkuleleTuningNames = "standard";
@@ -44,15 +45,25 @@ export interface StringData {
 
 export type Tuning = Note[];
 
+export type FretNumber = NumbersToN<22>;
+
+export type StringedInstrumentDimensions = {
+  [key in "neck" | "string" | "fret"]: {
+    height: number;
+    width: number;
+  };
+};
+
 export interface StringedInstrumentState {
   instrumentType: StringedInstrumentName;
   tuningName: GuitarTuningNames | MandolinTuningNames | UkuleleTuningNames;
   strings: Tuning;
   currentKey: NoteName;
-  neckLength: 12;
+  totalFrets: NrRange<6, 21>;
   scale: {
     name: ScaleName;
     intervals: Interval[];
     notes: Note[];
   };
+  dimensions: StringedInstrumentDimensions;
 }

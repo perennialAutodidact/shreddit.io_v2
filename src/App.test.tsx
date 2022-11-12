@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "common/utils/tests/testSetup";
+import { render, screen } from "common/utils/tests/setup";
 import App from "./App";
 import { initialState } from "store";
 

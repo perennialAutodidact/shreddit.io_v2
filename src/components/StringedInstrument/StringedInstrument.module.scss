@@ -1,3 +1,9 @@
 .stringedInstrument {
   height: 75vh;
 }
+
+@media screen and (min-width: 768px) {
+  .stringedInstrument {
+    height: 50vh;
+  }
+}

@@ -1,4 +1,4 @@
-import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import instrumentReducer, {
   initialState as initialInstrumentState,
 } from "./stringedInstrumentSlice";

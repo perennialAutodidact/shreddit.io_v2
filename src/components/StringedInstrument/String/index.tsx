@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef, useState, useMemo } from "react";
-import { useAppSelector } from "store/hooks";
+import { useAppSelector, useAppDispatch } from "store/hooks";
+import { setInstrumentDimensions } from "store/stringedInstrumentSlice";
 import { TeoriaContext } from "common/components/TeoriaProvider/context";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
 import { useWindowSize } from "usehooks-ts";
 import { Note } from "ts/musicTheory";
-import { FretData } from "ts/stringedInstrument";
-import styles from "./String.module.scss";
+import { FretData, FretNumber } from "ts/stringedInstrument";
+import styles from "components/StringedInstrument/String/String.module.scss";
 import Fret from "components/StringedInstrument/Fret";
 import { getFretDataArray } from "common/utils/getFretDataArray";
 import { INLAY_FRET_INDICES } from "common/constants/stringedInstruments";
@@ -16,43 +17,51 @@ interface StringProps {
 }
 
 const String: React.FC<StringProps> = ({ rootNote }: StringProps) => {
+  const appDispatch = useAppDispatch();
   const { teoria } = useContext(TeoriaContext);
   const { breakpoint } = useContext<BreakpointState>(BreakpointContext);
-  const { neckLength, strings } = useAppSelector(
-    (appState) => appState.instrument
-  );
+  const {
+    totalFrets,
+    strings,
+    dimensions: { neck, string },
+  } = useAppSelector((appState) => appState.instrument);
   const stringRef = useRef<HTMLDivElement>(null);
   const { height: windowHeight, width: windowWidth } = useWindowSize();
-  const [fretHeight, setFretHeight] = useState<number>(0);
-  const instrumentHeightFactor = useMemo(() => 0.75, []);
-
-  const frets: FretData[] = getFretDataArray(rootNote, neckLength, "aug4");
-  // const fretZero: FretData = noteToFretData(rootNote);
 
   useEffect(() => {
     if (stringRef.current) {
-      const stringWidth = windowWidth / strings.length;
-      const stringHeight = windowHeight * instrumentHeightFactor;
-      stringRef.current.style.width = `${stringWidth}px`;
-      setFretHeight(stringHeight / frets.length);
+      let height =
+        breakpoint === "sm" ? neck.height : neck.height / strings.length;
+      let width =
+        breakpoint === "sm" ? neck.width / strings.length : neck.width;
+      appDispatch(
+        setInstrumentDimensions({
+          string: {
+            height,
+            width,
+          },
+        })
+      );
     }
-  }, [
-    stringRef,
-    strings.length,
-    windowWidth,
-    windowHeight,
-    instrumentHeightFactor,
-    frets.length,
-  ]);
+  }, [breakpoint, neck, strings, appDispatch]);
+
+  const frets = useMemo<FretData[]>(
+    () => getFretDataArray(rootNote, totalFrets, "aug4"),
+    [rootNote, totalFrets]
+  );
 
   return (
-    <div className={`d-flex flex-column ${styles.string}`} ref={stringRef}>
-      {/* {fretZero.noteName} */}
+    <div
+      className={`d-flex flex-column align-items-md-center flex-md-row ${styles.string}`}
+      ref={stringRef}
+      data-testid={"String"}
+    >
+      <h3 className="m-0">{frets[0].noteName.toUpperCase()}</h3>
       {frets.map((fret, i) => (
         <Fret
           {...fret}
+          fretNumber={i as FretNumber}
           isInlay={INLAY_FRET_INDICES.includes(i)}
-          height={fretHeight}
           key={`string-${i}-{fret.noteName}${fret.octave}`}
         />
       ))}

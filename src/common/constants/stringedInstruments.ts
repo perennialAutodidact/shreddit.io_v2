@@ -17,4 +17,4 @@ export const tunings: Tunings = {
 
 export const MIN_NECK_LENGTH = 6;
 
-export const INLAY_FRET_INDICES = [2, 4, 6, 8, 11, 14, 16, 18];
+export const INLAY_FRET_INDICES = [3, 5, 7, 9, 12, 15, 17, 19];

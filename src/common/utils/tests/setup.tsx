@@ -4,6 +4,8 @@ import { RenderResult } from "@testing-library/react/types";
 import configureStore from "redux-mock-store";
 // import {BrowserRouter as Router} from 'react-router-dom';
 import { Provider as ReduxProvider } from "react-redux";
+import BreakpointProvider from "common/components/BreakpointProvider";
+import TeoriaProvider from "common/components/TeoriaProvider";
 import { RootState } from "store";
 import { Store } from "redux";
 
@@ -38,7 +40,11 @@ const AllTheProviders =
   }) =>
     (
       // <RouterContext.Provider value={{ ...defaultRouter, ...router } as NextRouter}>
-      <ReduxProvider store={store}>{children}</ReduxProvider>
+      <ReduxProvider store={store}>
+        <BreakpointProvider>
+          <TeoriaProvider>{children}</TeoriaProvider>
+        </BreakpointProvider>
+      </ReduxProvider>
     );
 // </RouterContext.Provider>;
 

@@ -19,7 +19,7 @@ export const getFretDataArray = (
   _rootNote: Note,
   neckLength: number,
   aug4orDim5: "aug4" | "dim5"
-) => {
+): FretData[] => {
   if (neckLength < MIN_NECK_LENGTH) {
     throw new RangeError(`Neck length must be at least ${MIN_NECK_LENGTH}`);
   }
