@@ -1,5 +1,5 @@
-@use 'sass:map';
-@import './shreddit-variables';
+@use "sass:map";
+@import "./shreddit-variables";
 
 // 1. Include Bootstrap functions first (so you can manipulate colors, SVGs, calc, etc)
 @import "../../node_modules/bootstrap/scss/functions";
