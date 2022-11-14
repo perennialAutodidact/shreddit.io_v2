@@ -11,16 +11,31 @@ const allIntervals: Interval[] = [
   "A4",
   "d5",
   "P5",
+  "A5",
   "m6",
   "M6",
   "m7",
   "M7",
   "P8",
+  "m9",
+  "M9",
+  "m10",
+  "M10",
+  "P11",
+  "A11",
+  "d12",
+  "P12",
+  "A12",
+  "m13",
+  "M13",
+  "m14",
+  "M14",
+  "P15",
 ];
 
-export const intervalsWithAug4: Interval[] = allIntervals.filter(
-  (interval) => interval !== "d5"
+export const intervalsWithAug: Interval[] = allIntervals.filter(
+  (interval) => !interval.startsWith("d")
 );
-export const intervalsWithDim5: Interval[] = allIntervals.filter(
-  (interval) => interval !== "A4"
+export const intervalsWithDim: Interval[] = allIntervals.filter(
+  (interval) => !interval.startsWith("A")
 );
