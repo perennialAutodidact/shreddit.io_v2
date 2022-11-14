@@ -7,6 +7,9 @@ type TeoriaProviderProps = {
 };
 
 const TeoriaProvider = ({ children }: TeoriaProviderProps) => {
+  // for exploring the Teoria API
+  // global.t = teoria;
+
   return (
     <TeoriaContext.Provider value={{ teoria }}>
       {children}
