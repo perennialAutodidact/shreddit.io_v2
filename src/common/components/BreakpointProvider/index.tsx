@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
 import { Breakpoint } from "ts/breakpoints";
 import { BREAKPOINT_SIZES } from "common/constants/breakpoints";
+import { BreakpointContext } from "./context";
 
 type Props = {
   children: React.ReactNode | React.ReactNode[];
@@ -29,8 +30,6 @@ const BreakpointProvider = ({ children }: Props) => {
     }
     setBreakpoint(_breakpoint);
   }, [height, width, sm, md, lg, xl, xxl]);
-
-  const BreakpointContext = createContext({ breakpoint });
 
   return (
     <BreakpointContext.Provider value={{ breakpoint }}>
