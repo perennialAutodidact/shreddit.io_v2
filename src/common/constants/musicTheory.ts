@@ -11,7 +11,6 @@ const allIntervals: Interval[] = [
   "A4",
   "d5",
   "P5",
-  "A5",
   "m6",
   "M6",
   "m7",
