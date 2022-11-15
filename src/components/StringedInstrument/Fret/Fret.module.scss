@@ -1,2 +1,35 @@
+@import "../../../styles/shreddit-variables";
+
+.openFret {
+  border-bottom: 6px double $custom-dark;
+}
+
+.firstStringFret {
+  border-left: 1px solid $custom-dark;
+}
+
+.firstFret {
+  border-right: 1px solid $custom-dark;
+  border-bottom: 1px solid $custom-dark;
+}
+
 .fret {
+  border-right: 1px solid $custom-dark;
+  border-bottom: 1px solid $custom-dark;
+}
+
+@media screen and (min-width: 992px) {
+  .openFret {
+    border-right: 6px double $custom-dark;
+    border-bottom: none;
+  }
+
+  .firstStringFret {
+    border-top: 1px solid $custom-dark;
+    border-left: none;
+  }
+
+  .firstFret {
+    border-left: 2px solid $custom-dark;
+  }
 }

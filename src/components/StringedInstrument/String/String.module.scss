@@ -1,3 +1,5 @@
-.string {
-  width: 100%;
+@import "../../../styles/shreddit-variables";
+
+.firstString {
+  border-left: 1px solid $custom-dark;
 }

@@ -16,7 +16,7 @@ describe("<String/>", () => {
     };
 
     let rootNote: Note = "e4";
-    render(<String rootNote={rootNote} />, { initialState });
+    render(<String rootNote={rootNote} stringNumber={0} />, { initialState });
 
     let frets = screen.getAllByTestId("Fret");
 

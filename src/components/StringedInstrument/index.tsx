@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useContext, useEffect } from "react";
+import React, { useRef, useMemo, useContext, useLayoutEffect } from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
 import { setInstrumentDimensions } from "store/stringedInstrumentSlice";
 import { BreakpointState } from "ts/breakpoints";
@@ -7,46 +7,70 @@ import { useWindowSize } from "usehooks-ts";
 import Neck from "./Neck";
 import String from "./String";
 import styles from "./StringedInstrument.module.scss";
+import { StringNumber } from "ts/stringedInstrument";
 
 const StringedInstrument: React.FC = () => {
   const appDispatch = useAppDispatch();
-  const { strings } = useAppSelector((appState) => appState.instrument);
+  const { strings, totalFrets } = useAppSelector(
+    (appState) => appState.instrument
+  );
   const instrumentRef = useRef<HTMLDivElement>(null);
   const { breakpoint } = useContext<BreakpointState>(BreakpointContext);
-  const { height: windowHeight, width: windowWidth } = useWindowSize();
-  // const instrumentHeight = useMemo<number>(
-  //   () => (breakpoint === "sm" ? windowHeight * 0.75 : windowHeight * 0.5),
-  //   [breakpoint, windowHeight]
-  // );
-  // const instrumentWidth = useMemo<number>(
-  //   () => (breakpoint === "sm" ? windowWidth * 0.9 : windowWidth * 0.8),
-  //   [breakpoint, windowWidth]
-  // );
+  const isMobile = useMemo<boolean>(
+    () => ["xs", "sm", "md"].includes(breakpoint),
+    [breakpoint]
+  );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (instrumentRef.current) {
       let { height, width } = instrumentRef.current.getBoundingClientRect();
+
+      let neckHeight = height * 0.92;
+      let neckWidth = width * 0.92;
+
+      let stringHeight = isMobile ? neckHeight : neckHeight / strings.length;
+      let stringWidth = isMobile ? neckWidth / strings.length : neckWidth;
+
+      // totalFrets + 2 to accomodate for fret 0 and the string label
+      let fretHeight = isMobile
+        ? stringHeight / (totalFrets + 2)
+        : stringHeight;
+      let fretWidth = isMobile ? stringWidth : stringWidth / (totalFrets + 2);
+
+      console.log({ breakpoint, isMobile, fretHeight, fretWidth });
 
       appDispatch(
         setInstrumentDimensions({
           neck: {
-            height,
-            width,
+            height: neckHeight,
+            width: neckWidth,
+          },
+          string: {
+            height: stringHeight,
+            width: stringWidth,
+          },
+          fret: {
+            height: fretHeight,
+            width: fretWidth,
           },
         })
       );
     }
-  }, [appDispatch]);
+  }, [isMobile, breakpoint, strings.length, totalFrets, appDispatch]);
 
   return (
     <div
-      className={`container p-0 ${styles.stringedInstrument}`}
+      className={`container ${styles.stringedInstrument}`}
       id="instrument-container"
       ref={instrumentRef}
     >
       <Neck>
-        {strings.map((rootNote) => (
-          <String rootNote={rootNote} key={rootNote} />
+        {strings.map((rootNote, index) => (
+          <String
+            rootNote={rootNote}
+            stringNumber={index as StringNumber}
+            key={rootNote}
+          />
         ))}
       </Neck>
     </div>

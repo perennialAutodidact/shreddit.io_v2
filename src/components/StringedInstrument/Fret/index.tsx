@@ -3,19 +3,20 @@ import { useAppDispatch, useAppSelector } from "store/hooks";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
 import { BreakpointState } from "ts/breakpoints";
 import { Note } from "ts/musicTheory";
-import { FretData, FretNumber } from "ts/stringedInstrument";
+import { FretData, FretNumber, StringNumber } from "ts/stringedInstrument";
+import { INLAY_FRET_INDICES } from "common/constants/stringedInstruments";
 import NoteMarker from "components/NoteMarker";
 import styles from "./Fret.module.scss";
-import { setInstrumentDimensions } from "store/stringedInstrumentSlice";
 
 interface FretProps extends FretData {
-  isInlay: boolean;
+  stringNumber: StringNumber;
   fretNumber: FretNumber;
 }
 
-const Fret = ({ fretNumber, noteName, octave, isInlay }: FretProps) => {
+const Fret = ({ stringNumber, fretNumber, noteName, octave }: FretProps) => {
   const appDispatch = useAppDispatch();
-  const { breakpoint } = useContext<BreakpointState>(BreakpointContext);
+  const { breakpoint, isMobile } =
+    useContext<BreakpointState>(BreakpointContext);
   const {
     scale,
     dimensions: { string, fret },
@@ -23,28 +24,30 @@ const Fret = ({ fretNumber, noteName, octave, isInlay }: FretProps) => {
   } = useAppSelector((appState) => appState.instrument);
   const fretRef = useRef<HTMLDivElement>(null);
   const showMarker = scale.notes.includes(noteName as Note);
-
-  useEffect(() => {
-    if (fret.height === 0) {
-      let height =
-        breakpoint === "sm" ? string.height / totalFrets : string.height;
-      let width =
-        breakpoint === "sm" ? string.width : string.width / totalFrets;
-      appDispatch(
-        setInstrumentDimensions({
-          fret: {
-            height,
-            width,
-          },
-        })
-      );
-    }
-  }, [breakpoint, string, fret]);
+  const isInlay = useMemo<boolean>(
+    () => INLAY_FRET_INDICES.includes(fretNumber),
+    [fretNumber]
+  );
+  const isFirstStringFret = useMemo<boolean>(
+    () => stringNumber === 0 && fretNumber > 0,
+    [stringNumber, fretNumber]
+  );
+  const fretBorders = useMemo<string>(
+    () =>
+      fretNumber === 0
+        ? styles.openFret
+        : fretNumber === 1
+        ? styles.firstFret
+        : fretNumber > 0
+        ? styles.fret
+        : "",
+    [fretNumber]
+  );
 
   useEffect(() => {
     if (fretRef.current) {
       fretRef.current.style.height = `${fret.height}px`;
-      // fretRef.current.style.width = `${fret.width}px`;
+      fretRef.current.style.width = `${fret.width}px`;
     }
   }, [fret]);
 
@@ -54,19 +57,24 @@ const Fret = ({ fretNumber, noteName, octave, isInlay }: FretProps) => {
       data-testid="Fret"
       className={`
         d-flex justify-content-center align-items-center
-        position-relative w-100
-        ${fretNumber !== 0 ? "bg-fret border borer-fret-border" : ""}
-        ${isInlay ? "bg-inlay-fret" : ""}
-        ${styles.fret}
+        position-relative bg-opacity-75
+        ${!isMobile ? "w-100" : ""}
+        ${isFirstStringFret ? styles.firstStringFret : ""}
+        ${fretBorders}
+        ${fretNumber > 0 ? (isInlay ? "bg-inlay-fret" : "bg-fret") : ""}
       `}
       ref={fretRef}
     >
-      {/* {showMarker ? (
-        <NoteMarker noteName={noteName} interval={"m3"} size={10} />
+      {showMarker ? (
+        <NoteMarker
+          noteName={noteName}
+          interval={"m3"}
+          size={fret.height / 2}
+        />
       ) : (
         ""
-      )} */}
-      {/* <span>{noteName}</span> */}
+      )}
+      <span>{noteName}</span>
     </div>
   );
 };

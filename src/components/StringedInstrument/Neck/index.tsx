@@ -1,6 +1,5 @@
-import React, { useMemo, useContext } from "react";
-import { BreakpointContext } from "common/components/BreakpointProvider/context";
-import { BreakpointState } from "ts/breakpoints";
+import React, { useLayoutEffect, useContext, useRef } from "react";
+import { useAppSelector } from "store/hooks";
 import { useWindowSize } from "usehooks-ts";
 import styles from "./Neck.module.scss";
 
@@ -9,9 +8,26 @@ interface NeckProps {
 }
 
 const Neck: React.FC<NeckProps> = ({ children }: NeckProps) => {
+  const { neck } = useAppSelector((appState) => appState.instrument.dimensions);
+  const stringContainerRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (stringContainerRef.current) {
+      stringContainerRef.current.style.height = `${neck.height * 1.1}px`;
+      stringContainerRef.current.style.width = `${neck.width * 1.1}px`;
+    }
+  }, [neck]);
+
   return (
     <div className={`row ${styles.neck}`} id="instrument-neck">
-      <div className="p-0 col-12 col-md-10 offset-md-1 d-flex flex-md-column">
+      <div
+        className={`
+          col-12 p-0
+          d-flex flex-lg-column justify-content-center 
+          ${styles.stringContainer}
+        `}
+        ref={stringContainerRef}
+      >
         {children}
       </div>
     </div>

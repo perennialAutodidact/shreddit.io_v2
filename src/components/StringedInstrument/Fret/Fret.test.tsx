@@ -1,6 +1,6 @@
 import { render, screen } from "common/utils/tests/setup";
 import { getFretDataArray } from "common/utils/getFretDataArray";
-import { FretData, FretNumber } from "ts/stringedInstrument";
+import { StringNumber, FretData, FretNumber } from "ts/stringedInstrument";
 import { initialState as rootState, RootState } from "store";
 import Fret from "components/StringedInstrument/Fret";
 
@@ -9,13 +9,17 @@ const teoria = require("teoria");
 describe("<Fret/>", () => {
   it("should render non-inlay fret", () => {
     let initialState = { ...rootState };
+    let stringNumber: StringNumber = 0;
     let fretNumber: FretNumber = 1;
-    let frets: FretData[] = getFretDataArray("c#4", 12, "aug4");
+    let frets: FretData[] = getFretDataArray("c#4", 12, "aug");
     let _fret: FretData = frets[fretNumber];
 
-    render(<Fret {..._fret} fretNumber={fretNumber} isInlay={false} />, {
-      initialState,
-    });
+    render(
+      <Fret {..._fret} stringNumber={stringNumber} fretNumber={fretNumber} />,
+      {
+        initialState,
+      }
+    );
 
     let fret = screen.getByTestId("Fret");
 
@@ -25,13 +29,17 @@ describe("<Fret/>", () => {
 
   it("should render inlay fret", () => {
     let initialState = { ...rootState };
+    let stringNumber: StringNumber = 0;
     let fretNumber: FretNumber = 3;
-    let frets: FretData[] = getFretDataArray("e2", 12, "aug4");
+    let frets: FretData[] = getFretDataArray("e2", 12, "aug");
     let _fret: FretData = frets[fretNumber];
 
-    render(<Fret {..._fret} fretNumber={fretNumber} isInlay={true} />, {
-      initialState,
-    });
+    render(
+      <Fret {..._fret} stringNumber={stringNumber} fretNumber={fretNumber} />,
+      {
+        initialState,
+      }
+    );
 
     let fret = screen.getByTestId("Fret");
 
@@ -44,14 +52,17 @@ describe("<Fret/>", () => {
       ...rootState,
     };
 
-    console.log(rootState.instrument.scale.notes);
-    let frets: FretData[] = getFretDataArray("e2", 12, "aug4");
+    let frets: FretData[] = getFretDataArray("e2", 12, "aug");
+    let stringNumber: StringNumber = 0;
     let fretNumber: FretNumber = 3;
     let _fret: FretData = frets[fretNumber];
 
-    render(<Fret {..._fret} fretNumber={fretNumber} isInlay={true} />, {
-      initialState,
-    });
+    render(
+      <Fret {..._fret} stringNumber={stringNumber} fretNumber={fretNumber} />,
+      {
+        initialState,
+      }
+    );
 
     screen.debug();
 
@@ -73,13 +84,16 @@ describe("<Fret/>", () => {
       },
     };
 
-    let frets: FretData[] = getFretDataArray("e2", 12, "aug4");
+    let frets: FretData[] = getFretDataArray("e2", 12, "aug");
+    let stringNumber: StringNumber = 0;
     let fretNumber: FretNumber = 2;
     let _fret: FretData = frets[fretNumber];
-
-    render(<Fret {..._fret} fretNumber={fretNumber} isInlay={true} />, {
-      initialState,
-    });
+    render(
+      <Fret {..._fret} stringNumber={stringNumber} fretNumber={fretNumber} />,
+      {
+        initialState,
+      }
+    );
 
     let noteMarker = screen.queryByTestId("NoteMarker");
 
@@ -90,13 +104,17 @@ describe("<Fret/>", () => {
     let initialState: RootState = {
       ...rootState,
     };
-    let frets: FretData[] = getFretDataArray("e2", 12, "aug4");
+    let frets: FretData[] = getFretDataArray("e2", 12, "aug");
+    let stringNumber: StringNumber = 0;
     let fretNumber: FretNumber = 0;
     let _fret: FretData = frets[fretNumber];
 
-    render(<Fret {..._fret} fretNumber={fretNumber} isInlay={false} />, {
-      initialState,
-    });
+    render(
+      <Fret {..._fret} stringNumber={stringNumber} fretNumber={fretNumber} />,
+      {
+        initialState,
+      }
+    );
 
     let fret = screen.getByTestId("Fret");
 
