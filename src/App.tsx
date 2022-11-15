@@ -5,7 +5,7 @@ import TeoriaProvider from "common/components/TeoriaProvider";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App p-lg-5">
       <TeoriaProvider>
         <StringedInstrument />
       </TeoriaProvider>
