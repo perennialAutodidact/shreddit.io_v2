@@ -10,4 +10,5 @@ export type BreakpointSizes = {
 
 export type BreakpointState = {
   breakpoint: Breakpoint;
+  isMobile: boolean;
 };

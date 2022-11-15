@@ -45,6 +45,7 @@ export interface StringData {
 
 export type Tuning = Note[];
 
+export type StringNumber = NumbersToN<6>;
 export type FretNumber = NumbersToN<22>;
 
 export type StringedInstrumentDimensions = {
