@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { useWindowSize } from "usehooks-ts";
 import { Breakpoint } from "ts/breakpoints";
 import { BREAKPOINT_SIZES } from "common/constants/breakpoints";
@@ -31,8 +31,13 @@ const BreakpointProvider = ({ children }: Props) => {
     setBreakpoint(_breakpoint);
   }, [height, width, sm, md, lg, xl, xxl]);
 
+  const isMobile = useMemo(
+    () => ["xs", "sm", "md"].includes(breakpoint),
+    [breakpoint]
+  );
+
   return (
-    <BreakpointContext.Provider value={{ breakpoint }}>
+    <BreakpointContext.Provider value={{ breakpoint, isMobile }}>
       {children}
     </BreakpointContext.Provider>
   );

@@ -3,6 +3,7 @@ import { BreakpointState } from "ts/breakpoints";
 
 const initialState: BreakpointState = {
   breakpoint: "sm",
+  isMobile: true,
 };
 
 export const BreakpointContext = createContext<BreakpointState>(initialState);
