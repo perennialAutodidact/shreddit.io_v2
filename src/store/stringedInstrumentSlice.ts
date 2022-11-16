@@ -1,4 +1,5 @@
 import { createSlice, CaseReducer, PayloadAction } from "@reduxjs/toolkit";
+import { NoteName } from "ts/musicTheory";
 import {
   StringedInstrumentDimensions,
   StringedInstrumentState,
@@ -17,6 +18,7 @@ export const initialState: StringedInstrumentState = {
     intervals: teoria.note("c").scale("chromatic").scale,
     notes: teoria.note("c").scale("chromatic").simple(),
   },
+  markedNotes: [],
   dimensions: {
     neck: {
       height: 0,
@@ -44,14 +46,24 @@ const _setInstrumentDimensions: CaseReducer<
   },
 });
 
+const _setMarkedNotes: CaseReducer<
+  StringedInstrumentState,
+  PayloadAction<NoteName[]>
+> = (state, action) => ({
+  ...state,
+  markedNotes: action.payload,
+});
+
 export const InstrumentSlice = createSlice({
   name: "instrument",
   initialState,
   reducers: {
     setInstrumentDimensions: _setInstrumentDimensions,
+    setMarkedNotes: _setMarkedNotes,
   },
   extraReducers: (builder) => {},
 });
 
-export const { setInstrumentDimensions } = InstrumentSlice.actions;
+export const { setInstrumentDimensions, setMarkedNotes } =
+  InstrumentSlice.actions;
 export default InstrumentSlice.reducer;

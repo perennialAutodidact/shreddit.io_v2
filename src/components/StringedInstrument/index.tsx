@@ -1,9 +1,8 @@
-import React, { useRef, useMemo, useContext, useLayoutEffect } from "react";
+import React, { useRef, useMemo, useContext, useLayoutEffect, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
-import { setInstrumentDimensions } from "store/stringedInstrumentSlice";
+import { setInstrumentDimensions, setMarkedNotes } from "store/stringedInstrumentSlice";
 import { BreakpointState } from "ts/breakpoints";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
-import { useWindowSize } from "usehooks-ts";
 import Neck from "./Neck";
 import String from "./String";
 import styles from "./StringedInstrument.module.scss";
@@ -11,7 +10,7 @@ import { StringNumber } from "ts/stringedInstrument";
 
 const StringedInstrument: React.FC = () => {
   const appDispatch = useAppDispatch();
-  const { strings, totalFrets } = useAppSelector(
+  const { strings, scale, totalFrets } = useAppSelector(
     (appState) => appState.instrument
   );
   const instrumentRef = useRef<HTMLDivElement>(null);
@@ -37,8 +36,6 @@ const StringedInstrument: React.FC = () => {
         : stringHeight;
       let fretWidth = isMobile ? stringWidth : stringWidth / (totalFrets + 2);
 
-      console.log({ breakpoint, isMobile, fretHeight, fretWidth });
-
       appDispatch(
         setInstrumentDimensions({
           neck: {
@@ -58,6 +55,14 @@ const StringedInstrument: React.FC = () => {
     }
   }, [isMobile, breakpoint, strings.length, totalFrets, appDispatch]);
 
+  useEffect(()=>{
+
+    let _markedNotes = scale.notes;
+
+    
+
+  },[scale])
+
   return (
     <div
       className={`container ${styles.stringedInstrument}`}
@@ -65,7 +70,7 @@ const StringedInstrument: React.FC = () => {
       ref={instrumentRef}
     >
       <Neck>
-        {strings.map((rootNote, index) => (
+        {strings.slice().reverse().map((rootNote, index) => (
           <String
             rootNote={rootNote}
             stringNumber={index as StringNumber}
