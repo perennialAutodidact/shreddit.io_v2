@@ -66,5 +66,6 @@ export interface StringedInstrumentState {
     intervals: Interval[];
     notes: Note[];
   };
+  markedNotes: NoteName[];
   dimensions: StringedInstrumentDimensions;
 }
