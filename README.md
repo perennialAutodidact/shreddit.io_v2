@@ -2,6 +2,30 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### General Settings
+- key
+- start/end frets
+- instrument
+- tuning
+
+### Scale Explorer
+- select scale name
+- play back scale, highlighting notes as they play back
+
+
+### Chord Explorer
+- Select chord name, quality
+- inversions?
+- click frets to add/remove notes, recalculate chord with new notes
+
+### Progression Builder
+- select chord and quality
+- select compatible scales
+- play back progression, showing selected compatible scales on the neck as chord change
+- display current chord/scale name and next chord/scale name
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
