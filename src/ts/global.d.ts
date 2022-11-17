@@ -1,5 +1,6 @@
+const teoria = require("teoria");
 declare global {
-  var t: any;
+  var t: teoria;
 }
 
 export {};
