@@ -1,22 +1,11 @@
-import React, {
-  useContext,
-  useLayoutEffect,
-  useRef,
-  useState,
-  useMemo,
-} from "react";
-import { useAppSelector, useAppDispatch } from "store/hooks";
-import { setInstrumentDimensions } from "store/stringedInstrumentSlice";
-import { TeoriaContext } from "common/components/TeoriaProvider/context";
+import React, { useContext, useLayoutEffect, useRef, useMemo } from "react";
+import { useAppSelector } from "store/hooks";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
-import { useWindowSize } from "usehooks-ts";
 import { Note } from "ts/musicTheory";
 import { StringNumber, FretData, FretNumber } from "ts/stringedInstrument";
 import Fret from "components/StringedInstrument/Fret";
 import { getFretDataArray } from "common/utils/getFretDataArray";
-import { INLAY_FRET_INDICES } from "common/constants/stringedInstruments";
 import { BreakpointState } from "ts/breakpoints";
-import styles from "./String.module.scss";
 
 interface StringProps {
   rootNote: Note;
@@ -27,13 +16,11 @@ const String: React.FC<StringProps> = ({
   rootNote,
   stringNumber,
 }: StringProps) => {
-  const appDispatch = useAppDispatch();
   const { strings } = useAppSelector((appState) => appState.instrument);
-  const { teoria } = useContext(TeoriaContext);
-  const { breakpoint, isMobile } =
-    useContext<BreakpointState>(BreakpointContext);
+  const { isMobile } = useContext<BreakpointState>(BreakpointContext);
   const {
     totalFrets,
+    scale,
     dimensions: {
       fret: { height: fretHeight, width: fretWidth },
     },
@@ -50,21 +37,16 @@ const String: React.FC<StringProps> = ({
   );
 
   const frets = useMemo<FretData[]>(
-    () => getFretDataArray(rootNote, totalFrets, "aug"),
-    [rootNote, totalFrets]
+    () =>
+      getFretDataArray(
+        rootNote,
+        totalFrets,
+        scale.intervals.includes("A4") ? "aug" : "dim"
+      ),
+    [rootNote, totalFrets, scale.intervals]
   );
 
-  useLayoutEffect(() => {
-    if (stringRef.current) {
-      let stringLabel =
-        stringRef.current.querySelector<HTMLDivElement>(".string-label");
-      if (stringLabel) {
-        stringLabel.style.height = `${fretHeight}px`;
-        stringLabel.style.width = `${fretWidth}px`;
-      }
-    }
-  }, [fretHeight, fretWidth]);
-
+  // console.log({ frets });
   return (
     <div
       className={`
@@ -82,6 +64,7 @@ const String: React.FC<StringProps> = ({
           text-center fs-4 fw-bolder
           d-flex align-items-center justify-content-center
         `}
+        data-testid="StringLabel"
       >
         {frets[0].noteName.toUpperCase()}
       </div>
@@ -90,7 +73,7 @@ const String: React.FC<StringProps> = ({
           {...fret}
           stringNumber={stringNumber}
           fretNumber={i as FretNumber}
-          key={`string-${i}-{fret.noteName}${fret.octave}`}
+          key={`string-${stringNumber}-fret-${i}`}
         />
       ))}
     </div>

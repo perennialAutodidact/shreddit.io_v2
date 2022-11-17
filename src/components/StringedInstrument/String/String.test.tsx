@@ -19,7 +19,9 @@ describe("<String/>", () => {
     render(<String rootNote={rootNote} stringNumber={0} />, { initialState });
 
     let frets = screen.getAllByTestId("Fret");
+    let stringLabel = screen.getByTestId("StringLabel");
 
     expect(frets).toHaveLength(13);
+    expect(stringLabel).toBeInTheDocument();
   });
 });

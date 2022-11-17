@@ -1,12 +1,23 @@
-import React, { useRef, useMemo, useContext, useLayoutEffect, useEffect } from "react";
+import React, {
+  useRef,
+  useMemo,
+  useContext,
+  useLayoutEffect,
+  useEffect,
+} from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
-import { setInstrumentDimensions, setMarkedNotes } from "store/stringedInstrumentSlice";
+import {
+  setInstrumentDimensions,
+  setMarkedNotes,
+} from "store/stringedInstrumentSlice";
 import { BreakpointState } from "ts/breakpoints";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
+import { getEnharmonics } from "common/utils";
+import { NoteName } from "ts/musicTheory";
+import { StringNumber } from "ts/stringedInstrument";
 import Neck from "./Neck";
 import String from "./String";
 import styles from "./StringedInstrument.module.scss";
-import { StringNumber } from "ts/stringedInstrument";
 
 const StringedInstrument: React.FC = () => {
   const appDispatch = useAppDispatch();
@@ -20,7 +31,7 @@ const StringedInstrument: React.FC = () => {
     [breakpoint]
   );
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (instrumentRef.current) {
       let { height, width } = instrumentRef.current.getBoundingClientRect();
 
@@ -55,13 +66,15 @@ const StringedInstrument: React.FC = () => {
     }
   }, [isMobile, breakpoint, strings.length, totalFrets, appDispatch]);
 
-  useEffect(()=>{
+  useEffect(() => {
+    // console.log("notes", scale.notes);
+    let _notes: NoteName[] = scale.notes.slice();
+    let enharmonics: NoteName[] = getEnharmonics(scale.notes);
 
-    let _markedNotes = scale.notes;
+    let _markedNotes: NoteName[] = _notes.concat(enharmonics);
 
-    
-
-  },[scale])
+    appDispatch(setMarkedNotes(_markedNotes));
+  }, [scale, appDispatch]);
 
   return (
     <div
@@ -70,13 +83,16 @@ const StringedInstrument: React.FC = () => {
       ref={instrumentRef}
     >
       <Neck>
-        {strings.slice().reverse().map((rootNote, index) => (
-          <String
-            rootNote={rootNote}
-            stringNumber={index as StringNumber}
-            key={rootNote}
-          />
-        ))}
+        {strings
+          .slice()
+          .reverse()
+          .map((rootNote, index) => (
+            <String
+              rootNote={rootNote}
+              stringNumber={index as StringNumber}
+              key={rootNote}
+            />
+          ))}
       </Neck>
     </div>
   );

@@ -50,6 +50,10 @@ describe("<Fret/>", () => {
   it("should render note marker if fret note is in current scale", () => {
     let initialState: RootState = {
       ...rootState,
+      instrument: {
+        ...rootState.instrument,
+        markedNotes: ["g"],
+      },
     };
 
     let frets: FretData[] = getFretDataArray("e2", 12, "aug");
@@ -63,8 +67,6 @@ describe("<Fret/>", () => {
         initialState,
       }
     );
-
-    screen.debug();
 
     let noteMarker = screen.getByTestId("NoteMarker");
 
