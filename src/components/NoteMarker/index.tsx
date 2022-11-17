@@ -3,14 +3,13 @@ import { Interval, NoteName } from "ts/musicTheory";
 import styles from "./NoteMarker.module.scss";
 
 type NoteMarkerProps = {
-  interval: Interval;
+  interval: Interval | null;
   noteName: NoteName;
   size: number;
 };
 
 const NoteMarker = ({ noteName, interval, size }: NoteMarkerProps) => {
   const ref = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (ref.current && size) {
       ref.current.style.height = `${size}px`;
