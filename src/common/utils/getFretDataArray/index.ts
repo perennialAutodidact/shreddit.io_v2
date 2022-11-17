@@ -30,7 +30,6 @@ export const getFretDataArray = (
 
   const frets: FretData[] = fretNumbers.map((fretNumber) => {
     const interval = intervals[fretNumber % intervals.length];
-    console.log(interval);
     const note: Note = rootNote.interval(interval).toString();
 
     let noteName: NoteName = note.slice(0, -1) as NoteName;
