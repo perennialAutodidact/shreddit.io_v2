@@ -59,12 +59,12 @@ export interface StringedInstrumentState {
   instrumentType: StringedInstrumentName;
   tuningName: GuitarTuningNames | MandolinTuningNames | UkuleleTuningNames;
   strings: Tuning;
-  currentKey: NoteName;
+  currentKey: Note;
   totalFrets: NrRange<6, 21>;
   scale: {
     name: ScaleName;
     intervals: Interval[];
-    notes: Note[];
+    notes: NoteName[];
   };
   markedNotes: NoteName[];
   dimensions: StringedInstrumentDimensions;
