@@ -39,7 +39,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
           scale.notes.includes(enharmonic.name() + enharmonic.accidental())
         )[0];
     }
-    console.log({ note1: note1.toString(), note2: note2 });
+
     if (note1 && note2) {
       interval = note1.interval(note2).simple().toString();
       if (interval === "P8") {
