@@ -39,7 +39,7 @@ const BreakpointProvider = ({ children }: Props) => {
   );
 
   const isPortrait = useMemo(
-    () => orientation.startsWith("portrait"),
+    () => orientation && orientation.startsWith("portrait"),
     [orientation]
   );
   return (
