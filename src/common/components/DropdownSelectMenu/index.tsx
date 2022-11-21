@@ -68,7 +68,6 @@ const DropdownSelectMenu = <T,>({
     <div
       className={`
         ${styles.dropdownSelectMenu}
-        p-2
         position-relative
         d-flex flex-column
       `}

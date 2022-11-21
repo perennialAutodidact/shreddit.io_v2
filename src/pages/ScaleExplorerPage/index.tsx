@@ -6,7 +6,7 @@ import MusicScaleSelect from "components/MusicScaleSelect";
 const ScaleExplorerPage = () => {
   return (
     <div className="container position-relative">
-      <div className="row">
+      <div className="row mt-3">
         <div className="col-4 col-lg-3 offset-lg-2 position-relative">
           <MusicKeySelect />
         </div>
@@ -14,7 +14,9 @@ const ScaleExplorerPage = () => {
           <MusicScaleSelect />
         </div>
       </div>
-      <StringedInstrument />
+      <div className="row my-3">
+        <StringedInstrument />
+      </div>
     </div>
   );
 };
