@@ -6,7 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { NoteName, ScaleName } from "ts/musicTheory";
 import {
-  GuitarTuningNames,
+  TuningName,
   StringedInstrumentDimensions,
   StringedInstrumentName,
   StringedInstrumentState,
@@ -16,9 +16,10 @@ import { tunings } from "common/constants/stringedInstruments";
 const teoria = require("teoria");
 
 const INITIAL_SCALE: ScaleName = "flamenco";
-const INITIAL_INSTRUMENT: StringedInstrumentName = "mandolin";
-const INITIAL_TUNING: GuitarTuningNames = "standard";
+const INITIAL_INSTRUMENT: StringedInstrumentName = "guitar";
+const INITIAL_TUNING: TuningName = "standard";
 const INITIAL_KEY: Note = "c1";
+
 export const initialState: StringedInstrumentState = {
   instrumentType: INITIAL_INSTRUMENT,
   tuningName: INITIAL_TUNING,
@@ -66,16 +67,29 @@ const _setMarkedNotes: CaseReducer<
   markedNotes: action.payload,
 });
 
+const _setScale: CaseReducer<
+  StringedInstrumentState,
+  PayloadAction<ScaleName>
+> = (state, action) => ({
+  ...state,
+  scale: {
+    name: action.payload,
+    intervals: teoria.note(state.currentKey).scale(action.payload).scale,
+    notes: teoria.note(state.currentKey).scale(action.payload).simple(),
+  },
+});
+
 export const InstrumentSlice: Slice<StringedInstrumentState> = createSlice({
   name: "instrument",
   initialState,
   reducers: {
     setInstrumentDimensions: _setInstrumentDimensions,
     setMarkedNotes: _setMarkedNotes,
+    setScale: _setScale,
   },
   extraReducers: (builder) => {},
 });
 
-export const { setInstrumentDimensions, setMarkedNotes } =
+export const { setInstrumentDimensions, setMarkedNotes, setScale } =
   InstrumentSlice.actions;
 export default InstrumentSlice.reducer;
