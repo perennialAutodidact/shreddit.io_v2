@@ -13,11 +13,17 @@ const dropdownOptions: DropdownSelectOption<ScaleName>[] = SCALES_WITH_LABELS;
 const MusicScaleSelect = () => {
   const appDispatch = useAppDispatch();
 
-  const changeScale = useCallback((scaleName: ScaleName) => {
+  const changeScale = useCallback((scaleName: ScaleName): void => {
     appDispatch(setScale(scaleName));
   }, []);
 
-  return <DropdownSelectMenu labelText={"Key"} options={dropdownOptions} />;
+  return (
+    <DropdownSelectMenu
+      labelText={"Scale"}
+      options={dropdownOptions}
+      appStateSetter={changeScale}
+    />
+  );
 };
 
 export default MusicScaleSelect;

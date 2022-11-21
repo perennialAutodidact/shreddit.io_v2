@@ -18,12 +18,13 @@ export type DropdownSelectOption<T> = {
 export type DropdownSelectMenuProps<T> = {
   labelText: string;
   options: DropdownSelectOption<T>[];
-  // stateSetter:
+  appStateSetter: (arg: T) => void;
 };
 
 const DropdownSelectMenu = <T,>({
   labelText,
   options,
+  appStateSetter,
 }: React.PropsWithChildren<DropdownSelectMenuProps<T>>) => {
   const ref = useRef<HTMLDivElement>(null);
   const optionsRef = useRef<HTMLDivElement>(null);
@@ -33,10 +34,18 @@ const DropdownSelectMenu = <T,>({
 
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
-  const [value, setValue] = useState(options[0].label);
+  const [selectedOption, setSelectedOption] = useState<DropdownSelectOption<T>>(
+    options[0]
+  );
 
   const toggleShowOptions = () => {
     setShowOptions((showOptions) => !showOptions);
+  };
+
+  const handleOptionClick = (option: DropdownSelectOption<T>) => {
+    setSelectedOption(option);
+    appStateSetter(option.value);
+    toggleShowOptions();
   };
 
   const clickOutsideHandler = useCallback(() => {
@@ -76,7 +85,7 @@ const DropdownSelectMenu = <T,>({
         onClick={toggleShowOptions}
         data-testid="DropdownSelectMenuToggle"
       >
-        {value}
+        {selectedOption.label}
       </div>
       {showOptions ? (
         <div
@@ -93,7 +102,11 @@ const DropdownSelectMenu = <T,>({
           ref={optionsRef}
         >
           {options.map((option: any) => (
-            <div className={`${styles.menuOption} p-3`} key={option.label}>
+            <div
+              className={`${styles.menuOption} p-3`}
+              onClick={() => handleOptionClick(option)}
+              key={option.label}
+            >
               {option.label}
             </div>
           ))}
