@@ -3,6 +3,7 @@ import { useWindowSize } from "usehooks-ts";
 import { Breakpoint } from "ts/breakpoints";
 import { BREAKPOINT_SIZES } from "common/constants/breakpoints";
 import { BreakpointContext } from "./context";
+import useScreenOrientation from "common/hooks/useScreenOrentation";
 
 type Props = {
   children: React.ReactNode | React.ReactNode[];
@@ -12,6 +13,7 @@ const BreakpointProvider = ({ children }: Props) => {
   const { sm, md, lg, xl, xxl } = BREAKPOINT_SIZES;
   const [breakpoint, setBreakpoint] = useState<Breakpoint>("sm");
   const { height, width } = useWindowSize();
+  const orientation = useScreenOrientation();
 
   useEffect(() => {
     let _breakpoint: Breakpoint;
@@ -36,8 +38,14 @@ const BreakpointProvider = ({ children }: Props) => {
     [breakpoint]
   );
 
+  const isPortrait = useMemo(
+    () => orientation.startsWith("portrait"),
+    [orientation]
+  );
   return (
-    <BreakpointContext.Provider value={{ breakpoint, isMobile }}>
+    <BreakpointContext.Provider
+      value={{ breakpoint, isMobile, orientation, isPortrait }}
+    >
       {children}
     </BreakpointContext.Provider>
   );

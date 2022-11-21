@@ -20,11 +20,8 @@ const StringedInstrument: React.FC = () => {
     (appState) => appState.instrument
   );
   const instrumentRef = useRef<HTMLDivElement>(null);
-  const { breakpoint } = useContext<BreakpointState>(BreakpointContext);
-  const isMobile = useMemo<boolean>(
-    () => ["xs", "sm", "md"].includes(breakpoint),
-    [breakpoint]
-  );
+  const { breakpoint, isMobile, isPortrait } =
+    useContext<BreakpointState>(BreakpointContext);
   const windowSize = useWindowSize();
 
   useEffect(() => {
@@ -34,8 +31,10 @@ const StringedInstrument: React.FC = () => {
       let neckHeight = height * 0.92;
       let neckWidth = width * 0.92;
 
-      let stringHeight = isMobile ? neckHeight : neckHeight / strings.length;
-      let stringWidth = isMobile ? neckWidth / strings.length : neckWidth;
+      let stringHeight =
+        isMobile && isPortrait ? neckHeight : neckHeight / strings.length;
+      let stringWidth =
+        isMobile && isPortrait ? neckWidth / strings.length : neckWidth;
 
       // totalFrets + 2 to accomodate for fret 0 and the string label
       let fretHeight = isMobile
