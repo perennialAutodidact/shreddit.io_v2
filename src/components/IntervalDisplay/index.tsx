@@ -2,7 +2,11 @@ import NoteMarker from "components/NoteMarker";
 import React from "react";
 import { useAppSelector } from "store/hooks";
 
-const IntervalDisplay = () => {
+type IntervalDisplayProps = {
+  markerSize: number;
+};
+
+const IntervalDisplay = ({ markerSize }: IntervalDisplayProps) => {
   const { scale } = useAppSelector((appState) => appState.instrument);
 
   return (
@@ -15,10 +19,14 @@ const IntervalDisplay = () => {
             d-flex justify-content-between"
         >
           {scale.intervals.map((interval, index) => (
-            <div className="d-flex flex-column align-items-center">
+            <div
+              className="d-flex flex-column align-items-center"
+              key={interval}
+            >
               <div
                 className={`bg-${interval} border border-2 border-dark rounded-circle`}
-                style={{ height: "25px", width: "25px" }}
+                style={{ height: `${markerSize}px`, width: `${markerSize}px` }}
+                data-testid={`IntervalDisplayMarker-${interval}`}
               ></div>
               <div>{interval}</div>
             </div>

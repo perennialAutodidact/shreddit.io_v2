@@ -5,18 +5,26 @@ import { getScaleData } from "common/utils/getScaleData";
 
 describe("<IntervalDisplay/>", () => {
   it("should render intervals for current scale", () => {
+    const scale = getScaleData("c1", "ionian");
     const initialState: RootState = {
       ...rootState,
       instrument: {
         ...rootState.instrument,
-        scale: getScaleData("c1", "ionian"),
+        scale,
       },
     };
 
-    render(<IntervalDisplay />, { initialState });
+    render(<IntervalDisplay markerSize={30} />, { initialState });
 
     const intervalDisplay = screen.getByTestId("IntervalDisplay");
 
     expect(intervalDisplay).toBeInTheDocument();
+
+    scale.intervals.forEach((interval) => {
+      let intervalMarker = screen.getByTestId(
+        `IntervalDisplayMarker-${interval}`
+      );
+      expect(intervalMarker).toBeInTheDocument();
+    });
   });
 });
