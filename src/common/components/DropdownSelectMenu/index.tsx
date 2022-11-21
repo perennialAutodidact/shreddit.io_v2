@@ -58,7 +58,7 @@ const DropdownSelectMenu = <T,>({
   useEffect(() => {
     if (isMobile && showOptions && optionsRef.current && ref.current) {
       const left = ref.current?.getBoundingClientRect().left;
-      const xOffset = 100;
+      const xOffset = 20;
       optionsRef.current.style.width = `${windowWidth - xOffset}px`;
       optionsRef.current.style.left = `-${left - xOffset / 2}px`;
     }

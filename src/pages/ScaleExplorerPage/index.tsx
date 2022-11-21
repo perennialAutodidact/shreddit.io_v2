@@ -7,10 +7,10 @@ const ScaleExplorerPage = () => {
   return (
     <div className="container position-relative">
       <div className="row">
-        <div className="col-3 offset-2 position-relative">
+        <div className="col-4 col-lg-3 offset-lg-2 position-relative">
           <MusicKeySelect />
         </div>
-        <div className="col-5 ">
+        <div className="col-8 col-lg-5">
           <MusicScaleSelect />
         </div>
       </div>
