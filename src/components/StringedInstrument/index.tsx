@@ -21,7 +21,7 @@ import styles from "./StringedInstrument.module.scss";
 
 const StringedInstrument: React.FC = () => {
   const appDispatch = useAppDispatch();
-  const { strings, scale, totalFrets } = useAppSelector(
+  const { strings, scale, currentKey, totalFrets } = useAppSelector(
     (appState) => appState.instrument
   );
   const instrumentRef = useRef<HTMLDivElement>(null);
@@ -67,14 +67,13 @@ const StringedInstrument: React.FC = () => {
   }, [isMobile, breakpoint, strings.length, totalFrets, appDispatch]);
 
   useEffect(() => {
-    // console.log("notes", scale.notes);
     let _notes: NoteName[] = scale.notes.slice();
     let enharmonics: NoteName[] = getEnharmonics(scale.notes);
 
     let _markedNotes: NoteName[] = _notes.concat(enharmonics);
 
     appDispatch(setMarkedNotes(_markedNotes));
-  }, [scale, appDispatch]);
+  }, [scale, currentKey, appDispatch]);
 
   return (
     <div
