@@ -35,21 +35,21 @@ export type NoteName =
   | "b#"
   | "bx";
 export type MusicKeys = {
-  c: "C";
-  "c#": "C#";
-  db: "Db";
-  d: "D";
-  eb: "Eb";
-  e: "E";
-  f: "F";
-  "f#": "F#";
-  gb: "Gb";
-  g: "G";
-  ab: "Ab";
-  a: "A";
-  bb: "Bb";
-  b: "B";
-  cb: "Cb";
+  c1: "C";
+  "c#1": "C#";
+  db1: "Db";
+  d1: "D";
+  eb1: "Eb";
+  e1: "E";
+  f1: "F";
+  "f#1": "F#";
+  gb1: "Gb";
+  g1: "G";
+  ab1: "Ab";
+  a1: "A";
+  bb1: "Bb";
+  b1: "B";
+  cb1: "Cb";
 };
 
 export type ScaleName =

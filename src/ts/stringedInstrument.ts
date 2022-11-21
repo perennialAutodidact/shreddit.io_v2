@@ -5,6 +5,7 @@ import {
   Interval,
   Note,
   OctaveNumber,
+  MusicKeys,
 } from "ts/musicTheory";
 import { MIN_NECK_LENGTH } from "common/constants/stringedInstruments";
 export type GuitarTuningNames = "standard" | "drop-d" | "open-d";
@@ -60,11 +61,17 @@ export type StringedInstrumentDimensions = {
   };
 };
 
+export type ScaleData = {
+  name: ScaleName;
+  notes: NoteName[];
+  intervals: Interval[];
+};
+
 export interface StringedInstrumentState {
   instrumentType: StringedInstrumentName;
   tuningName: TuningName;
   strings: Tuning;
-  currentKey: Note;
+  currentKey: keyof MusicKeys;
   totalFrets: NrRange<6, 21>;
   scale: {
     name: ScaleName;
