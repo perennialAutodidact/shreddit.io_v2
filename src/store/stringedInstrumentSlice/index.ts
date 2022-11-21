@@ -1,18 +1,19 @@
+import { createSlice, CaseReducer, Slice } from "@reduxjs/toolkit";
 import {
-  createSlice,
-  CaseReducer,
-  PayloadAction,
-  Slice,
-} from "@reduxjs/toolkit";
+  _setCurrentKey,
+  _setInstrumentDimensions,
+  _setMarkedNotes,
+  _setScale,
+} from "./actions";
 import { NoteName, ScaleName } from "ts/musicTheory";
 import {
   TuningName,
-  StringedInstrumentDimensions,
   StringedInstrumentName,
   StringedInstrumentState,
 } from "ts/stringedInstrument";
 import { Note } from "ts/musicTheory";
 import { tunings } from "common/constants/stringedInstruments";
+import { getScaleData } from "common/utils/getScaleData";
 const teoria = require("teoria");
 
 const INITIAL_SCALE: ScaleName = "flamenco";
@@ -26,11 +27,7 @@ export const initialState: StringedInstrumentState = {
   strings: tunings[INITIAL_INSTRUMENT][INITIAL_TUNING],
   currentKey: INITIAL_KEY,
   totalFrets: 12,
-  scale: {
-    name: INITIAL_SCALE,
-    intervals: teoria.note(INITIAL_KEY).scale(INITIAL_SCALE).scale,
-    notes: teoria.note(INITIAL_KEY).scale(INITIAL_SCALE).simple(),
-  },
+  scale: getScaleData(INITIAL_KEY, INITIAL_SCALE),
   markedNotes: [],
   dimensions: {
     neck: {
@@ -48,48 +45,22 @@ export const initialState: StringedInstrumentState = {
   },
 };
 
-const _setInstrumentDimensions: CaseReducer<
-  StringedInstrumentState,
-  PayloadAction<Partial<StringedInstrumentDimensions>>
-> = (state, action) => ({
-  ...state,
-  dimensions: {
-    ...state.dimensions,
-    ...action.payload,
-  },
-});
-
-const _setMarkedNotes: CaseReducer<
-  StringedInstrumentState,
-  PayloadAction<NoteName[]>
-> = (state, action) => ({
-  ...state,
-  markedNotes: action.payload,
-});
-
-const _setScale: CaseReducer<
-  StringedInstrumentState,
-  PayloadAction<ScaleName>
-> = (state, action) => ({
-  ...state,
-  scale: {
-    name: action.payload,
-    intervals: teoria.note(state.currentKey).scale(action.payload).scale,
-    notes: teoria.note(state.currentKey).scale(action.payload).simple(),
-  },
-});
-
 export const InstrumentSlice: Slice<StringedInstrumentState> = createSlice({
   name: "instrument",
   initialState,
   reducers: {
     setInstrumentDimensions: _setInstrumentDimensions,
     setMarkedNotes: _setMarkedNotes,
+    setCurrentKey: _setCurrentKey,
     setScale: _setScale,
   },
   extraReducers: (builder) => {},
 });
 
-export const { setInstrumentDimensions, setMarkedNotes, setScale } =
-  InstrumentSlice.actions;
+export const {
+  setInstrumentDimensions,
+  setMarkedNotes,
+  setScale,
+  setCurrentKey,
+} = InstrumentSlice.actions;
 export default InstrumentSlice.reducer;
