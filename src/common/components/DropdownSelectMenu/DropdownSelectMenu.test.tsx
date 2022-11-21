@@ -12,8 +12,15 @@ describe("<DropdownSelectMenu/>", () => {
       { label: "Option 3", value: "value3" },
     ];
     const labelText = "Choose an option";
+    const appStateSetter = jest.fn();
 
-    render(<DropdownSelectMenu labelText={labelText} options={options} />);
+    render(
+      <DropdownSelectMenu
+        labelText={labelText}
+        options={options}
+        appStateSetter={appStateSetter}
+      />
+    );
 
     const dropdownSelect = screen.getByText(labelText);
 
@@ -28,10 +35,15 @@ describe("<DropdownSelectMenu/>", () => {
       { label: "Option 3", value: "value3" },
     ];
     const labelText = "Choose an option";
+    const appStateSetter = jest.fn();
 
     render(
       <div data-testid="Wrapper">
-        <DropdownSelectMenu labelText={labelText} options={options} />
+        <DropdownSelectMenu
+          labelText={labelText}
+          options={options}
+          appStateSetter={appStateSetter}
+        />
       </div>
     );
     const dropdownOptionsContainer = screen.queryByTestId(
