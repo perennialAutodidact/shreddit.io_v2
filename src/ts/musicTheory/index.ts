@@ -34,6 +34,23 @@ export type NoteName =
   | "b"
   | "b#"
   | "bx";
+export type MusicKeys = {
+  c: "C";
+  "c#": "C#";
+  db: "Db";
+  d: "D";
+  eb: "Eb";
+  e: "E";
+  f: "F";
+  "f#": "F#";
+  gb: "Gb";
+  g: "G";
+  ab: "Ab";
+  a: "A";
+  bb: "Bb";
+  b: "B";
+  cb: "Cb";
+};
 
 export type ScaleName =
   | "aeolian"
@@ -41,22 +58,27 @@ export type ScaleName =
   | "chromatic"
   | "dorian"
   | "doubleharmonic"
+  | "flamenco"
   | "harmonicminor"
   | "ionian"
   | "locrian"
   | "lydian"
+  | "major"
   | "majorpentatonic"
   | "melodicminor"
+  | "minor"
   | "minorpentatonic"
   | "mixolydian"
   | "phrygian"
-  | "wholetone"
-  | "harmonicchromatic"
-  | "minor"
-  | "major"
-  | "flamenco";
+  | "wholetone";
+
+export type ScaleWithLabel = {
+  value: ScaleName;
+  label: string;
+};
 
 export type OctaveNumber = "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
+
 export type Interval =
   | `P${number}`
   | `m${number}`
@@ -64,7 +86,7 @@ export type Interval =
   | `A${number}`
   | `d${number}`;
 
-export type Note = `${NoteName}${number}`;
+export type Note = `${NoteName}${OctaveNumber}`;
 
 export function isNote(value: string): value is Note {
   let _isNote = true;

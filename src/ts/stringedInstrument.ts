@@ -24,6 +24,7 @@ export type Tunings = {
   ukulele: {
     standard: ["g4", "c4", "e4", "a4"];
   };
+  bass: { standard: ["e1", "a1", "g2", "d2"] };
 };
 
 export interface FretData {
@@ -31,19 +32,23 @@ export interface FretData {
   octave: OctaveNumber;
   interval: Interval;
 }
-export type StringedInstrumentName =
-  | "guitar"
-  | "bass"
-  | "mandolin"
-  | "ukulele"
-  | "piano";
+export type StringedInstrumentName = keyof Tunings;
+
+export type TuningName =
+  | keyof Tunings["guitar"]
+  | keyof Tunings["mandolin"]
+  | keyof Tunings["ukulele"]
+  | keyof Tunings["bass"];
+
+// ToDo: Find a way to express the Tunings as a union
+// of all possible values from the Tunings object
+// instead of general arrays of Notes
+export type Tuning = Note[];
 
 export interface StringData {
   rootNote: NoteName;
   frets: FretData[];
 }
-
-export type Tuning = Note[];
 
 export type StringNumber = NumbersToN<6>;
 export type FretNumber = NumbersToN<22>;
@@ -57,7 +62,7 @@ export type StringedInstrumentDimensions = {
 
 export interface StringedInstrumentState {
   instrumentType: StringedInstrumentName;
-  tuningName: GuitarTuningNames | MandolinTuningNames | UkuleleTuningNames;
+  tuningName: TuningName;
   strings: Tuning;
   currentKey: Note;
   totalFrets: NrRange<6, 21>;
