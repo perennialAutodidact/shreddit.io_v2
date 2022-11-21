@@ -1,4 +1,4 @@
-import SettingsPage from "common/components/SettingsPage";
+import SettingsPage from "pages/SettingsPage";
 import { getByTestId, render, screen } from "common/utils/tests/setup";
 import { initialState as rootState, RootState } from "store";
 
