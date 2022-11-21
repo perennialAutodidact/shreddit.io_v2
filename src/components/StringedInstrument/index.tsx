@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useMemo,
-  useContext,
-  useLayoutEffect,
-  useEffect,
-} from "react";
+import React, { useRef, useMemo, useContext, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
 import {
   setInstrumentDimensions,
@@ -13,6 +7,7 @@ import {
 import { BreakpointState } from "ts/breakpoints";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
 import { getEnharmonics } from "common/utils";
+import { useWindowSize } from "usehooks-ts";
 import { NoteName } from "ts/musicTheory";
 import { StringNumber } from "ts/stringedInstrument";
 import Neck from "./Neck";
@@ -30,6 +25,7 @@ const StringedInstrument: React.FC = () => {
     () => ["xs", "sm", "md"].includes(breakpoint),
     [breakpoint]
   );
+  const windowSize = useWindowSize();
 
   useEffect(() => {
     if (instrumentRef.current) {
@@ -64,7 +60,14 @@ const StringedInstrument: React.FC = () => {
         })
       );
     }
-  }, [isMobile, breakpoint, strings.length, totalFrets, appDispatch]);
+  }, [
+    isMobile,
+    breakpoint,
+    windowSize,
+    strings.length,
+    totalFrets,
+    appDispatch,
+  ]);
 
   useEffect(() => {
     let _notes: NoteName[] = scale.notes.slice();
