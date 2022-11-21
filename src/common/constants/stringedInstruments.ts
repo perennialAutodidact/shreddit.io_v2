@@ -13,6 +13,9 @@ export const tunings: Tunings = {
   ukulele: {
     standard: ["g4", "c4", "e4", "a4"],
   },
+  bass: {
+    standard: ["e1", "a1", "g2", "d2"],
+  },
 };
 
 export const MIN_NECK_LENGTH = 6;
