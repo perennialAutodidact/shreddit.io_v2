@@ -1,5 +1,5 @@
 import { Tunings } from "ts/stringedInstrument";
-import { Interval } from "ts/musicTheory";
+import { Interval, MusicKeys, ScaleName, ScaleWithLabel } from "ts/musicTheory";
 
 const allIntervals: Interval[] = [
   "P1",
@@ -32,9 +32,69 @@ const allIntervals: Interval[] = [
   "P15",
 ];
 
+export const SCALE_NAMES: ScaleName[] = [
+  "aeolian",
+  "blues",
+  "chromatic",
+  "dorian",
+  "doubleharmonic",
+  "harmonicminor",
+  "ionian",
+  "locrian",
+  "lydian",
+  "majorpentatonic",
+  "melodicminor",
+  "minorpentatonic",
+  "mixolydian",
+  "phrygian",
+  "wholetone",
+  "minor",
+  "major",
+  "flamenco",
+];
+
+export const SCALES_WITH_LABELS: ScaleWithLabel[] = [
+  { value: "aeolian", label: "Aeolian" },
+  { value: "blues", label: "Blues" },
+  { value: "chromatic", label: "Chromatic" },
+  { value: "dorian", label: "Dorian" },
+  { value: "doubleharmonic", label: "Double Harmonic" },
+  { value: "flamenco", label: "Flamenco" },
+  { value: "harmonicminor", label: "Harmonic Minor" },
+  { value: "ionian", label: "Ionian" },
+  { value: "locrian", label: "Locrian" },
+  { value: "lydian", label: "Lydian" },
+  { value: "major", label: "Major" },
+  { value: "majorpentatonic", label: "Major Pentatonic" },
+  { value: "melodicminor", label: "Melodic Minor" },
+  { value: "minor", label: "Minor" },
+  { value: "minorpentatonic", label: "Minor Pentatonic" },
+  { value: "mixolydian", label: "Mixolydian" },
+  { value: "phrygian", label: "Phrygian" },
+  { value: "wholetone", label: "Whole Tone" },
+];
+
 export const intervalsWithAug: Interval[] = allIntervals.filter(
   (interval) => !interval.startsWith("d")
 );
 export const intervalsWithDim: Interval[] = allIntervals.filter(
   (interval) => !interval.startsWith("A")
 );
+
+export const musicKeys: MusicKeys = {
+  c: "C",
+  "c#": "C#",
+  db: "Db",
+  d: "D",
+  eb: "Eb",
+  e: "E",
+  f: "F",
+  "f#": "F#",
+  gb: "Gb",
+  g: "G",
+  ab: "Ab",
+  a: "A",
+  bb: "Bb",
+  b: "B",
+  cb: "Cb",
+};
