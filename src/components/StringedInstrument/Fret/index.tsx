@@ -65,6 +65,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     [stringNumber, fretNumber]
   );
 
+  // apply border style
   const fretBorders = useMemo<string>(
     () =>
       fretNumber === 0
@@ -77,6 +78,14 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     [fretNumber]
   );
 
+  // determine size of fret marker
+  const markerScalar = useMemo(() => 0.5, []);
+  const markerSize = useMemo(
+    () => fret.height * markerScalar,
+    [fret.height, markerScalar]
+  );
+
+  // set fret DOM element size
   useEffect(() => {
     if (fretRef.current) {
       fretRef.current.style.height = `${fret.height}px`;
@@ -102,7 +111,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
         <NoteMarker
           noteName={noteName}
           interval={fretInterval}
-          size={fret.height / 2}
+          size={markerSize}
         />
       ) : (
         ""
