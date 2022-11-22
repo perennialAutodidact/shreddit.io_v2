@@ -1,8 +1,15 @@
 import React from "react";
+import { useAppSelector, useAppDispatch } from "store/hooks";
 import { BsFillGearFill, BsXLg } from "react-icons/bs";
-import styles from "./SettingsPage.module.scss";
+import styles from "./SettingsMenu.module.scss";
+import { toggleShowSettingsMenu } from "store/appSlice";
 
 const SettingsMenu = () => {
+  const appDispatch = useAppDispatch();
+  const { showSettingsMenu } = useAppSelector((appState) => appState.app);
+
+  if (!showSettingsMenu) return <></>;
+
   return (
     <div
       data-testid="SettingsMenu"
@@ -16,6 +23,7 @@ const SettingsMenu = () => {
     >
       <div
         className={`${styles.xIcon} position-absolute top-0 end-0 me-2 fs-1`}
+        onClick={() => appDispatch(toggleShowSettingsMenu())}
       >
         <BsXLg />
       </div>
