@@ -1,25 +1,14 @@
-import React from "react";
 import StringedInstrument from "components/StringedInstrument";
-import MusicKeySelect from "components/MusicKeySelect";
-import MusicScaleSelect from "components/MusicScaleSelect";
 import IntervalDisplay from "components/IntervalDisplay";
 
 const ScaleExplorerPage = () => {
   return (
     <div className="container position-relative">
-      <div className="row my-3">
-        <div className="col-4 col-lg-3 offset-lg-2 position-relative">
-          <MusicKeySelect />
-        </div>
-        <div className="col-8 col-lg-5">
-          <MusicScaleSelect />
-        </div>
-      </div>
-      <div className="row mb-5">
+      <div className="row mb-3 mb-lg-5">
         <StringedInstrument />
       </div>
       <div className="row mb-3">
-        <IntervalDisplay />
+        <IntervalDisplay markerSize={35} />
       </div>
     </div>
   );
