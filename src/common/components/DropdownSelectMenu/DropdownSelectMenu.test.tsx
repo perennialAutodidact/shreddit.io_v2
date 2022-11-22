@@ -28,7 +28,7 @@ describe("<DropdownSelectMenu/>", () => {
   });
 
   it("should open the dropdown menu when the menuToggle is clicked", async () => {
-    const user = userEvent;
+    const user = userEvent.setup();
     const options = [
       { label: "Option 1", value: "value1" },
       { label: "Option 2", value: "value2" },
