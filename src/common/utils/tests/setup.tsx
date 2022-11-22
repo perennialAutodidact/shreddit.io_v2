@@ -1,14 +1,13 @@
 import React, { FC, ReactElement } from "react";
-import { queries, render, RenderOptions } from "@testing-library/react";
+import { render, RenderOptions } from "@testing-library/react";
 import { RenderResult } from "@testing-library/react/types";
-import configureStore from "redux-mock-store";
+import { configureStore } from "@reduxjs/toolkit";
 import { MemoryRouter, MemoryRouterProps } from "react-router-dom";
 import type { Router } from "react-router-dom";
-import { ReactRouter } from "ts/router";
 import { Provider as ReduxProvider } from "react-redux";
 import BreakpointProvider from "common/components/BreakpointProvider";
 import TeoriaProvider from "common/components/TeoriaProvider";
-import { RootState } from "store";
+import { reducer, RootState } from "store";
 import { Store } from "redux";
 import StringedInstrument from "components/StringedInstrument";
 
@@ -27,7 +26,7 @@ interface ExtendedRenderOptions extends RenderOptions {
 const routes = [{ path: "/", element: <StringedInstrument /> }];
 
 export const defaultRouter: MemoryRouterProps = {
-  initialEntries: ["/", "/settings"],
+  initialEntries: ["/"],
   initialIndex: 1,
 };
 
@@ -48,10 +47,11 @@ const AllTheProviders = (
 
 const customRender = (
   ui: ReactElement,
+
   {
     initialState,
     router = defaultRouter,
-    store = configureStore<Partial<RootState>>([])(initialState),
+    store = configureStore({ reducer, preloadedState: initialState }),
     options,
   }: ExtendedRenderOptions = {
     initialState: {},
