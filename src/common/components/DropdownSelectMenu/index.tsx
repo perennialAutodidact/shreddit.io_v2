@@ -77,6 +77,7 @@ const DropdownSelectMenu = <T,>({
       <div
         className={`
             ${styles.menuToggle}
+            ${showOptions ? "border-info" : ""}
             p-2 
             rounded shadow
             fw-bolder
@@ -90,6 +91,7 @@ const DropdownSelectMenu = <T,>({
         <div
           className={`
             ${styles.optionsContainer}
+            mt-1
             bg-light
             border border-dark
             rounded shadow

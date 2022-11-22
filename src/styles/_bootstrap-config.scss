@@ -38,3 +38,20 @@ $theme-colors-rgb: map-loop($theme-colors, to-rgb, "$value");
 @import "../../node_modules/bootstrap/scss/utilities";
 
 // 5. Add additional custom code here
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "viewport-width": (
+      property: width,
+      class: vw,
+      values: (
+        100: 100vw,
+        75: 75vw,
+        50: 50vw,
+        25: 25vw,
+      ),
+      responsive: true,
+    ),
+  )
+);

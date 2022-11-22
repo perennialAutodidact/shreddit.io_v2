@@ -1,7 +1,11 @@
 @import "../../styles/shreddit-variables";
 
-.settingsMenu {
+.settingsMenuContainer {
   z-index: 15;
+}
+
+.settingsMenu {
+  z-index: 16;
 }
 
 .xIcon {

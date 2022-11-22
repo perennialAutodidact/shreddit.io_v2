@@ -11,7 +11,8 @@ const SettingsMenuToggle = () => {
     <div
       className={`
         ${styles.settingsMenuToggle}
-        fs-1 
+        fs-1
+        d-flex align-items-center 
       `}
       data-testid="SettingsMenuToggle"
       onClick={() => appDispatch(toggleShowSettingsMenu())}
