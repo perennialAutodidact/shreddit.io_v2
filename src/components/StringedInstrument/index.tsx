@@ -20,7 +20,7 @@ const StringedInstrument: React.FC = () => {
     (appState) => appState.instrument
   );
   const instrumentRef = useRef<HTMLDivElement>(null);
-  const { breakpoint, isMobile, isPortrait } =
+  const { breakpoint, isMobile, isPortrait, orientation } =
     useContext<BreakpointState>(BreakpointContext);
   const windowSize = useWindowSize();
 
@@ -62,6 +62,7 @@ const StringedInstrument: React.FC = () => {
   }, [
     isMobile,
     breakpoint,
+    orientation,
     windowSize,
     strings.length,
     totalFrets,
