@@ -2,9 +2,14 @@ import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
 import {
   StringedInstrumentState,
   StringedInstrumentDimensions,
+  StringedInstrumentName,
+  TuningName,
 } from "ts/stringedInstrument";
 import { NoteName, ScaleName, Note, MusicKeys } from "ts/musicTheory";
 import { getScaleData } from "common/utils/getScaleData";
+import { tunings } from "common/constants/stringedInstruments";
+import { getTuning } from "common/utils/getTuning";
+
 const teoria = require("teoria");
 
 export const _setInstrumentDimensions: CaseReducer<
@@ -41,4 +46,23 @@ export const _setCurrentKey: CaseReducer<
   ...state,
   currentKey: `${action.payload}`,
   scale: getScaleData(action.payload, state.scale.name),
+});
+
+export const _setInstrumentType: CaseReducer<
+  StringedInstrumentState,
+  PayloadAction<StringedInstrumentName>
+> = (state, action) => ({
+  ...state,
+  instrumentType: action.payload,
+  tuningName: "standard",
+  strings: getTuning(action.payload, "standard"),
+});
+
+export const _setTuning: CaseReducer<
+  StringedInstrumentState,
+  PayloadAction<TuningName>
+> = (state, action) => ({
+  ...state,
+  tuningName: action.payload,
+  strings: getTuning(state.instrumentType, action.payload),
 });

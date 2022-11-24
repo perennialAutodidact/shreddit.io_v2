@@ -2,8 +2,10 @@ import { createSlice, CaseReducer, Slice } from "@reduxjs/toolkit";
 import {
   _setCurrentKey,
   _setInstrumentDimensions,
+  _setInstrumentType,
   _setMarkedNotes,
   _setScale,
+  _setTuning,
 } from "./actions";
 import { NoteName, ScaleName } from "ts/musicTheory";
 import {
@@ -50,8 +52,10 @@ export const InstrumentSlice: Slice<StringedInstrumentState> = createSlice({
   initialState,
   reducers: {
     setInstrumentDimensions: _setInstrumentDimensions,
+    setInstrumentType: _setInstrumentType,
     setMarkedNotes: _setMarkedNotes,
     setCurrentKey: _setCurrentKey,
+    setTuning: _setTuning,
     setScale: _setScale,
   },
   extraReducers: (builder) => {},
@@ -62,5 +66,7 @@ export const {
   setMarkedNotes,
   setScale,
   setCurrentKey,
+  setInstrumentType,
+  setTuning,
 } = InstrumentSlice.actions;
 export default InstrumentSlice.reducer;
