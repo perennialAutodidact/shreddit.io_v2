@@ -1,11 +1,15 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
+import { setInstrumentType, setTuning } from "store/stringedInstrumentSlice";
 import { BsFillGearFill, BsXLg } from "react-icons/bs";
+import { ALL_INSTRUMENTS, tunings } from "common/constants/stringedInstruments";
 import styles from "./SettingsMenu.module.scss";
 import { toggleShowSettingsMenu } from "store/appSlice";
+import { titleize } from "common/utils/titleize";
 
 const SettingsMenu = () => {
   const appDispatch = useAppDispatch();
+  const { instrumentType } = useAppSelector((appState) => appState.instrument);
   const { showSettingsMenu } = useAppSelector((appState) => appState.app);
 
   if (!showSettingsMenu) return <></>;
@@ -37,19 +41,36 @@ const SettingsMenu = () => {
           <BsXLg />
         </div>
         <h1>Settings</h1>
-        <div className="row">
-          <div className="col-12 col-lg-6">
+        <div className="row gy-5">
+          <div className="col-6 offset-3">
             <h3>Instrument</h3>
+            <select
+              className="form-select"
+              onChange={(e) => appDispatch(setInstrumentType(e.target.value))}
+            >
+              {ALL_INSTRUMENTS.map((instrument) => (
+                <option
+                  value={instrument}
+                  selected={instrumentType === instrument}
+                >
+                  {titleize(instrument)}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="col-12 col-lg-6">
+          <div className="col-6 offset-3">
             <h3>Tuning</h3>
+            <select
+              className="form-select"
+              onChange={(e) => appDispatch(setTuning(e.target.value))}
+            >
+              {Object.keys(tunings[instrumentType]).map((tuning) => (
+                <option value={tuning}>{titleize(tuning)}</option>
+              ))}
+            </select>
           </div>
         </div>
-        <div className="d-flex flex-column">
-          <div>Scale Explorer</div>
-          <div>Chord Explorer</div>
-          <div>Progression Builder</div>
-        </div>
+        <div className="d-flex flex-column"></div>
       </div>
     </div>
   );
