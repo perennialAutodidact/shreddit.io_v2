@@ -116,7 +116,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
       ) : (
         ""
       )}
-      <span>{fretInterval}</span>
+      {/* <span>{fretInterval}</span> */}
     </div>
   );
 };
