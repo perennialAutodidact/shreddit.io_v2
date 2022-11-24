@@ -7,10 +7,7 @@ import {
   OctaveNumber,
   MusicKeys,
 } from "ts/musicTheory";
-import { MIN_NECK_LENGTH } from "common/constants/stringedInstruments";
-export type GuitarTuningNames = "standard" | "drop-d" | "open-d";
-export type MandolinTuningNames = "standard";
-export type UkuleleTuningNames = "standard";
+import { MIN_NECK_LENGTH, tunings } from "common/constants/stringedInstruments";
 
 export type Tunings = {
   guitar: {
@@ -21,11 +18,14 @@ export type Tunings = {
   };
   mandolin: {
     standard: ["g2", "d3", "a3", "e4"];
+    gdad: ["g2", "d3", "a3", "d4"];
   };
   ukulele: {
     standard: ["g4", "c4", "e4", "a4"];
   };
-  bass: { standard: ["e1", "a1", "g2", "d2"] };
+  bass: {
+    standard: ["e1", "a1", "g2", "d2"];
+  };
 };
 
 export interface FretData {
@@ -35,11 +35,22 @@ export interface FretData {
 }
 export type StringedInstrumentName = keyof Tunings;
 
+export type GuitarTuningName = keyof Tunings["guitar"];
+export type MandolinTuningName = keyof Tunings["mandolin"];
+export type UkuleleTuningName = keyof Tunings["ukulele"];
+export type BassTuningName = keyof Tunings["bass"];
+
+// export type TuningName<T> =
+//   T extends GuitarTuningNames ? GuitarTuningNames:
+//   T extends MandolinTuningNames ? MandolinTuningNames:
+//   T extends UkuleleTuningNames ? UkuleleTuningNames :
+//   T extends BassTuningNames ? BassTuningNames : never;
+
 export type TuningName =
-  | keyof Tunings["guitar"]
-  | keyof Tunings["mandolin"]
-  | keyof Tunings["ukulele"]
-  | keyof Tunings["bass"];
+  | GuitarTuningName
+  | MandolinTuningName
+  | UkuleleTuningName
+  | BassTuningName;
 
 // ToDo: Find a way to express the Tunings as a union
 // of all possible values from the Tunings object
