@@ -16,9 +16,8 @@ import styles from "./StringedInstrument.module.scss";
 
 const StringedInstrument: React.FC = () => {
   const appDispatch = useAppDispatch();
-  const { strings, scale, currentKey, totalFrets } = useAppSelector(
-    (appState) => appState.instrument
-  );
+  const { instrumentType, strings, scale, currentKey, totalFrets } =
+    useAppSelector((appState) => appState.instrument);
   const instrumentRef = useRef<HTMLDivElement>(null);
   const { breakpoint, isMobile, isPortrait, orientation } =
     useContext<BreakpointState>(BreakpointContext);
@@ -31,10 +30,8 @@ const StringedInstrument: React.FC = () => {
       let neckHeight = height * 0.92;
       let neckWidth = width * 0.92;
 
-      let stringHeight =
-        isMobile && isPortrait ? neckHeight : neckHeight / strings.length;
-      let stringWidth =
-        isMobile && isPortrait ? neckWidth / strings.length : neckWidth;
+      let stringHeight = isMobile ? neckHeight : neckHeight / strings.length;
+      let stringWidth = isMobile ? neckWidth / strings.length : neckWidth;
 
       // totalFrets + 2 to accomodate for fret 0 and the string label
       let fretHeight = isMobile
@@ -60,6 +57,7 @@ const StringedInstrument: React.FC = () => {
       );
     }
   }, [
+    instrumentType,
     isMobile,
     breakpoint,
     orientation,
