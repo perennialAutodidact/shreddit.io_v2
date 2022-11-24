@@ -1,4 +1,4 @@
-import { Tunings } from "ts/stringedInstrument";
+import { StringedInstrumentName, Tunings } from "ts/stringedInstrument";
 
 export const tunings: Tunings = {
   guitar: {
@@ -9,6 +9,7 @@ export const tunings: Tunings = {
   },
   mandolin: {
     standard: ["g2", "d3", "a3", "e4"],
+    gdad: ["g2", "d3", "a3", "d4"],
   },
   ukulele: {
     standard: ["g4", "c4", "e4", "a4"],
@@ -21,3 +22,7 @@ export const tunings: Tunings = {
 export const MIN_NECK_LENGTH = 6;
 
 export const INLAY_FRET_INDICES = [3, 5, 7, 9, 12, 15, 17, 19];
+
+export const ALL_INSTRUMENTS: (keyof Tunings)[] = Object.keys(tunings).map(
+  (tuning) => tuning as keyof Tunings
+);
