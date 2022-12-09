@@ -27,3 +27,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### To Do:
 - [ ] Fix styling for mobile screens in landscape orientation
+
+### Resources 
+[Rhythms in ToneJS](https://www.guitarland.com/MusicTheoryWithToneJS/PlayRhythms.html) 

@@ -88,6 +88,8 @@ export type Interval =
 
 export type Note = `${NoteName}${OctaveNumber}`;
 
+export type Chord = Note[];
+
 export function isNote(value: string): value is Note {
   let _isNote = true;
   const noteRegex: RegExp = new RegExp("^[a-g]{1}[#]{0,1}[xb]{0,2}[1-8]{1}$");

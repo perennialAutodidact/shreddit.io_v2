@@ -9,6 +9,7 @@ describe("<UtilityBar/>", () => {
     const initialState: RootState = {
       ...rootState,
       app: {
+        ...rootState.app,
         showSettingsMenu: true,
       },
     };
@@ -26,6 +27,7 @@ describe("<UtilityBar/>", () => {
     const initialState: RootState = {
       ...rootState,
       app: {
+        ...rootState.app,
         showSettingsMenu: false,
       },
     };

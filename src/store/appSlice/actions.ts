@@ -8,3 +8,11 @@ export const _toggleShowSettingsMenu: CaseReducer<AppState> = (
   ...state,
   showSettingsMenu: !state.showSettingsMenu,
 });
+
+export const _toggleIsPlayingAudio: CaseReducer<AppState> = (
+  state,
+  action
+) => ({
+  ...state,
+  isPlayingAudio: !state.isPlayingAudio,
+});
