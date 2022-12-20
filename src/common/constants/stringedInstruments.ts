@@ -1,4 +1,4 @@
-import { StringedInstrumentName, Tunings } from "ts/stringedInstrument";
+import { Tunings } from "ts/stringedInstrument";
 
 export const tunings: Tunings = {
   guitar: {
