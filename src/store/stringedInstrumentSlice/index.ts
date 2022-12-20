@@ -1,4 +1,4 @@
-import { createSlice, CaseReducer, Slice } from "@reduxjs/toolkit";
+import { createSlice, Slice } from "@reduxjs/toolkit";
 import {
   _setCurrentKey,
   _setInstrumentDimensions,
@@ -7,7 +7,7 @@ import {
   _setScale,
   _setTuning,
 } from "./actions";
-import { NoteName, ScaleName } from "ts/musicTheory";
+import { ScaleName } from "ts/musicTheory";
 import {
   TuningName,
   StringedInstrumentName,
@@ -16,7 +16,6 @@ import {
 import { Note } from "ts/musicTheory";
 import { tunings } from "common/constants/stringedInstruments";
 import { getScaleData } from "common/utils/getScaleData";
-const teoria = require("teoria");
 
 const INITIAL_SCALE: ScaleName = "flamenco";
 const INITIAL_INSTRUMENT: StringedInstrumentName = "guitar";
@@ -30,6 +29,7 @@ export const initialState: StringedInstrumentState = {
   currentKey: INITIAL_KEY,
   totalFrets: 12,
   scale: getScaleData(INITIAL_KEY, INITIAL_SCALE),
+  rhythmDurations: [],
   markedNotes: [],
   dimensions: {
     neck: {

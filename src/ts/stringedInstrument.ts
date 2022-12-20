@@ -8,6 +8,7 @@ import {
   MusicKeys,
 } from "ts/musicTheory";
 import { MIN_NECK_LENGTH, tunings } from "common/constants/stringedInstruments";
+import { RhythmDuration } from "./AudioClient";
 
 export type Tunings = {
   guitar: {
@@ -39,12 +40,6 @@ export type GuitarTuningName = keyof Tunings["guitar"];
 export type MandolinTuningName = keyof Tunings["mandolin"];
 export type UkuleleTuningName = keyof Tunings["ukulele"];
 export type BassTuningName = keyof Tunings["bass"];
-
-// export type TuningName<T> =
-//   T extends GuitarTuningNames ? GuitarTuningNames:
-//   T extends MandolinTuningNames ? MandolinTuningNames:
-//   T extends UkuleleTuningNames ? UkuleleTuningNames :
-//   T extends BassTuningNames ? BassTuningNames : never;
 
 export type TuningName =
   | GuitarTuningName
@@ -89,6 +84,7 @@ export interface StringedInstrumentState {
     intervals: Interval[];
     notes: NoteName[];
   };
+  rhythmDurations: RhythmDuration[];
   markedNotes: NoteName[];
   dimensions: StringedInstrumentDimensions;
 }
