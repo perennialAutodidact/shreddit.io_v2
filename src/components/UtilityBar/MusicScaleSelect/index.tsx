@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import { useAppDispatch } from "store/hooks";
 import { SCALES_WITH_LABELS } from "common/constants/musicTheory";
 import { setScale } from "store/stringedInstrumentSlice";
-import styles from "./MusicKeySelect.module.scss";
 import DropdownSelectMenu, {
   DropdownSelectOption,
 } from "common/components/DropdownSelectMenu";
@@ -13,9 +12,12 @@ const dropdownOptions: DropdownSelectOption<ScaleName>[] = SCALES_WITH_LABELS;
 const MusicScaleSelect = () => {
   const appDispatch = useAppDispatch();
 
-  const changeScale = useCallback((scaleName: ScaleName): void => {
-    appDispatch(setScale(scaleName));
-  }, []);
+  const changeScale = useCallback(
+    (scaleName: ScaleName): void => {
+      appDispatch(setScale(scaleName));
+    },
+    [appDispatch]
+  );
 
   return (
     <DropdownSelectMenu
