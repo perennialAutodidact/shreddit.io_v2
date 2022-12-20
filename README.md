@@ -30,3 +30,30 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Resources 
 [Rhythms in ToneJS](https://www.guitarland.com/MusicTheoryWithToneJS/PlayRhythms.html) 
+
+### Tests
+
+Tests were originally written in Jest / React Testing Library, but due to the lack of browser-specific APIs required for ToneJS, such as the Web Audio API, tests have been switched to use Cypress.
+
+Currently only unit and integration tests exist, but end-to-end tests will be added as the app progresses.
+
+To run integration / unit tests:
+
+```
+$ yarn test --component
+```
+
+To run e2e tests:
+```
+$ yarn test
+```
+
+To run integration / unit tests in the Cypress GUI:
+```
+$ yarn cypress --component
+```
+
+To run e2e tests in the Cypress GUI:
+```
+$ yarn cypress
+```
