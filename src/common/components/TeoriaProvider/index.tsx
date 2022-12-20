@@ -3,7 +3,7 @@ import { TeoriaContext } from "./context";
 const teoria = require("teoria");
 
 type TeoriaProviderProps = {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode;
 };
 
 const TeoriaProvider = ({ children }: TeoriaProviderProps) => {
