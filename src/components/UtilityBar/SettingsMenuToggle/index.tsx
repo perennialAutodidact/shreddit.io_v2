@@ -14,7 +14,7 @@ const SettingsMenuToggle = () => {
         fs-1
         d-flex align-items-center 
       `}
-      data-testid="SettingsMenuToggle"
+      data-test-id="SettingsMenuToggle"
       onClick={() => appDispatch(toggleShowSettingsMenu())}
     >
       <BsFillGearFill />

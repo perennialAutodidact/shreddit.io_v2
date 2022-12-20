@@ -2,11 +2,11 @@ import React from "react";
 import MusicKeySelect from "components/UtilityBar/MusicKeySelect";
 import MusicScaleSelect from "components/UtilityBar/MusicScaleSelect";
 import SettingsMenuToggle from "components/UtilityBar/SettingsMenuToggle";
-import SettingsMenu from "pages/SettingsMenu";
+import SettingsMenu from "common/components/SettingsMenu";
 
 const UtilityBar = () => {
   return (
-    <div className="container-fluid" data-testid="UtilityBar">
+    <div className="container-fluid" data-test-id="UtilityBar">
       <SettingsMenu />
       <div className="row my-3 d-flex">
         <div className="col-2 col-lg-1 d-flex align-items-end">

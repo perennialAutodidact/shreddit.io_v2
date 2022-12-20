@@ -1,6 +1,5 @@
-import React, { useLayoutEffect, useContext, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { useAppSelector } from "store/hooks";
-import { useWindowSize } from "usehooks-ts";
 import styles from "./Neck.module.scss";
 
 interface NeckProps {

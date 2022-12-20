@@ -28,7 +28,7 @@ const NoteMarker = ({ noteName, interval, size }: NoteMarkerProps) => {
         ${styles.noteMarker}
       `}
       ref={ref}
-      data-testid="NoteMarker"
+      data-test-id="NoteMarker"
     ></div>
   );
 };

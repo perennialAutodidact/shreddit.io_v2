@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useContext, useEffect } from "react";
+import React, { useRef, useContext, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
 import {
   setInstrumentDimensions,
@@ -19,7 +19,7 @@ const StringedInstrument: React.FC = () => {
   const { instrumentType, strings, scale, currentKey, totalFrets } =
     useAppSelector((appState) => appState.instrument);
   const instrumentRef = useRef<HTMLDivElement>(null);
-  const { breakpoint, isMobile, isPortrait, orientation } =
+  const { breakpoint, isMobile, orientation } =
     useContext<BreakpointState>(BreakpointContext);
   const windowSize = useWindowSize();
 

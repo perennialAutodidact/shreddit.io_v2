@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useRef, useMemo } from "react";
+import React, { useContext, useRef, useMemo } from "react";
 import { useAppSelector } from "store/hooks";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
 import { Note } from "ts/musicTheory";
@@ -18,13 +18,9 @@ const String: React.FC<StringProps> = ({
 }: StringProps) => {
   const { strings } = useAppSelector((appState) => appState.instrument);
   const { isMobile } = useContext<BreakpointState>(BreakpointContext);
-  const {
-    totalFrets,
-    scale,
-    dimensions: {
-      fret: { height: fretHeight, width: fretWidth },
-    },
-  } = useAppSelector((appState) => appState.instrument);
+  const { totalFrets, scale } = useAppSelector(
+    (appState) => appState.instrument
+  );
   const stringRef = useRef<HTMLDivElement>(null);
 
   const isFirstString = useMemo<boolean>(
@@ -46,14 +42,13 @@ const String: React.FC<StringProps> = ({
     [rootNote, totalFrets, scale.intervals]
   );
 
-  // console.log({ frets });
   return (
     <div
       className={`
         d-flex flex-column flex-lg-row my-2 my-lg-0 mx-lg-3
       `}
       ref={stringRef}
-      data-testid={"String"}
+      data-test-id={"String"}
     >
       <div
         className={`
@@ -64,7 +59,7 @@ const String: React.FC<StringProps> = ({
           text-center fs-4 fw-bolder
           d-flex align-items-center justify-content-center
         `}
-        data-testid="StringLabel"
+        data-test-id="StringLabel"
       >
         {frets[0].noteName.toUpperCase()}
       </div>

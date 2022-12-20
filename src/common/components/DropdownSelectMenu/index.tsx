@@ -30,7 +30,7 @@ const DropdownSelectMenu = <T,>({
   const optionsRef = useRef<HTMLDivElement>(null);
   const { isMobile } = useContext(BreakpointContext);
 
-  const { height: windowHeight, width: windowWidth } = useWindowSize();
+  const { width: windowWidth } = useWindowSize();
 
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
@@ -43,8 +43,8 @@ const DropdownSelectMenu = <T,>({
   };
 
   const handleOptionClick = (option: DropdownSelectOption<T>) => {
-    setSelectedOption(option);
     appStateSetter(option.value);
+    setSelectedOption(option);
     toggleShowOptions();
   };
 
@@ -62,7 +62,7 @@ const DropdownSelectMenu = <T,>({
       optionsRef.current.style.width = `${windowWidth - xOffset}px`;
       optionsRef.current.style.left = `-${left - xOffset / 2}px`;
     }
-  }, [showOptions, windowWidth]);
+  }, [showOptions, windowWidth, isMobile]);
 
   return (
     <div
@@ -83,7 +83,7 @@ const DropdownSelectMenu = <T,>({
             fw-bolder
         `}
         onClick={toggleShowOptions}
-        data-testid="DropdownSelectMenuToggle"
+        data-test-id="DropdownSelectMenuToggle"
       >
         {selectedOption.label}
       </div>
@@ -99,7 +99,7 @@ const DropdownSelectMenu = <T,>({
             top-100
             d-flex flex-wrap justify-content-center
           `}
-          data-testid="DropdownOptionsContainer"
+          data-test-id="DropdownOptionsContainer"
           ref={optionsRef}
         >
           {options.map((option: any) => (

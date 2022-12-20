@@ -96,7 +96,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
   return (
     <div
       id={`${stringNumber}${fretNumber}`}
-      data-testid="Fret"
+      data-test-id="Fret"
       className={`
         d-flex justify-content-center align-items-center
         position-relative bg-opacity-75

@@ -1,4 +1,3 @@
-import NoteMarker from "components/NoteMarker";
 import React from "react";
 import { useAppSelector } from "store/hooks";
 
