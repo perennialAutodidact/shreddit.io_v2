@@ -1,4 +1,3 @@
-import { Tunings } from "ts/stringedInstrument";
 import { Interval, MusicKeys, ScaleName, ScaleWithLabel } from "ts/musicTheory";
 
 const allIntervals: Interval[] = [
