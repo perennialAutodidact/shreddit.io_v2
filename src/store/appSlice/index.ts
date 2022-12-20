@@ -1,4 +1,4 @@
-import { createSlice, CaseReducer, Slice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { AppState } from "ts/app";
 import { _toggleIsPlayingAudio, _toggleShowSettingsMenu } from "./actions";
 

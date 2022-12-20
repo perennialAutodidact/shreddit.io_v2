@@ -5,12 +5,9 @@ import {
   StringedInstrumentName,
   TuningName,
 } from "ts/stringedInstrument";
-import { NoteName, ScaleName, Note, MusicKeys } from "ts/musicTheory";
+import { NoteName, ScaleName, MusicKeys } from "ts/musicTheory";
 import { getScaleData } from "common/utils/getScaleData";
-import { tunings } from "common/constants/stringedInstruments";
 import { getTuning } from "common/utils/getTuning";
-
-const teoria = require("teoria");
 
 export const _setInstrumentDimensions: CaseReducer<
   StringedInstrumentState,

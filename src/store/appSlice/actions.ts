@@ -1,4 +1,4 @@
-import { PayloadAction, CaseReducer } from "@reduxjs/toolkit";
+import { CaseReducer } from "@reduxjs/toolkit";
 import { AppState } from "ts/app";
 
 export const _toggleShowSettingsMenu: CaseReducer<AppState> = (
