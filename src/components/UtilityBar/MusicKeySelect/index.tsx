@@ -2,11 +2,8 @@ import React from "react";
 import { useAppDispatch } from "store/hooks";
 import { setCurrentKey } from "store/stringedInstrumentSlice";
 import { musicKeys } from "common/constants/musicTheory";
-import { MusicKeys, NoteName } from "ts/musicTheory";
-import styles from "./MusicKeySelect.module.scss";
-import DropdownSelectMenu, {
-  DropdownSelectOption,
-} from "common/components/DropdownSelectMenu";
+import { MusicKeys } from "ts/musicTheory";
+import DropdownSelectMenu from "common/components/DropdownSelectMenu";
 
 const dropdownOptions: {
   value: keyof MusicKeys;
@@ -22,6 +19,7 @@ const MusicKeySelect = () => {
   const changeCurrentKey = (newKey: keyof MusicKeys) => {
     appDispatch(setCurrentKey(newKey));
   };
+
   return (
     <DropdownSelectMenu
       labelText={"Key"}
