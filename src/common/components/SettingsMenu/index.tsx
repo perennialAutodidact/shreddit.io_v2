@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
 import { setInstrumentType, setTuning } from "store/stringedInstrumentSlice";
-import { BsFillGearFill, BsXLg } from "react-icons/bs";
+import { BsXLg } from "react-icons/bs";
 import { ALL_INSTRUMENTS, tunings } from "common/constants/stringedInstruments";
 import styles from "./SettingsMenu.module.scss";
 import { toggleShowSettingsMenu } from "store/appSlice";
@@ -16,7 +16,7 @@ const SettingsMenu = () => {
 
   return (
     <div
-      data-testid="SettingsMenu"
+      data-test-id="SettingsMenu"
       className={`
         ${styles.settingsMenuContainer}
         container-fluid
@@ -37,6 +37,7 @@ const SettingsMenu = () => {
         <div
           className={`${styles.xIcon} position-absolute top-0 start-0 ms-2 fs-1`}
           onClick={() => appDispatch(toggleShowSettingsMenu())}
+          data-test-id="SettingsMenuCloseButton"
         >
           <BsXLg />
         </div>

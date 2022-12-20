@@ -4,7 +4,7 @@ const LoadingIndicator = () => {
   return (
     <div
       className="d-flex justify-content-center align-items-center"
-      data-testid="LoadingIndicator"
+      data-test-id="LoadingIndicator"
     >
       <div className="spinner-border spinner-border-sm text-secondary">
         <span className="visually-hidden">Loading...</span>
