@@ -18,9 +18,8 @@ const String: React.FC<StringProps> = ({
 }: StringProps) => {
   const { strings } = useAppSelector((appState) => appState.instrument);
   const { isMobile } = useContext<BreakpointState>(BreakpointContext);
-  const { totalFrets, scale } = useAppSelector(
-    (appState) => appState.instrument
-  );
+  const { totalFrets } = useAppSelector((appState) => appState.instrument);
+  const { scale } = useAppSelector((appState) => appState.audioClient);
   const stringRef = useRef<HTMLDivElement>(null);
 
   const isFirstString = useMemo<boolean>(

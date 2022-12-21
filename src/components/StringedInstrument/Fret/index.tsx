@@ -19,9 +19,10 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
   const { isMobile } = useContext<BreakpointState>(BreakpointContext);
   const {
     dimensions: { fret },
-    currentKey,
-    scale,
   } = useAppSelector((appState) => appState.instrument);
+  const { currentKey, scale } = useAppSelector(
+    (appState) => appState.audioClient
+  );
   const fretRef = useRef<HTMLDivElement>(null);
 
   const fretInterval = useMemo<Interval | null>(() => {

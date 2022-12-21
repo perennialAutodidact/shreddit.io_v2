@@ -67,24 +67,18 @@ export type StringedInstrumentDimensions = {
   };
 };
 
-export type ScaleData = {
-  name: ScaleName;
-  notes: NoteName[];
-  intervals: Interval[];
-};
-
 export interface StringedInstrumentState {
   instrumentType: StringedInstrumentName;
   tuningName: TuningName;
   strings: Tuning;
-  currentKey: keyof MusicKeys;
+  // currentKey: keyof MusicKeys;
   totalFrets: NrRange<6, 21>;
-  scale: {
-    name: ScaleName;
-    intervals: Interval[];
-    notes: NoteName[];
-  };
-  rhythmDurations: RhythmDuration[];
-  markedNotes: NoteName[];
+  // scale: {
+  //   name: ScaleName;
+  //   intervals: Interval[];
+  //   notes: NoteName[];
+  // };
+  // rhythmDurations: RhythmDuration[];
+  // markedNotes: NoteName[];
   dimensions: StringedInstrumentDimensions;
 }

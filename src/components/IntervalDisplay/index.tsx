@@ -6,7 +6,7 @@ type IntervalDisplayProps = {
 };
 
 const IntervalDisplay = ({ markerSize }: IntervalDisplayProps) => {
-  const { scale } = useAppSelector((appState) => appState.instrument);
+  const { scale } = useAppSelector((appState) => appState.audioClient);
 
   return (
     <div className={`container`} data-testid="IntervalDisplay">

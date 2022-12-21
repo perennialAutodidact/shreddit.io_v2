@@ -10,6 +10,9 @@ describe("<IntervalDisplay/>", () => {
       ...rootState,
       instrument: {
         ...rootState.instrument,
+      },
+      audioClient: {
+        ...rootState.audioClient,
         scale,
       },
     };

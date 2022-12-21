@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useAppDispatch } from "store/hooks";
 import { SCALES_WITH_LABELS } from "common/constants/musicTheory";
-import { setScale } from "store/stringedInstrumentSlice";
+import { setScale } from "store/audioClientSlice";
 import DropdownSelectMenu, {
   DropdownSelectOption,
 } from "common/components/DropdownSelectMenu";

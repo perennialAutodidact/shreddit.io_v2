@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch } from "store/hooks";
-import { setCurrentKey } from "store/stringedInstrumentSlice";
+import { setCurrentKey } from "store/audioClientSlice";
 import { musicKeys } from "common/constants/musicTheory";
 import { MusicKeys } from "ts/musicTheory";
 import DropdownSelectMenu from "common/components/DropdownSelectMenu";

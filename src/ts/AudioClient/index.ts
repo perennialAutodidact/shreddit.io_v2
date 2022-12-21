@@ -1,5 +1,5 @@
 import { Sampler } from "tone";
-import { Note } from "ts/musicTheory";
+import { Chord, Note, NoteName, Interval, ScaleName } from "ts/musicTheory";
 import { SampleLibraryInstrument } from "ts/SampleLibrary";
 
 export type AudioClientInstrument =
@@ -21,11 +21,25 @@ export type InstrumentSamplers = {
   [Key in SampleLibraryInstrument]?: Sampler;
 };
 
-export type NoteDuration = `${"2" | "4" | "8"}n${"." | ""}`;
+export type RhythmDuration = `${"2" | "4" | "8"}n${"." | ""}`;
 
 export type AudioPartItem = {
   time: `${number}:${number}:${number}`;
-  duration: NoteDuration;
-  note: Note;
+  duration: RhythmDuration;
+  noteOrChord: Note | Chord;
   velocity?: number;
+};
+
+export type ScaleData = {
+  name: ScaleName;
+  notes: NoteName[];
+  intervals: Interval[];
+};
+
+export type AudioClientState = {
+  currentKey: Note;
+  scale: ScaleData;
+  rhythmDurations: RhythmDuration[];
+  markedNotes: NoteName[];
+  notesOrChords: Note[] | Chord[];
 };
