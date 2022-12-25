@@ -1,7 +1,9 @@
 import React, { useRef, useContext, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
-import { setInstrumentDimensions } from "store/stringedInstrumentSlice";
-import { setMarkedNotes } from "store/audioClientSlice";
+import {
+  setInstrumentDimensions,
+  setMarkedNotes,
+} from "store/stringedInstrumentSlice";
 import { BreakpointState } from "ts/breakpoints";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
 import { getEnharmonics } from "common/utils";
@@ -18,7 +20,7 @@ const StringedInstrument: React.FC = () => {
     (appState) => appState.instrument
   );
   const { scale, currentKey } = useAppSelector(
-    (appState) => appState.audioClient
+    (appState) => appState.musicTheory
   );
   const instrumentRef = useRef<HTMLDivElement>(null);
   const { breakpoint, isMobile, orientation } =

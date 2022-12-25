@@ -34,6 +34,7 @@ export type NoteName =
   | "b"
   | "b#"
   | "bx";
+
 export type MusicKeys = {
   c1: "C";
   "c#1": "C#";
@@ -104,3 +105,14 @@ export function isNote(value: string): value is Note {
   }
   return _isNote;
 }
+
+export type ScaleData = {
+  name: ScaleName;
+  notes: NoteName[];
+  intervals: Interval[];
+};
+
+export type MusicTheoryState = {
+  currentKey: Note;
+  scale: ScaleData;
+};

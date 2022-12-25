@@ -2,28 +2,15 @@ import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
 import { AudioClientState } from "ts/AudioClient";
 import { NoteName, ScaleName, MusicKeys } from "ts/musicTheory";
 import { getScaleData } from "common/utils/getScaleData";
+import AudioClient from "common/services/AudioClient";
 
-export const _setMarkedNotes: CaseReducer<
+export const _setAudioData: CaseReducer<
   AudioClientState,
-  PayloadAction<NoteName[]>
+  PayloadAction<Partial<AudioClientState["audioData"]>>
 > = (state, action) => ({
   ...state,
-  markedNotes: action.payload,
-});
-
-export const _setScale: CaseReducer<
-  AudioClientState,
-  PayloadAction<ScaleName>
-> = (state, action) => ({
-  ...state,
-  scale: getScaleData(state.currentKey as keyof MusicKeys, action.payload),
-});
-
-export const _setCurrentKey: CaseReducer<
-  AudioClientState,
-  PayloadAction<keyof MusicKeys>
-> = (state, action) => ({
-  ...state,
-  currentKey: `${action.payload}`,
-  scale: getScaleData(action.payload, state.scale.name),
+  audioData: {
+    ...state.audioData,
+    ...action.payload,
+  },
 });

@@ -1,5 +1,5 @@
 import { MusicKeys, ScaleName } from "ts/musicTheory";
-import { ScaleData } from "ts/AudioClient";
+import { ScaleData } from "ts/musicTheory";
 
 const teoria = require("teoria");
 

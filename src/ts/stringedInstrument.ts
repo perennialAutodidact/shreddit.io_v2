@@ -5,10 +5,7 @@ import {
   Interval,
   Note,
   OctaveNumber,
-  MusicKeys,
 } from "ts/musicTheory";
-import { MIN_NECK_LENGTH, tunings } from "common/constants/stringedInstruments";
-import { RhythmDuration } from "./AudioClient";
 
 export type Tunings = {
   guitar: {
@@ -71,14 +68,7 @@ export interface StringedInstrumentState {
   instrumentType: StringedInstrumentName;
   tuningName: TuningName;
   strings: Tuning;
-  // currentKey: keyof MusicKeys;
   totalFrets: NrRange<6, 21>;
-  // scale: {
-  //   name: ScaleName;
-  //   intervals: Interval[];
-  //   notes: NoteName[];
-  // };
-  // rhythmDurations: RhythmDuration[];
-  // markedNotes: NoteName[];
+  markedNotes: NoteName[];
   dimensions: StringedInstrumentDimensions;
 }

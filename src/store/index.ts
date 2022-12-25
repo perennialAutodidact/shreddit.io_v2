@@ -6,17 +6,22 @@ import appReducer, { initialState as initialAppState } from "./appSlice";
 import audioClientReducer, {
   initialState as initialAudioClientState,
 } from "store/audioClientSlice";
+import musicTheoryReducer, {
+  initialState as initialMusicTheoryState,
+} from "./musicTheorySlice";
 
 export const initialState = {
   app: initialAppState,
   instrument: initialInstrumentState,
   audioClient: initialAudioClientState,
+  musicTheory: initialMusicTheoryState,
 };
 
 export const reducer = {
   app: appReducer,
   instrument: instrumentReducer,
   audioClient: audioClientReducer,
+  musicTheory: musicTheoryReducer,
 };
 
 export const store = configureStore({

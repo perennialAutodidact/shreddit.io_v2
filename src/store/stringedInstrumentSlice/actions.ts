@@ -5,6 +5,7 @@ import {
   StringedInstrumentName,
   TuningName,
 } from "ts/stringedInstrument";
+import { NoteName } from "ts/musicTheory";
 import { getTuning } from "common/utils/getTuning";
 
 export const _setInstrumentDimensions: CaseReducer<
@@ -35,4 +36,12 @@ export const _setTuning: CaseReducer<
   ...state,
   tuningName: action.payload,
   strings: getTuning(state.instrumentType, action.payload),
+});
+
+export const _setMarkedNotes: CaseReducer<
+  StringedInstrumentState,
+  PayloadAction<NoteName[]>
+> = (state, action) => ({
+  ...state,
+  markedNotes: action.payload,
 });

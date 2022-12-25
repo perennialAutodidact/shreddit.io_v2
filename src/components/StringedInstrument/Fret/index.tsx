@@ -21,8 +21,9 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     dimensions: { fret },
   } = useAppSelector((appState) => appState.instrument);
   const { currentKey, scale } = useAppSelector(
-    (appState) => appState.audioClient
+    (appState) => appState.musicTheory
   );
+
   const fretRef = useRef<HTMLDivElement>(null);
 
   const fretInterval = useMemo<Interval | null>(() => {

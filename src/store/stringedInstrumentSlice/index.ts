@@ -3,6 +3,7 @@ import {
   _setInstrumentDimensions,
   _setInstrumentType,
   _setTuning,
+  _setMarkedNotes,
 } from "./actions";
 import {
   TuningName,
@@ -43,10 +44,15 @@ export const InstrumentSlice: Slice<StringedInstrumentState> = createSlice({
     setInstrumentDimensions: _setInstrumentDimensions,
     setInstrumentType: _setInstrumentType,
     setTuning: _setTuning,
+    setMarkedNotes: _setMarkedNotes,
   },
   extraReducers: (builder) => {},
 });
 
-export const { setInstrumentDimensions, setInstrumentType, setTuning } =
-  InstrumentSlice.actions;
+export const {
+  setInstrumentDimensions,
+  setInstrumentType,
+  setTuning,
+  setMarkedNotes,
+} = InstrumentSlice.actions;
 export default InstrumentSlice.reducer;
