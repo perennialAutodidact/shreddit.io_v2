@@ -11,9 +11,10 @@ const INITIAL_KEY: Note = "c1";
 export const initialState: AudioClientState = {
   currentKey: INITIAL_KEY,
   scale: getScaleData(INITIAL_KEY, INITIAL_SCALE),
-  rhythmDurations: [],
-  markedNotes: [],
-  notesOrChords: [],
+  audioData: {
+    rhythmDurations: [],
+    pitchesToPlay: [],
+  },
 };
 
 export const AudioClientSlice: Slice<AudioClientState> = createSlice({

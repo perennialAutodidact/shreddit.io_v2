@@ -19,6 +19,7 @@ export const initialState: StringedInstrumentState = {
   tuningName: INITIAL_TUNING,
   strings: tunings[INITIAL_INSTRUMENT][INITIAL_TUNING],
   totalFrets: 12,
+  markedNotes: [],
   dimensions: {
     neck: {
       height: 0,
