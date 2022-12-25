@@ -17,6 +17,7 @@ export type DropdownSelectOption<T> = {
 
 export type DropdownSelectMenuProps<T> = {
   labelText: string;
+  defaultOption: DropdownSelectOption<T>;
   options: DropdownSelectOption<T>[];
   appStateSetter: (arg: T) => void;
 };
@@ -24,6 +25,7 @@ export type DropdownSelectMenuProps<T> = {
 const DropdownSelectMenu = <T,>({
   labelText,
   options,
+  defaultOption,
   appStateSetter,
 }: React.PropsWithChildren<DropdownSelectMenuProps<T>>) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -34,9 +36,8 @@ const DropdownSelectMenu = <T,>({
 
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
-  const [selectedOption, setSelectedOption] = useState<DropdownSelectOption<T>>(
-    options[0]
-  );
+  const [selectedOption, setSelectedOption] =
+    useState<DropdownSelectOption<T>>(defaultOption);
 
   const toggleShowOptions = () => {
     setShowOptions((showOptions) => !showOptions);
