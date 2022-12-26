@@ -6,12 +6,7 @@ import {
   Note,
   SampleFileName,
 } from "./sampleMap";
-import {
-  FileExtension,
-  FileExtensionSuffix,
-  SampleLibraryInstrument,
-} from "ts/SampleLibrary";
-import { samples } from "./samples";
+import { FileExtension, SampleLibraryInstrument } from "ts/SampleLibrary";
 
 export interface SampleLibraryOptions {
   minify?: boolean;
@@ -23,6 +18,9 @@ export interface SampleLibraryOptions {
   instruments?: (SampleLibraryInstrument | "salamander")[];
   onLoad?: null | (() => void);
 }
+
+type MinifyFactor = 1 | 2 | 4 | 6;
+type SampleKeys = Array<keyof SampleMap[SampleMapKey]>;
 
 const INSTRUMENTS: SampleLibraryInstrument[] = [
   "salamander",
@@ -86,10 +84,9 @@ class SampleLibrary {
     return updatedOptions;
   }
 
-  private _minifySamples(samples: SampleMap[SampleMapKey]) {
-    let keys = Object.keys(samples);
+  private _getMinifyFactor(keys: SampleKeys): MinifyFactor {
+    let minifyFactor: MinifyFactor;
 
-    let minifyFactor: 1 | 2 | 4 | 6;
     if (keys.length >= 49) {
       minifyFactor = 6;
     } else if (keys.length >= 33) {
@@ -100,7 +97,15 @@ class SampleLibrary {
       minifyFactor = 1;
     }
 
-    let filteredKeys = Object.keys(samples).filter(
+    return minifyFactor;
+  }
+
+  private _minifySamples(samples: SampleMap[SampleMapKey]) {
+    let keys = Object.keys(samples) as SampleKeys;
+
+    let minifyFactor = this._getMinifyFactor(keys);
+
+    let filteredKeys = Object.keys(samples as SampleKeys).filter(
       (_, i) => i % minifyFactor !== 0
     );
     filteredKeys.forEach((key) => {
@@ -122,7 +127,7 @@ class SampleLibrary {
     instruments?.forEach((instrument) => {
       let samples = minify
         ? this._minifySamples(sampleMap[instrument])
-        : sampleMap[instrument];
+        : sampleMap; //[instrument];
 
       instrumentSamplers[instrument as keyof InstrumentSamplers] =
         new this.Tone.Sampler({

@@ -3,14 +3,19 @@ import { SampleLibrary } from "common/utils/SampleLibrary";
 import {
   AudioClientInstrument,
   AudioClientOptions,
+  AudioClientState,
   AudioPartItem,
 } from "ts/AudioClient";
 import { InstrumentSamplers } from "ts/AudioClient";
 import { Note, Chord } from "ts/musicTheory";
-import { NoteDuration } from "ts/AudioClient";
+import { RhythmDuration } from "ts/AudioClient";
 
-type AudioData = {
-  // time:
+type PlayOptions = {
+  audioData: {
+    rhythmDurations: RhythmDuration[];
+    pitchesToPlay: Note[] | Chord[];
+  };
+  onEnd: () => void;
 };
 
 class AudioClient {
@@ -20,14 +25,10 @@ class AudioClient {
   sampler: InstrumentSamplers[keyof InstrumentSamplers];
 
   constructor(options: AudioClientOptions) {
-    console.log({ baseUrl: process.env.REACT_APP_AUDIO_SAMPLE_URL });
-
     let sampleLibrary = new SampleLibrary(options.Tone);
     let instruments = sampleLibrary.load({
       instruments: [options.instrument],
-      // baseUrl: "audio/samples/",
       baseUrl: process.env.REACT_APP_AUDIO_SAMPLE_URL,
-      // minify: true,
       urls: {
         C4: "C4.[mp3|ogg]",
       },
@@ -36,21 +37,15 @@ class AudioClient {
 
     this.instruments = instruments;
     this.currentInstrument = options.instrument;
-    // this.mergeDurationsAndPitches(this.noteDurations, this.pitches);
   }
-  // pitches: Note[] | Chord[] = [["c4"]];
-  // noteDurations: NoteDuration[] = ["4n", "4n.", "8n"];
-  // noteDurations: NoteDuration[] = ["4n"];
 
   mergeDurationsAndPitches(
-    noteDurations: NoteDuration[],
-    pitches: Note[] | Chord[]
+    rhythmDurations: RhythmDuration[],
+    notesOrChords: Note[] | Chord[]
   ): AudioPartItem[] | {} {
-    console.log(noteDurations);
-
     let progressTime = 0;
 
-    let durations = noteDurations.map((duration) => {
+    let durations = rhythmDurations.map((duration) => {
       let durationSeconds = Tone.Time(duration).toSeconds();
 
       let noteTime = progressTime;
@@ -65,36 +60,88 @@ class AudioClient {
       };
     });
 
-    console.log(durations);
-
     return {};
   }
 
   async start(): Promise<void> {
     await Tone.start();
+    await Tone.ToneAudioBuffer.loaded();
+
     this.sampler = this.instruments[this.currentInstrument]?.toDestination();
+
+    if (this.sampler) {
+      this.sampler.release = 0;
+    }
   }
 
-  async play(audioData: AudioData): Promise<void> {
+  async play(options: PlayOptions): Promise<void> {
     await this.start();
-    const part = new Tone.Part(
-      (time, value) => {
-        this.sampler?.triggerAttackRelease(value.note, value.duration, time);
-      },
-      [
-        { note: "C4", time: "0:1:0", duration: "+16n" },
-        { note: "E4", time: "0:1:16", duration: "+4n" },
-        { note: "G4", time: "0:2:16", duration: "+1n" },
-      ]
-    ).start(0);
+    const { audioData } = options;
+
+    const { partData, partDuration } = this.generatePartData(audioData);
+
+    Tone.Transport.debug = true;
+
+    const part = new Tone.Part<AudioPartItem>((time, value) => {
+      this.sampler?.triggerAttackRelease(
+        value.noteOrChord,
+        value.duration,
+        time
+      );
+    }, partData).start(0);
 
     part.humanize = true;
 
     part.loop = 1;
-    part.loopEnd = "2m";
+    part.loopStart = "0";
+    part.loopEnd = partDuration;
 
-    Tone.Transport.start();
+    Tone.Transport.scheduleOnce(() => {
+      options.onEnd();
+      part.dispose();
+      Tone.Transport.stop();
+    }, partDuration);
+
+    Tone.Transport.start("+0.1");
   }
+
+  pause() {
+    Tone.Transport.pause();
+  }
+
+  stop() {
+    Tone.Transport.stop();
+  }
+
+  generatePartData = (
+    audioData: AudioClientState["audioData"]
+  ): { partData: AudioPartItem[]; partDuration: number } => {
+    const { rhythmDurations, pitchesToPlay } = audioData;
+    if (rhythmDurations.length !== pitchesToPlay.length) {
+      throw Error("Duration and pitch arrays must be of the same length");
+    }
+    let partDuration = 0;
+
+    let partData = rhythmDurations.map((duration, index) => {
+      let durationSeconds = Tone.Time(duration).toSeconds();
+
+      let noteTime = partDuration;
+
+      let time = Tone.Time(noteTime).toBarsBeatsSixteenths();
+
+      partDuration += durationSeconds;
+
+      const noteOrChord: Note | Chord = pitchesToPlay[index];
+
+      return {
+        time,
+        duration,
+        noteOrChord,
+      } as AudioPartItem;
+    });
+
+    return { partData, partDuration };
+  };
 
   cleanup() {
     this.buffer?.dispose();

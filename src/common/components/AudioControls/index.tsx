@@ -7,10 +7,19 @@ import React, {
 } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import AudioClient from "common/services/AudioClient";
-import { TfiControlPlay, TfiControlPause } from "react-icons/tfi";
+import {
+  TfiControlPlay,
+  TfiControlPause,
+  TfiControlStop,
+} from "react-icons/tfi";
+import { Note } from "ts/musicTheory";
 import * as Tone from "tone";
-import { Sampler } from "tone";
-import LoadingIndicator from "components/LoadingIndicator";
+import { setAudioData } from "store/audioClientSlice";
+import LoadingIndicator from "common/components/LoadingIndicator";
+import { getScaleData } from "common/utils/getScaleData";
+import { getScalePitches } from "common/utils/getScalePitches";
+
+const teoria = require("teoria");
 
 type AudioControlsProps = {
   audioClient: AudioClient | undefined;
@@ -20,37 +29,60 @@ type AudioControlsProps = {
 const AudioControls = ({ audioClient, isLoaded }: AudioControlsProps) => {
   global.tone = { ...Tone };
   const appDispatch = useAppDispatch();
-  const { currentInstrument } = useAppSelector((appState) => appState.app);
+  const { scale, currentKey } = useAppSelector(
+    (appState) => appState.musicTheory
+  );
+  const { audioData } = useAppSelector((appState) => appState.audioClient);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-  const sampler = useRef<Sampler>();
-
   useEffect(() => {
-    if (window.AudioBuffer) {
-      // if (audioClient && isPlaying) {
-      //   (async () => {
-      //     await audioClient.play({});
-      //   })();
-      // }
+    const pitchesToPlay = getScalePitches(
+      currentKey.replace("1", "3") as Note,
+      scale.name
+    );
 
-      return () => audioClient && audioClient.cleanup();
-    }
-  }, [audioClient, isPlaying]);
+    appDispatch(
+      setAudioData({
+        rhythmDurations: pitchesToPlay.map((n) => "4n"),
+        pitchesToPlay,
+      })
+    );
+  }, [scale]);
 
-  const play = async () => {
+  const togglePlayAudio = useCallback(async (): Promise<void> => {
     if (audioClient) {
-      // await audioClient.start();
-      await audioClient.play({});
-      console.log(audioClient);
-      // setIsPlaying(true);
+      if (!isPlaying) {
+        await audioClient.play({
+          onEnd: () => {
+            setIsPlaying(false);
+          },
+          audioData,
+        });
+        setIsPlaying(true);
+      } else {
+        audioClient.pause();
+        setIsPlaying(false);
+      }
+    }
+  }, [audioData, isPlaying, audioClient]);
+
+  const stopAudio = async (): Promise<void> => {
+    if (audioClient) {
+      setIsPlaying(false);
+      audioClient.stop();
     }
   };
 
   return (
     <div>
       {isLoaded ? (
-        <div className="fs-1" onClick={play} data-testid="PlayAudioButton">
-          <TfiControlPlay />
+        <div className="fs-1">
+          <span data-test-id="PlayAudioButton" onClick={togglePlayAudio}>
+            {isPlaying ? <TfiControlPause /> : <TfiControlPlay />}
+          </span>
+          <span data-test-id="StopAudioButton" onClick={stopAudio}>
+            <TfiControlStop />
+          </span>
         </div>
       ) : (
         <LoadingIndicator />
