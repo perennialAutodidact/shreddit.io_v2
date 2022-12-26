@@ -9,21 +9,22 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [x] tuning
 
 ### Scale Explorer
-- [x] select scale name
-- [ ] play back scale, highlighting notes as they play back
+- [x] Select scale name
+- [x] Play back scale
+- [ ] Highlight notes as they play back
 
 ### Chord Explorer
 - [ ] Select chord name, quality
-- [ ] click frets to add/remove notes, recalculate chord with new notes
-- [ ] inversions?
+- [ ] Click frets to add/remove notes, recalculate chord with new notes
+- [ ] Inversions?
 
 ### Progression Builder
-- [ ] select chord and quality
-- [ ] select compatible scales
-- [ ] play back progression, showing selected compatible scales on the neck as chord change
-- [ ] display current chord/scale name and next chord/scale name
-- [ ] chord durations (whole notes, half notes, quarter notes, triplets, dotted notes)
-- [ ] tempo (bpm)
+- [ ] Select chord and quality
+- [ ] Select compatible scales
+- [ ] Play back progression, showing selected compatible scales on the neck as chord change
+- [ ] Display current chord/scale name and next chord/scale name
+- [ ] Chord durations (whole notes, half notes, quarter notes, triplets, dotted notes)
+- [ ] Tempo (bpm)
 
 ### To Do:
 - [ ] Fix styling for mobile screens in landscape orientation
