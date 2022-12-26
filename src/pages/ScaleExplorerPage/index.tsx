@@ -7,6 +7,7 @@ import AudioClient from "common/services/AudioClient";
 
 const ScaleExplorerPage = () => {
   const [audioClientLoaded, setAudioClientLoaded] = useState<boolean>(false);
+
   const audioClient = useRef<AudioClient>();
 
   useEffect(() => {
@@ -15,11 +16,11 @@ const ScaleExplorerPage = () => {
         Tone,
         instrument: "salamander",
         onLoad: () => {
-          console.log("loaded");
           setAudioClientLoaded(true);
         },
       });
     }
+    return () => audioClient.current && audioClient.current.cleanup();
   }, []);
 
   return (
