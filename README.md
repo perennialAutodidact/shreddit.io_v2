@@ -13,7 +13,7 @@ Shreddit.io is a tool for musicians to explore scales and chords on a variety of
 ### Scale Explorer
 - [x] Select scale name
 - [x] Play back scale
-- [ ] Highlight notes as they play back
+- [x] Highlight notes as they play back
 - [ ] Rhythm UI
   - [ ] See `wireframes/rhythm_ui.svg`
 
