@@ -16,6 +16,7 @@ type PlayOptions = {
     pitchesToPlay: Note[] | Chord[];
   };
   onEnd: () => void;
+  onChangePitch: (noteOrChord: Note | Chord) => void;
 };
 
 class AudioClient {
@@ -88,6 +89,8 @@ class AudioClient {
         value.duration,
         time
       );
+
+      options.onChangePitch(value.noteOrChord);
     }, partData).start(0);
 
     part.humanize = true;

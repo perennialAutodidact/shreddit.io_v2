@@ -9,11 +9,15 @@ Shreddit.io is a tool for musicians to explore scales and chords on a variety of
 - [ ] Start/end frets
 - [x] Instrument
 - [x] Tuning
+- [ ] Color Blind Mode
+  - [ ] Replace circle markers with 12 unique shapes
+  - [ ] Color-blind palettes
+  - [ ] High-contrast text border
 
 ### Scale Explorer
 - [x] Select scale name
 - [x] Play back scale
-- [ ] Highlight notes as they play back
+- [x] Highlight notes as they play back
 - [ ] Rhythm UI
   - [ ] See `wireframes/rhythm_ui.svg`
 
@@ -32,6 +36,7 @@ Shreddit.io is a tool for musicians to explore scales and chords on a variety of
 
 ### To Do:
 - [ ] Fix styling for mobile screens in landscape orientation
+- [ ] Add setting to switch colored note markers to colored note names
 
 ### Resources 
 [Rhythms in ToneJS](https://www.guitarland.com/MusicTheoryWithToneJS/PlayRhythms.html) 

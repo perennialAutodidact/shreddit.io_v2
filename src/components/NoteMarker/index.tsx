@@ -1,3 +1,4 @@
+import { titleize } from "common/utils/titleize";
 import React, { useEffect, useRef } from "react";
 import { Interval, NoteName } from "ts/musicTheory";
 import styles from "./NoteMarker.module.scss";
@@ -24,12 +25,15 @@ const NoteMarker = ({ noteName, interval, size }: NoteMarkerProps) => {
         shadow
         border border-dark border-2  
         position-absolute
+        d-flex justify-content-center align-content-center
         bg-${interval}
         ${styles.noteMarker}
       `}
       ref={ref}
       data-test-id="NoteMarker"
-    ></div>
+    >
+      {/* <span className="d-flex align-items-center">{noteName}</span> */}
+    </div>
   );
 };
 
