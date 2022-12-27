@@ -1,17 +1,21 @@
-# Getting Started with Create React App
+# Shreddit.io v2
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Shreddit.io is a tool for musicians to explore scales and chords on a variety of instruments. 
+
+## Features
 
 ### General Settings
-- [x] key
-- [ ] start/end frets
-- [x] instrument
-- [x] tuning
+- [x] Key
+- [ ] Start/end frets
+- [x] Instrument
+- [x] Tuning
 
 ### Scale Explorer
 - [x] Select scale name
 - [x] Play back scale
 - [ ] Highlight notes as they play back
+- [ ] Rhythm UI
+  - [ ] See `wireframes/rhythm_ui.svg`
 
 ### Chord Explorer
 - [ ] Select chord name, quality
