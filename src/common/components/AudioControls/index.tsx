@@ -12,9 +12,9 @@ import {
   TfiControlPause,
   TfiControlStop,
 } from "react-icons/tfi";
-import { Note } from "ts/musicTheory";
+import { Note, Chord } from "ts/musicTheory";
 import * as Tone from "tone";
-import { setAudioData } from "store/audioClientSlice";
+import { setActivePitch, setAudioData } from "store/audioClientSlice";
 import LoadingIndicator from "common/components/LoadingIndicator";
 import { getScaleData } from "common/utils/getScaleData";
 import { getScalePitches } from "common/utils/getScalePitches";
@@ -53,11 +53,16 @@ const AudioControls = ({ audioClient, isLoaded }: AudioControlsProps) => {
     if (audioClient) {
       if (!isPlaying) {
         await audioClient.play({
+          audioData,
           onEnd: () => {
             setIsPlaying(false);
+            appDispatch(setActivePitch(null));
           },
-          audioData,
+          onChangePitch: (noteOrChord: Note | Chord) => {
+            appDispatch(setActivePitch(noteOrChord));
+          },
         });
+
         setIsPlaying(true);
       } else {
         audioClient.pause();

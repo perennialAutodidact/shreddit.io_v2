@@ -35,4 +35,5 @@ export type AudioClientState = {
     rhythmDurations: RhythmDuration[];
     pitchesToPlay: Note[] | Chord[];
   };
+  activePitch: Note | Chord | null;
 };
