@@ -4,6 +4,7 @@ import StringedInstrument from "components/StringedInstrument";
 import IntervalDisplay from "components/IntervalDisplay";
 import AudioControls from "common/components/AudioControls";
 import AudioClient from "common/services/AudioClient";
+import FretRangeLabel from "components/StringedInstrument/FretRangeLabel";
 
 const ScaleExplorerPage = () => {
   const [audioClientLoaded, setAudioClientLoaded] = useState<boolean>(false);
@@ -11,7 +12,7 @@ const ScaleExplorerPage = () => {
   const audioClient = useRef<AudioClient>();
 
   useEffect(() => {
-    if (window.AudioBuffer) {
+    if (window.AudioBuffer && !audioClient.current) {
       audioClient.current = new AudioClient({
         Tone,
         instrument: "salamander",
