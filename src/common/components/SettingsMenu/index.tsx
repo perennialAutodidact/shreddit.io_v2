@@ -30,8 +30,8 @@ const SettingsMenu = () => {
         className={`
         container-fluid
         bg-light 
-        position-absolute top-0 start-0
-        vh-100 vw-75 vw-lg-25
+        position-absolute top-0 start-50 translate-middle-x
+        vh-100 vw-100 vw-lg-50
       `}
       >
         <div
