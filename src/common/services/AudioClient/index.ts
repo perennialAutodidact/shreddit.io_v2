@@ -69,10 +69,6 @@ class AudioClient {
     await Tone.ToneAudioBuffer.loaded();
 
     this.sampler = this.instruments[this.currentInstrument]?.toDestination();
-
-    if (this.sampler) {
-      this.sampler.release = 0;
-    }
   }
 
   async play(options: PlayOptions): Promise<void> {
