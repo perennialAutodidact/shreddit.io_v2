@@ -5,7 +5,10 @@ import { FretData } from "ts/stringedInstrument";
 
 describe("getFretDataArray()", () => {
   it(`should fail with less than ${MIN_NECK_LENGTH} frets`, () => {
-    expect(() => getFretDataArray("c4", 0, "dim")).to.throw();
+    const startFret = 0;
+    const endFret = 1;
+    // @ts-ignore
+    expect(() => getFretDataArray("c4", startFret, endFret, "dim")).to.throw();
   });
 
   it("should generate frets with aug 4 interval", () => {
@@ -16,7 +19,7 @@ describe("getFretDataArray()", () => {
       interval: "A4",
     };
 
-    const frets: FretData[] = getFretDataArray(rootNote, 12, "aug");
+    const frets: FretData[] = getFretDataArray(rootNote, 0, 12, "aug");
     expect(frets).to.have.length(13);
     expect(frets).to.have.deep.include(aug4);
   });
@@ -29,7 +32,7 @@ describe("getFretDataArray()", () => {
       interval: "d5",
     };
 
-    const frets: FretData[] = getFretDataArray(rootNote, 12, "dim");
+    const frets: FretData[] = getFretDataArray(rootNote, 0, 12, "dim");
     expect(frets).to.have.length(13);
     expect(frets).to.deep.include(dim5);
   });
@@ -47,8 +50,8 @@ describe("getFretDataArray()", () => {
       interval: "A11",
     };
 
-    const fretsWithAug: FretData[] = getFretDataArray(rootNote, 21, "aug");
-    expect(fretsWithAug).to.have.length(22);
+    const fretsWithAug: FretData[] = getFretDataArray(rootNote, 0, 20, "aug");
+    expect(fretsWithAug).to.have.length(21);
 
     expect(fretsWithAug).to.deep.include(aug11);
 
@@ -58,9 +61,9 @@ describe("getFretDataArray()", () => {
       interval: "d12",
     };
 
-    const fretsWithDim: FretData[] = getFretDataArray(rootNote, 21, "dim");
+    const fretsWithDim: FretData[] = getFretDataArray(rootNote, 0, 20, "dim");
 
-    expect(fretsWithDim).to.have.length(22);
+    expect(fretsWithDim).to.have.length(21);
     expect(fretsWithDim).to.deep.include(dim12);
   });
 });
