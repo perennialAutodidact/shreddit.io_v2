@@ -7,6 +7,8 @@ import Fret from "components/StringedInstrument/Fret";
 import { getFretDataArray } from "common/utils/getFretDataArray";
 import { BreakpointState } from "ts/breakpoints";
 
+const teoria = require("teoria");
+
 interface StringProps {
   rootNote: Note;
   stringNumber: StringNumber;
@@ -16,26 +18,19 @@ const String: React.FC<StringProps> = ({
   rootNote,
   stringNumber,
 }: StringProps) => {
-  const { strings } = useAppSelector((appState) => appState.instrument);
-  const { isMobile } = useContext<BreakpointState>(BreakpointContext);
-  const { totalFrets } = useAppSelector((appState) => appState.instrument);
+  const { totalFrets, startFret, endFret } = useAppSelector(
+    (appState) => appState.instrument
+  );
   const { scale } = useAppSelector((appState) => appState.musicTheory);
   const stringRef = useRef<HTMLDivElement>(null);
-
-  const isFirstString = useMemo<boolean>(
-    () => stringNumber === 0,
-    [stringNumber]
-  );
-  const isLastString = useMemo<boolean>(
-    () => stringNumber === strings.length - 1,
-    [stringNumber, strings]
-  );
 
   const frets = useMemo<FretData[]>(
     () =>
       getFretDataArray(
         rootNote,
-        totalFrets,
+        startFret,
+        endFret,
+
         scale.intervals.includes("A4") ? "aug" : "dim"
       ),
     [rootNote, totalFrets, scale.intervals]
@@ -44,29 +39,16 @@ const String: React.FC<StringProps> = ({
   return (
     <div
       className={`
-        d-flex flex-column flex-lg-row my-2 my-lg-0 mx-lg-3
+        d-flex flex-column flex-lg-row my-2 my-lg-0 me-lg-3
       `}
       ref={stringRef}
       data-test-id={"String"}
     >
-      <div
-        className={`
-          ${!isMobile ? "w-50" : ""}
-          ${isFirstString ? (isMobile ? "rounded-start" : "rounded-top") : ""}
-          ${isLastString ? (isMobile ? "rounded-end" : "rounded-bottom") : ""}
-          bg-light bg-opacity-75
-          text-center fs-4 fw-bolder
-          d-flex align-items-center justify-content-center
-        `}
-        data-test-id="StringLabel"
-      >
-        {frets[0].noteName.toUpperCase()}
-      </div>
       {frets.map((fret, i) => (
         <Fret
           {...fret}
           stringNumber={stringNumber}
-          fretNumber={i as FretNumber}
+          fretNumber={(startFret + i) as FretNumber}
           key={`string-${stringNumber}-fret-${i}`}
         />
       ))}
