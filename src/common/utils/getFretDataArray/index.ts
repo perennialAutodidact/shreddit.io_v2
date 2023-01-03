@@ -1,5 +1,9 @@
 import { Note, Interval, NoteName, OctaveNumber } from "ts/musicTheory";
-import { FretData, FretNumber } from "ts/stringedInstrument";
+import {
+  FretData,
+  FretNumber,
+  StringedInstrumentState,
+} from "ts/stringedInstrument";
 import {
   intervalsWithAug,
   intervalsWithDim,
@@ -17,13 +21,21 @@ const teoria = require("teoria");
  */
 export const getFretDataArray = (
   _rootNote: Note,
-  totalFrets: FretNumber,
+  // totalFrets: FretNumber,
+  startFret: StringedInstrumentState["startFret"],
+  endFret: StringedInstrumentState["endFret"],
   augOrDim: "aug" | "dim"
 ): FretData[] => {
+  const totalFrets = endFret - startFret;
   if (totalFrets < MIN_NECK_LENGTH) {
     throw new RangeError(`Neck length must be at least ${MIN_NECK_LENGTH}`);
   }
-  const fretNumbers: number[] = [...Array(totalFrets + 1)].map((_, i) => i);
+  let fretNumbers: number[] = [];
+
+  for (let i = startFret; i <= endFret; ++i) {
+    fretNumbers.push(i);
+  }
+
   const intervals: Interval[] =
     augOrDim === "aug" ? intervalsWithAug : intervalsWithDim;
   const rootNote = teoria.note(_rootNote);
