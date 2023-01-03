@@ -12,10 +12,10 @@ const UtilityBar = () => {
         <div className="col-2 col-lg-1 d-flex align-items-end">
           <SettingsMenuToggle />
         </div>
-        <div className="col-3 col-lg-3 offset-lg-2 position-relative">
+        <div className="col-5 col-lg-2 offset-lg-4 position-relative">
           <MusicKeySelect />
         </div>
-        <div className="col-7 col-lg-5">
+        <div className="col-9 col-lg-5">
           <MusicScaleSelect />
         </div>
       </div>

@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useEffect, useContext } from "react";
 import { useAppSelector } from "store/hooks";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
 import { BreakpointState } from "ts/breakpoints";
-import { Interval, Note } from "ts/musicTheory";
+import { Interval, NoteName } from "ts/musicTheory";
 import { FretData, FretNumber, StringNumber } from "ts/stringedInstrument";
 import { INLAY_FRET_INDICES } from "common/constants/stringedInstruments";
 import NoteMarker from "components/NoteMarker";
@@ -13,12 +13,16 @@ const teoria = require("teoria");
 interface FretProps extends FretData {
   stringNumber: StringNumber;
   fretNumber: FretNumber;
+  noteName: NoteName;
 }
 
 const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
   const { isMobile } = useContext<BreakpointState>(BreakpointContext);
   const {
     dimensions: { fret },
+    startFret,
+    endFret,
+    strings,
   } = useAppSelector((appState) => appState.instrument);
   const { currentKey, scale } = useAppSelector(
     (appState) => appState.musicTheory
@@ -66,7 +70,6 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     () =>
       !scale.notes.includes(noteName)
         ? enharmonics.filter((enharmonic: any) => {
-            console.log(enharmonic);
             return scale.notes.includes(enharmonic);
           })[0]
         : noteName,
@@ -89,14 +92,26 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     [stringNumber, fretNumber]
   );
 
+  const isLastStringFret = useMemo<boolean>(
+    () => stringNumber === strings.length - 1,
+    [stringNumber, strings]
+  );
+
+  const isLastFretOnString = useMemo<boolean>(
+    () =>
+      (isMobile && fretNumber === endFret) ||
+      (!isMobile && fretNumber === endFret && isLastStringFret),
+    [isMobile, fretNumber, endFret, isLastStringFret]
+  );
+
   // apply border style
   const fretBorders = useMemo<string>(
     () =>
       fretNumber === 0
         ? styles.openFret
-        : fretNumber === 1
+        : fretNumber === startFret || fretNumber === 1
         ? styles.firstFret
-        : fretNumber > 0
+        : fretNumber > 1
         ? styles.fret
         : "",
     [fretNumber]
@@ -110,6 +125,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
         : 0.5,
     [activePitch, noteName]
   );
+
   const markerSize = useMemo(
     () => fret.height * markerScalar,
     [fret.height, markerScalar]
@@ -131,10 +147,18 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
         d-flex justify-content-center align-items-center
         position-relative bg-opacity-75
         ${!isMobile ? "w-100" : ""}
+        ${isLastFretOnString ? styles.lastFret : ""}
         ${isFirstStringFret ? styles.firstStringFret : ""}
-        ${fretBorders}
+        ${isLastStringFret && fretNumber > 0 ? styles.lastStringFret : ""}
         ${fretNumber > 0 ? (isInlay ? "bg-inlay-fret" : "bg-fret") : ""}
-      `}
+        ${fretNumber === startFret ? "start-fret" : ""}
+        ${fretBorders}
+        ${
+          startFret > 0 && fretNumber === startFret
+            ? "mt-3 mt-lg-0 ms-lg-3"
+            : ""
+        }
+        `}
       ref={fretRef}
     >
       {showMarker ? (
@@ -144,7 +168,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
           size={markerSize}
         />
       ) : (
-        ""
+        fretNumber
       )}
     </div>
   );

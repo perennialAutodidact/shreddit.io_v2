@@ -1,5 +1,14 @@
 @import "../../../styles/shreddit-variables";
 
+.neck {
+  background-image: url("../../../../public/images/woodGrainBGMobile.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  border-radius: 10px;
+  border: 2px solid $custom-dark;
+}
+
 .stringContainer {
   position: relative;
   overflow: hidden;
@@ -10,13 +19,6 @@
   height: 96%;
   width: 96%;
 
-  border-radius: 10px;
-  border: 2px solid $custom-dark;
-
-  background-image: url("../../../../public/images/woodGrainBGMobile.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-
   position: absolute;
   z-index: -1;
 }
@@ -25,6 +27,9 @@
   .stringContainer::before {
     width: 100%;
     height: 100%;
+  }
+
+  .neck {
     background-image: url("../../../../public/images/woodGrainBGDesktop.png");
   }
 }

@@ -13,8 +13,8 @@ const IntervalDisplay = ({ markerSize }: IntervalDisplayProps) => {
       <div className="row">
         <div
           className="
-            col-10 offset-1 
-            col-lg-6 offset-lg-3 
+            col-14 offset-1 
+            col-lg-6 offset-lg-5
             d-flex justify-content-between"
         >
           {scale.intervals.map((interval, index) => (

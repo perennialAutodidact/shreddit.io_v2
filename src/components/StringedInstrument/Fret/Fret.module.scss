@@ -10,15 +10,22 @@
 
 .firstFret {
   border-right: 1px solid $custom-dark;
-  border-bottom: 1px solid $custom-dark;
+  border-top: 1px solid $custom-dark;
 }
 
 .fret {
   border-right: 1px solid $custom-dark;
+  border-top: 1px solid $custom-dark;
+}
+
+.lastFret {
   border-bottom: 1px solid $custom-dark;
 }
 
 @media screen and (min-width: 992px) {
+  .fret {
+  }
+
   .openFret {
     border-right: 6px double $custom-dark;
     border-bottom: none;
@@ -29,7 +36,15 @@
     border-left: none;
   }
 
+  .lastStringFret {
+    border-bottom: 1px solid $custom-dark;
+  }
+
   .firstFret {
-    border-left: 2px solid $custom-dark;
+    border-left: 1px solid $custom-dark;
+  }
+
+  .lastFret {
+    // border-bottom: none;
   }
 }
