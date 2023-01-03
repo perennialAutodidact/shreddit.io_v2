@@ -69,6 +69,8 @@ export interface StringedInstrumentState {
   tuningName: TuningName;
   strings: Tuning;
   totalFrets: NrRange<6, 21>;
+  startFret: NrRange<0, 21>;
+  endFret: NrRange<6, 21>;
   markedNotes: NoteName[];
   dimensions: StringedInstrumentDimensions;
 }
