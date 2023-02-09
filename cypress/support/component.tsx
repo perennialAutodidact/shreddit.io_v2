@@ -21,6 +21,7 @@ import "./commands";
 
 import React from "react";
 import { mount } from "cypress/react18";
+import "cypress-real-events";
 import { MountReactComponentOptions } from "cypress/react";
 import { configure } from "@testing-library/cypress";
 import { MountReturn } from "cypress/react";

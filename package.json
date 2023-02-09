@@ -35,7 +35,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "./node_modules/.bin/cypress run -r nyan",
-    "cypress": "./node_modules/.bin/cypress open",
+    "cypress open": "./node_modules/.bin/cypress open",
+    "cypress run": "./node_modules/.bin/cypress run",
+    "cypress": "./node_modules/.bin/cypress",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -62,6 +64,7 @@
     "@testing-library/cypress": "^8.0.7",
     "cypress": "^12.0.2",
     "cypress-log-to-output": "^1.1.2",
+    "cypress-real-events": "^1.7.6",
     "react-scripts": "^5.0.1",
     "standardized-audio-context-mock": "^9.6.8",
     "web-audio-test-api": "^0.5.2"
