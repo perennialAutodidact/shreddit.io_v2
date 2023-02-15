@@ -18,7 +18,7 @@ const String: React.FC<StringProps> = ({
   rootNote,
   stringNumber,
 }: StringProps) => {
-  const { totalFrets, startFret, endFret } = useAppSelector(
+  const { startFret, endFret } = useAppSelector(
     (appState) => appState.instrument
   );
   const { scale } = useAppSelector((appState) => appState.musicTheory);
@@ -33,7 +33,7 @@ const String: React.FC<StringProps> = ({
 
         scale.intervals.includes("A4") ? "aug" : "dim"
       ),
-    [rootNote, totalFrets, scale.intervals]
+    [rootNote, startFret, endFret, scale.intervals]
   );
 
   return (

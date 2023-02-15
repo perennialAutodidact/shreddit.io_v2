@@ -1,21 +1,33 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import { FretNumber } from "ts/stringedInstrument";
 import Slider from "./Slider";
 import styles from "./MultiRangeSlider.module.scss";
 
+export type HandleChange = <U, V>({ min, max }: { min: U; max: V }) => void;
+
 type MultiRangeSliderProps<T> = {
   min: T;
+  minVal: T;
   max: T;
-  handleChange: (values: { min: FretNumber; max: FretNumber }) => void;
+  maxVal: T;
+  handleChange: HandleChange;
 };
 
 const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
   min,
+  minVal,
   max,
+  maxVal,
   handleChange,
 }: MultiRangeSliderProps<FretNumber>) => {
-  const [minVal, setMinVal] = useState<FretNumber>(0);
-  const [maxVal, setMaxVal] = useState<FretNumber>(6);
+  const [_minVal, setMinVal] = useState<FretNumber>(minVal);
+  const [_maxVal, setMaxVal] = useState<FretNumber>(maxVal);
   const minValRef = useRef<HTMLInputElement>(null);
   const maxValRef = useRef<HTMLInputElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -25,23 +37,34 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
     [min, max]
   );
 
-  useEffect(() => {}, []);
+  const minHasChanged = useMemo<boolean>(
+    () => _minVal !== minVal,
+    [_minVal, minVal]
+  );
+  const maxHasChanged = useMemo<boolean>(
+    () => _maxVal !== maxVal,
+    [_maxVal, maxVal]
+  );
+  const sliderHasChanged = useMemo<boolean>(
+    () => minHasChanged || maxHasChanged,
+    [minHasChanged, maxHasChanged]
+  );
 
   useEffect(() => {
     if (minValRef.current) {
       const minPercent = getPercent(+minValRef.current.value as FretNumber);
-      const maxPercent = getPercent(maxVal);
+      const maxPercent = getPercent(_maxVal);
 
       if (sliderRef.current) {
         sliderRef.current.style.left = `${minPercent}%`;
         sliderRef.current.style.width = `${maxPercent - minPercent}%`;
       }
     }
-  }, [minVal, getPercent]);
+  }, [_minVal, getPercent]);
 
   useEffect(() => {
     if (maxValRef.current) {
-      const minPercent = getPercent(minVal);
+      const minPercent = getPercent(_minVal);
       const maxPercent = getPercent(+maxValRef.current.value as FretNumber);
 
       if (sliderRef.current) {
@@ -49,12 +72,19 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
         sliderRef.current.style.width = `${maxPercent - minPercent}%`;
       }
     }
-  }, [maxVal, getPercent]);
+  }, [_maxVal, getPercent]);
 
   useEffect(() => {
-    console.log("value changed");
-    handleChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, handleChange]);
+    if (sliderHasChanged) {
+      if (minHasChanged && _minVal > maxVal - 6) {
+        setMinVal((maxVal - 6) as FretNumber);
+      } else if (maxHasChanged && _maxVal < minVal + 6) {
+        setMaxVal((minVal + 6) as FretNumber);
+      } else {
+        handleChange({ min: _minVal, max: _maxVal });
+      }
+    }
+  }, [minVal, _minVal, maxVal, _maxVal, handleChange]);
 
   return (
     <div
@@ -71,7 +101,7 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
           data-test-id="MultiSliderThumbLeft"
           min={min}
           max={max}
-          value={minVal}
+          value={_minVal}
           ref={minValRef}
           onChange={(e) => setMinVal(+e.target.value as FretNumber)}
           className={`${styles.thumb} ${styles.thumbIndex4}`}
@@ -81,12 +111,12 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
           data-test-id="MultiSliderThumbRight"
           min={min}
           max={max}
-          value={maxVal}
+          value={_maxVal}
           ref={maxValRef}
           onChange={(e) => setMaxVal(+e.target.value as FretNumber)}
           className={`${styles.thumb} ${styles.thumbIndex5}`}
         />
-        <Slider ref={sliderRef} minVal={minVal} maxVal={maxVal} />
+        <Slider ref={sliderRef} minVal={_minVal} maxVal={_maxVal} />
       </div>
     </div>
   );

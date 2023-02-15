@@ -4,6 +4,7 @@ import {
   StringedInstrumentDimensions,
   StringedInstrumentName,
   TuningName,
+  FretNumber,
 } from "ts/stringedInstrument";
 import { NoteName } from "ts/musicTheory";
 import { getTuning } from "common/utils/getTuning";
@@ -44,4 +45,15 @@ export const _setMarkedNotes: CaseReducer<
 > = (state, action) => ({
   ...state,
   markedNotes: action.payload,
+});
+
+export const _setFretRange: CaseReducer<
+  StringedInstrumentState,
+  PayloadAction<{
+    startFret: StringedInstrumentState["startFret"];
+    endFret: StringedInstrumentState["endFret"];
+  }>
+> = (state, action) => ({
+  ...state,
+  ...action.payload,
 });
