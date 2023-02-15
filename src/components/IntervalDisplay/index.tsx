@@ -9,7 +9,7 @@ const IntervalDisplay = ({ markerSize }: IntervalDisplayProps) => {
   const { scale } = useAppSelector((appState) => appState.musicTheory);
 
   return (
-    <div className={`container`} data-testid="IntervalDisplay">
+    <div className={`container`} data-test-id="IntervalDisplay">
       <div className="row">
         <div
           className="
@@ -25,7 +25,7 @@ const IntervalDisplay = ({ markerSize }: IntervalDisplayProps) => {
               <div
                 className={`bg-${interval} border border-2 border-dark rounded-circle`}
                 style={{ height: `${markerSize}px`, width: `${markerSize}px` }}
-                data-testid={`IntervalDisplayMarker-${interval}`}
+                data-test-id={`IntervalDisplayMarker-${interval}`}
               ></div>
               <div>{interval}</div>
             </div>
