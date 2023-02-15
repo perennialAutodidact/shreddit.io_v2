@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react";
 import { useAppSelector } from "store/hooks";
 import StringLabels from "../StringLabels";
-import FretRangeLabel from "../FretRangeLabel";
 import styles from "./Neck.module.scss";
 
 interface NeckProps {
