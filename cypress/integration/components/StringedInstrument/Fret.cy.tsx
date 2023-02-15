@@ -160,12 +160,12 @@ describe("<Fret />", () => {
   });
 
   it("should render start fret with first fret style if startFret is 1", () => {
-    const startFret: StringedInstrumentState["startFret"] = 5;
+    const startFret: StringedInstrumentState["startFret"] = 1;
     const endFret: StringedInstrumentState["endFret"] = 12;
     let initialState = buildInitialState<RootState>({
       instrument: {
-        startFret: 6,
-        endFret: 12,
+        startFret,
+        endFret,
       },
     });
 
@@ -186,6 +186,6 @@ describe("<Fret />", () => {
     );
 
     cy.get(".start-fret").first().should("not.have.class", styles.openFret);
-    cy.get(".start-fret").first().should("have.class", styles.fret);
+    cy.get(".start-fret").first().should("have.class", styles.firstFret);
   });
 });

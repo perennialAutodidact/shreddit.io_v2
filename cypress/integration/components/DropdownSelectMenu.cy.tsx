@@ -16,6 +16,7 @@ describe("<DropdownSelectMenu />", () => {
           labelText={labelText}
           options={options}
           appStateSetter={cy.stub().as("appStateSetter")}
+          defaultOption={options[0]}
         />
       </div>
     );

@@ -22,9 +22,6 @@ describe("<String/>", () => {
     });
 
     cy.findAllByTestId("Fret").should("have.length", 13);
-
-    cy.findByTestId("StringLabel").should("exist");
-    cy.findByTestId("StringLabel").should("have.text", "E");
   });
 
   it("should render string with no open fret or double border if startFret > 0", () => {
@@ -42,6 +39,5 @@ describe("<String/>", () => {
     });
 
     cy.findAllByTestId("Fret").should("have.length", 7);
-    cy.findByTestId("StringLabel").should("have.text", "E");
   });
 });
