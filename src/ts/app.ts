@@ -4,4 +4,8 @@ export type AppState = {
   currentInstrument: SampleLibraryInstrument;
   isPlayingAudio: boolean;
   showSettingsMenu: boolean;
+
+  versionNumbers: {
+    scaleExplorer: string;
+  };
 };

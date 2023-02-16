@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import * as Tone from "tone";
+import { useAppSelector } from "store/hooks";
 import StringedInstrument from "components/StringedInstrument";
 import IntervalDisplay from "components/IntervalDisplay";
 import AudioControls from "common/components/AudioControls";
 import AudioClient from "common/services/AudioClient";
 
 const ScaleExplorerPage = () => {
+  const { versionNumbers } = useAppSelector((appState) => appState.app);
   const [audioClientLoaded, setAudioClientLoaded] = useState<boolean>(false);
 
   const audioClient = useRef<AudioClient>();
@@ -31,12 +33,13 @@ const ScaleExplorerPage = () => {
       <div className="row mb-3">
         <IntervalDisplay markerSize={35} />
       </div>
-      <div className="row mb-3">
+      <div className="row">
         <AudioControls
           audioClient={audioClient.current}
           isLoaded={audioClientLoaded}
         />
       </div>
+      <div className="row text-muted">v{versionNumbers.scaleExplorer}</div>
     </div>
   );
 };
