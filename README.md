@@ -3,10 +3,12 @@
 Shreddit.io is a tool for musicians to explore scales and chords on a variety of instruments. 
 
 ## Features
+ ## Scale Explorer
+Visualize scales on various stringed instruments. Playback scale audio with visual feedback on the neck.
 
 ### General Settings
 - [x] Key
-- [ ] Start/end frets
+- [x] Start/end frets
 - [x] Instrument
 - [x] Tuning
 - [ ] Color Blind Mode
