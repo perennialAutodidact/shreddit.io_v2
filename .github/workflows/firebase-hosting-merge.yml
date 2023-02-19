@@ -49,6 +49,7 @@ jobs:
       # Cypress Variables
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # CYPRESS_BASE_URL: http://localhost:3021
+      CYPRESS_CACHE_FOLDER: /app/.cache
 
       # Authorization for firebase-admin
 
