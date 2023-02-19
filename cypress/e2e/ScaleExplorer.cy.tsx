@@ -5,7 +5,7 @@ describe("Scale explorer page", () => {
   const sliderThumbRight = "MultiSliderThumbRight";
 
   it("should show the number of frets represented on the fret slider", () => {
-    cy.visit("http://localhost:3000");
+    cy.visit("http://localhost:3000/");
 
     cy.findByTestId(sliderLabelLeft).should("have.text", "0");
     cy.findByTestId(sliderLabelRight).should("have.text", "12");
