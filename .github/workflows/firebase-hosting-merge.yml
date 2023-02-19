@@ -16,8 +16,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Change ownership of cache folder for Cypress install
-        run: mkdir /github/home/.cache && chown -R 1001 /github/home/.cache && "changed ownership of cache directory"
+      # - name: Change ownership of cache folder for Cypress install
+      #   run: mkdir /github/home/.cache && chown -R 1001 /github/home/.cache && "changed ownership of cache directory"
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -49,7 +49,7 @@ jobs:
       # Cypress Variables
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # CYPRESS_BASE_URL: http://localhost:3021
-      CYPRESS_CACHE_FOLDER: /github/home/.cache
+      # CYPRESS_CACHE_FOLDER: /github/home/.cache
 
       # Authorization for firebase-admin
 
