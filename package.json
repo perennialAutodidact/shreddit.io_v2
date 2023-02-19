@@ -1,6 +1,6 @@
 {
   "name": "shreddit.io",
-  "version": "0.1.0",
+  "version": "2.0.0-alpha",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
@@ -15,6 +15,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
     "bootstrap": "^5.2.1",
+    "firebase": "^9.17.1",
     "gsap": "^3.11.3",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
@@ -38,6 +39,7 @@
     "cypress open": "./node_modules/.bin/cypress open",
     "cypress run": "./node_modules/.bin/cypress run",
     "cypress": "./node_modules/.bin/cypress",
+    "ci": "./node_modules/.bin/cypress run && ./node_modules/.bin/cypress run --component",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -65,6 +67,7 @@
     "cypress": "^12.0.2",
     "cypress-log-to-output": "^1.1.2",
     "cypress-real-events": "^1.7.6",
+    "html-webpack-plugin": "^5.5.0",
     "react-scripts": "^5.0.1",
     "standardized-audio-context-mock": "^9.6.8",
     "web-audio-test-api": "^0.5.2"
