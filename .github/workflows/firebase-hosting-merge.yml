@@ -13,37 +13,37 @@ jobs:
     container: cypress/included:7.0.1
 
     steps:
-      name: Checkout Repo
+      - name: Checkout Repo
       uses: actions/checkout@v2
 
-      name: Install Dependencies
+      - name: Install Dependencies
       run: yarn install
 
       # Install Java for Firebase CLI
-      name: Install Java
+      - name: Install Java
       uses: actions/setup-java@v2
       with:
           distribution: "adopt"
           java-version: "11"
 
       # Run all Cypress tests in Chrome using Firebase emulator
-      name: Cypress Run
+      - name: Cypress Run
       uses: cypress-io/github-action@v2.9.7
       with:
         browser: chrome
         build: yarn build
         start: yarn start
 
-      env:
-        # Authorize Firebase CLI
-        # FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+    env:
+      # Authorize Firebase CLI
+      # FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-        # Cypress Variables
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # CYPRESS_BASE_URL: http://localhost:3021
+      # Cypress Variables
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # CYPRESS_BASE_URL: http://localhost:3021
 
-        # Authorization for firebase-admin
+      # Authorization for firebase-admin
 
-        # FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-        # FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-        # FIREBASE_EMULATOR_HOST: localhost:8080
+      # FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+      # FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+      # FIREBASE_EMULATOR_HOST: localhost:8080
