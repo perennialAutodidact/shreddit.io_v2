@@ -10,7 +10,9 @@ jobs:
   e2e:
     name: End-to-end
     runs-on: ubuntu-latest
-    container: cypress/included:7.0.1
+    container:
+      image: cypress/included:7.0.1
+      options: --user 1001
 
     steps:
       - name: Checkout Repo
