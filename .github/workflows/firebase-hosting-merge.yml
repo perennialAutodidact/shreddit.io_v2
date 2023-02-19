@@ -10,13 +10,12 @@ jobs:
   e2e:
     name: End-to-end
     runs-on: ubuntu-latest
-    container:
-      image: cypress/included:7.0.1
-      options: --user 1001
+    container: cypress/included:7.0.1
 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
+        run: chown -R 1001 /github/home/.cache && "changed ownership of cache directory"
 
       - name: Setup Node
         uses: actions/setup-node@v3
