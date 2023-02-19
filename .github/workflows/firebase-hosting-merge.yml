@@ -13,21 +13,21 @@ jobs:
     container: cypress/included:7.0.1
 
     steps:
-      - name: Checkout Repo
+      name: Checkout Repo
       uses: actions/checkout@v2
 
-      - name: Install Dependencies
+      name: Install Dependencies
       run: yarn install
 
       # Install Java for Firebase CLI
-      - name: Install Java
+      name: Install Java
       uses: actions/setup-java@v2
       with:
           distribution: "adopt"
           java-version: "11"
 
       # Run all Cypress tests in Chrome using Firebase emulator
-      - name: Cypress Run
+      name: Cypress Run
       uses: cypress-io/github-action@v2.9.7
       with:
         browser: chrome
