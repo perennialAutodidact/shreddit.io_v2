@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
+
+      - name: Change ownership of cache folder for Cypress install
         run: chown -R 1001 /github/home/.cache && "changed ownership of cache directory"
 
       - name: Setup Node
