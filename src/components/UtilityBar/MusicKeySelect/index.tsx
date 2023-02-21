@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { setCurrentKey } from "store/musicTheorySlice";
 import { musicKeys } from "common/constants/musicTheory";
@@ -24,12 +24,15 @@ const MusicKeySelect = () => {
     appDispatch(setCurrentKey(newKey));
   };
 
-  const [defaultOption, setDefaultOption] = useState<
-    DropdownSelectOption<MusicKey>
-  >({
-    label: musicKeys[currentKey as MusicKey],
-    value: currentKey as MusicKey,
-  });
+  const [defaultOption, setDefaultOption] =
+    useState<DropdownSelectOption<MusicKey> | null>(null);
+
+  useEffect(() => {
+    setDefaultOption({
+      label: musicKeys[currentKey as MusicKey],
+      value: currentKey as MusicKey,
+    });
+  }, [currentKey]);
 
   return (
     <DropdownSelectMenu

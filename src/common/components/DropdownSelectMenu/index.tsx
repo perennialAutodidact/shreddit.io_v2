@@ -9,6 +9,7 @@ import { BreakpointContext } from "../BreakpointProvider/context";
 import { useOnClickOutside } from "common/hooks/useOnClickOutside";
 import { useWindowSize } from "usehooks-ts";
 import styles from "./DropdownSelectMenu.module.scss";
+import LoadingIndicator from "../LoadingIndicator";
 
 export type DropdownSelectOption<T> = {
   label: string;
@@ -17,7 +18,7 @@ export type DropdownSelectOption<T> = {
 
 export type DropdownSelectMenuProps<T> = {
   labelText: string;
-  defaultOption: DropdownSelectOption<T>;
+  defaultOption: DropdownSelectOption<T> | null;
   options: DropdownSelectOption<T>[];
   appStateSetter: (arg: T) => void;
 };
@@ -37,7 +38,7 @@ const DropdownSelectMenu = <T,>({
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
   const [selectedOption, setSelectedOption] =
-    useState<DropdownSelectOption<T>>(defaultOption);
+    useState<DropdownSelectOption<T> | null>(defaultOption);
 
   const toggleShowOptions = () => {
     setShowOptions((showOptions) => !showOptions);
@@ -65,6 +66,10 @@ const DropdownSelectMenu = <T,>({
     }
   }, [showOptions, windowWidth, isMobile]);
 
+  useEffect(() => {
+    setSelectedOption(defaultOption);
+  }, [defaultOption]);
+
   return (
     <div
       className={`
@@ -75,19 +80,23 @@ const DropdownSelectMenu = <T,>({
       ref={ref}
     >
       <div className={`fw-bold`}>{labelText}</div>
-      <div
-        className={`
-            ${styles.menuToggle}
-            ${showOptions ? "border-info" : ""}
-            p-2 
-            rounded shadow
-            fw-bolder
+      {!selectedOption ? (
+        <LoadingIndicator />
+      ) : (
+        <div
+          className={`
+        ${styles.menuToggle}
+        ${showOptions ? "border-info" : ""}
+        p-2 
+        rounded shadow
+        fw-bolder
         `}
-        onClick={toggleShowOptions}
-        data-test-id="DropdownSelectMenuToggle"
-      >
-        {selectedOption.label}
-      </div>
+          onClick={toggleShowOptions}
+          data-test-id="DropdownSelectMenuToggle"
+        >
+          {selectedOption.label}
+        </div>
+      )}
       {showOptions ? (
         <div
           className={`

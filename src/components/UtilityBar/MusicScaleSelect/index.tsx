@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import { SCALES_WITH_LABELS } from "common/constants/musicTheory";
 import { setScale } from "store/musicTheorySlice";
@@ -20,12 +20,15 @@ const MusicScaleSelect = () => {
     [appDispatch]
   );
 
-  const [defaultOption, setDefaultOption] = useState<
-    DropdownSelectOption<ScaleName>
-  >(
-    dropdownOptions.find((option) => option.value === scale.name) ||
-      dropdownOptions[0]
-  );
+  const [defaultOption, setDefaultOption] =
+    useState<DropdownSelectOption<ScaleName> | null>(null);
+
+  useEffect(() => {
+    const _defaultOption =
+      dropdownOptions.find((option) => option.value === scale.name) ||
+      dropdownOptions[0];
+    setDefaultOption(_defaultOption);
+  }, [scale]);
 
   return (
     <DropdownSelectMenu
