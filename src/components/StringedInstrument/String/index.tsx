@@ -1,13 +1,9 @@
-import React, { useContext, useRef, useMemo } from "react";
+import React, { useRef, useMemo } from "react";
 import { useAppSelector } from "store/hooks";
-import { BreakpointContext } from "common/components/BreakpointProvider/context";
 import { Note } from "ts/musicTheory";
 import { StringNumber, FretData, FretNumber } from "ts/stringedInstrument";
 import Fret from "components/StringedInstrument/Fret";
 import { getFretDataArray } from "common/utils/getFretDataArray";
-import { BreakpointState } from "ts/breakpoints";
-
-const teoria = require("teoria");
 
 interface StringProps {
   rootNote: Note;

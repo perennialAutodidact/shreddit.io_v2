@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { FretNumber } from "ts/stringedInstrument";
 import styles from "./MultiRangeSlider.module.scss";
 

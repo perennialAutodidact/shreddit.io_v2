@@ -1,6 +1,4 @@
-import React from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
-import { FretNumber, StringedInstrumentState } from "ts/stringedInstrument";
 import MusicKeySelect from "components/UtilityBar/MusicKeySelect";
 import MusicScaleSelect from "components/UtilityBar/MusicScaleSelect";
 import SettingsMenuToggle from "components/UtilityBar/SettingsMenuToggle";

@@ -60,7 +60,7 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
         sliderRef.current.style.width = `${maxPercent - minPercent}%`;
       }
     }
-  }, [_minVal, getPercent]);
+  }, [_minVal, _maxVal, getPercent]);
 
   useEffect(() => {
     if (maxValRef.current) {
@@ -72,7 +72,7 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
         sliderRef.current.style.width = `${maxPercent - minPercent}%`;
       }
     }
-  }, [_maxVal, getPercent]);
+  }, [_minVal, _maxVal, getPercent]);
 
   useEffect(() => {
     if (sliderHasChanged) {
@@ -84,7 +84,16 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
         handleChange({ min: _minVal, max: _maxVal });
       }
     }
-  }, [minVal, _minVal, maxVal, _maxVal, handleChange]);
+  }, [
+    minVal,
+    _minVal,
+    maxVal,
+    _maxVal,
+    sliderHasChanged,
+    minHasChanged,
+    maxHasChanged,
+    handleChange,
+  ]);
 
   return (
     <div

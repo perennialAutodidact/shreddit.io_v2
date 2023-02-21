@@ -1,11 +1,5 @@
 import * as Tone from "tone";
-import {
-  sampleMap,
-  SampleMap,
-  SampleMapKey,
-  Note,
-  SampleFileName,
-} from "./sampleMap";
+import { SampleMap, SampleMapKey, Note, SampleFileName } from "./sampleMap";
 import { FileExtension, SampleLibraryInstrument } from "ts/SampleLibrary";
 
 export interface SampleLibraryOptions {
@@ -122,12 +116,12 @@ class SampleLibrary {
       this.options = this._updateOptions(options);
     }
 
-    let { instruments, minify, baseUrl, urls, onLoad } = this.options;
+    let { instruments, baseUrl, urls, onLoad } = this.options;
 
     instruments?.forEach((instrument) => {
-      let samples = minify
-        ? this._minifySamples(sampleMap[instrument])
-        : sampleMap; //[instrument];
+      // let samples = minify
+      //   ? this._minifySamples(sampleMap[instrument])
+      //   : sampleMap; //[instrument];
 
       instrumentSamplers[instrument as keyof InstrumentSamplers] =
         new this.Tone.Sampler({

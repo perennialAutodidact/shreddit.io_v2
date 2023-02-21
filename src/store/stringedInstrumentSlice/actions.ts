@@ -4,7 +4,6 @@ import {
   StringedInstrumentDimensions,
   StringedInstrumentName,
   TuningName,
-  FretNumber,
 } from "ts/stringedInstrument";
 import { NoteName } from "ts/musicTheory";
 import { getTuning } from "common/utils/getTuning";

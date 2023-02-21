@@ -1,5 +1,4 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
-import { AudioClientState } from "ts/AudioClient";
 import { MusicTheoryState, ScaleName } from "ts/musicTheory";
 import { Note } from "ts/musicTheory";
 import { getScaleData } from "common/utils/getScaleData";

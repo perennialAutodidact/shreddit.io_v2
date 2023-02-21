@@ -1,5 +1,4 @@
-import { titleize } from "common/utils/titleize";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Interval, NoteName } from "ts/musicTheory";
 import styles from "./NoteMarker.module.scss";
 

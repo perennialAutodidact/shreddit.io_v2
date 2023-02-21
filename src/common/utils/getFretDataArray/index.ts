@@ -1,9 +1,5 @@
 import { Note, Interval, NoteName, OctaveNumber } from "ts/musicTheory";
-import {
-  FretData,
-  FretNumber,
-  StringedInstrumentState,
-} from "ts/stringedInstrument";
+import { FretData, StringedInstrumentState } from "ts/stringedInstrument";
 import {
   intervalsWithAug,
   intervalsWithDim,

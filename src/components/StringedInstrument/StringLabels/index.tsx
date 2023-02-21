@@ -41,7 +41,7 @@ const StringLabels = () => {
         }
       });
     }
-  }, [neck, fret]);
+  }, [isMobile, neck, fret]);
 
   return (
     <div

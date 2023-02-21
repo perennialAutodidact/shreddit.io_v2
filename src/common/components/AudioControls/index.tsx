@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-  useRef,
-} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "store/hooks";
 import AudioClient from "common/services/AudioClient";
 import {
@@ -16,10 +10,7 @@ import { Note, Chord } from "ts/musicTheory";
 import * as Tone from "tone";
 import { setActivePitch, setAudioData } from "store/audioClientSlice";
 import LoadingIndicator from "common/components/LoadingIndicator";
-import { getScaleData } from "common/utils/getScaleData";
 import { getScalePitches } from "common/utils/getScalePitches";
-
-const teoria = require("teoria");
 
 type AudioControlsProps = {
   audioClient: AudioClient | undefined;
@@ -47,7 +38,7 @@ const AudioControls = ({ audioClient, isLoaded }: AudioControlsProps) => {
         pitchesToPlay,
       })
     );
-  }, [scale]);
+  }, [scale, currentKey, appDispatch]);
 
   const togglePlayAudio = useCallback(async (): Promise<void> => {
     if (audioClient) {
@@ -69,7 +60,7 @@ const AudioControls = ({ audioClient, isLoaded }: AudioControlsProps) => {
         setIsPlaying(false);
       }
     }
-  }, [audioData, isPlaying, audioClient]);
+  }, [audioData, isPlaying, audioClient, appDispatch]);
 
   const stopAudio = async (): Promise<void> => {
     if (audioClient) {

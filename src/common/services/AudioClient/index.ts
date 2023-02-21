@@ -46,6 +46,7 @@ class AudioClient {
   ): AudioPartItem[] | {} {
     let progressTime = 0;
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let durations = rhythmDurations.map((duration) => {
       let durationSeconds = Tone.Time(duration).toSeconds();
 

@@ -73,7 +73,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
             return scale.notes.includes(enharmonic);
           })[0]
         : noteName,
-    [fretInterval, noteName, enharmonics]
+    [noteName, enharmonics, scale.notes]
   );
 
   // show fret marker if fret interval is in the scale's intervals
@@ -114,7 +114,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
         : fretNumber > 1
         ? styles.fret
         : "",
-    [fretNumber]
+    [fretNumber, startFret]
   );
 
   // determine size of fret marker
