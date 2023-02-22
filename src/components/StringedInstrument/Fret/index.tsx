@@ -158,6 +158,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
             ? "mt-3 mt-lg-0 ms-lg-3"
             : ""
         }
+        ${isMobile && isLastFretOnString ? "mb-3" : ""}
         `}
       ref={fretRef}
     >
@@ -168,7 +169,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
           size={markerSize}
         />
       ) : (
-        fretNumber
+        ""
       )}
     </div>
   );
