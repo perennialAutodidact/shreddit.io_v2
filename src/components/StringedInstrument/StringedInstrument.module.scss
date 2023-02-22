@@ -1,5 +1,5 @@
 .stringedInstrument {
-  height: 75vh;
+  min-height: 75vh;
   // background-image: url("../../../public/images/woodGrain.png");
   // background-attachment: fixed;
   // background-repeat: no-repeat;
@@ -13,6 +13,6 @@
 
 @media screen and (min-width: 768px) {
   .stringedInstrument {
-    height: 50vh;
+    min-height: 50vh;
   }
 }
