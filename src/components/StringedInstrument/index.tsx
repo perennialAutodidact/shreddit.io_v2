@@ -31,6 +31,10 @@ const StringedInstrument: React.FC = () => {
     if (instrumentRef.current) {
       let { height, width } = instrumentRef.current.getBoundingClientRect();
 
+      if (!isMobile) {
+        height *= 0.9;
+      }
+
       let neckHeight = height * 0.92;
       let neckWidth = width * 0.84;
 
