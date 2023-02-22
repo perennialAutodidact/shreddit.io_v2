@@ -18,9 +18,6 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      # - name: Change ownership of cache folder for Cypress install
-      #   run: mkdir /github/home/.cache && chown -R 1001 /github/home/.cache && "changed ownership of cache directory"
-
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
