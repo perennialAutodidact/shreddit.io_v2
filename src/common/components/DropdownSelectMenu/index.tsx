@@ -79,18 +79,23 @@ const DropdownSelectMenu = <T,>({
       `}
       ref={ref}
     >
-      <div className={`fw-bold`}>{labelText}</div>
+      <label
+        htmlFor={`${labelText.toLocaleLowerCase()}-dropdown`}
+        className={`fw-bold mb-2`}
+      >
+        {labelText}
+      </label>
       {!selectedOption ? (
         <LoadingIndicator />
       ) : (
         <div
           className={`
-        ${styles.menuToggle}
-        ${showOptions ? "border-info" : ""}
-        p-2 
-        rounded shadow
-        fw-bolder
-        `}
+            ${styles.menuToggle}
+            ${showOptions ? "border-info" : ""}
+            p-2 
+            rounded shadow
+            fw-bolder
+          `}
           onClick={toggleShowOptions}
           data-test-id="DropdownSelectMenuToggle"
         >
