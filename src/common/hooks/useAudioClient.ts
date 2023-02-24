@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, RefObject } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Tone from "tone";
 import AudioClient from "common/services/AudioClient";
 

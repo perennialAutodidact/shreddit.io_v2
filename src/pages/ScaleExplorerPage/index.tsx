@@ -1,5 +1,3 @@
-import { useState, useRef, useEffect } from "react";
-import * as Tone from "tone";
 import { useAppSelector } from "store/hooks";
 import StringedInstrument from "components/StringedInstrument";
 import IntervalDisplay from "components/IntervalDisplay";

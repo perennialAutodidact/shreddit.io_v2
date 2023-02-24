@@ -1,6 +1,5 @@
 import MusicKeySelect from "components/UtilityBar/MusicKeySelect";
 import MusicScaleSelect from "components/UtilityBar/MusicScaleSelect";
-import SettingsMenu from "common/components/SettingsMenu";
 import MultiRangeSlider from "components/MultiRangeSlider";
 import AudioControls from "common/components/AudioControls";
 import { useAppSelector, useAppDispatch } from "store/hooks";
