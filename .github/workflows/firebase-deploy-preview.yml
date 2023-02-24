@@ -6,17 +6,17 @@ name: Deploy to Firebase Preview on push to dev
   push:
     branches:
       - dev
+env:
+  # Cypress Variables
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # CYPRESS_BASE_URL: http://localhost:3021
+  # CYPRESS_CACHE_FOLDER: /github/home/.cache
+
+  FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+  FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+  FIREBASE_EMULATOR_HOST: localhost:8080
+
 jobs:
-  env:
-    # Cypress Variables
-    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    # CYPRESS_BASE_URL: http://localhost:3021
-    # CYPRESS_CACHE_FOLDER: /github/home/.cache
-
-    FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-    FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-    FIREBASE_EMULATOR_HOST: localhost:8080
-
   build_test_deploy-preview:
     name: End-to-end
     runs-on: ubuntu-latest
