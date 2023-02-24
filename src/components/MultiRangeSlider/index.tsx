@@ -97,9 +97,13 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
 
   return (
     <div
-      className={`${styles.container} d-flex flex-column justify-content-center position-relative`}
+      className={`
+        ${styles.container}
+        d-flex flex-column 
+        justify-content-center
+        position-relative
+      `}
     >
-      <div className={`fw-bold mb-2`}>Fret Range</div>
       <div
         className={`${styles.sliderContainer}
          d-flex position-relative w-100 border-danger border-3
