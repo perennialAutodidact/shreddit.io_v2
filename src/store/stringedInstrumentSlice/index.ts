@@ -10,19 +10,26 @@ import {
   TuningName,
   StringedInstrumentName,
   StringedInstrumentState,
+  FretNumber,
+  FretStart,
+  FretEnd,
+  FretTotal,
 } from "ts/stringedInstrument";
 import { tunings } from "common/constants/stringedInstruments";
 
 const INITIAL_INSTRUMENT: StringedInstrumentName = "guitar";
 const INITIAL_TUNING: TuningName = "standard";
 
+const fretStart: FretStart = 0;
+const fretEnd: FretEnd = 12;
+
 export const initialState: StringedInstrumentState = {
   instrumentType: INITIAL_INSTRUMENT,
   tuningName: INITIAL_TUNING,
   strings: tunings[INITIAL_INSTRUMENT][INITIAL_TUNING],
-  startFret: 0,
-  endFret: 12,
-  totalFrets: 11,
+  fretStart,
+  fretEnd,
+  fretTotal: (fretEnd - fretStart) as FretTotal,
   markedNotes: [],
   dimensions: {
     neck: {

@@ -9,13 +9,13 @@ import { useAudioClient } from "common/hooks/useAudioClient";
 
 const UtilityBar = () => {
   const appDispatch = useAppDispatch();
-  const { startFret, endFret } = useAppSelector(
+  const { fretStart, fretEnd } = useAppSelector(
     (appState) => appState.instrument
   );
   const { audioClientLoaded, audioClient } = useAudioClient();
 
   const handleChange: HandleChange = ({ min, max }) => {
-    appDispatch(setFretRange({ startFret: min, endFret: max }));
+    appDispatch(setFretRange({ fretStart: min, fretEnd: max }));
   };
 
   return (
@@ -25,7 +25,9 @@ const UtilityBar = () => {
           row 
           d-flex 
           justify-content-center
+          align-items-start
           justify-content-lg-start
+          mb-3
         "
       >
         <div className="col-4 col-lg-2 offset-lg-1 position-relative">
@@ -38,9 +40,9 @@ const UtilityBar = () => {
           <div className={`fw-bold mb-3`}>Fret Range</div>
           <MultiRangeSlider
             min={0}
-            minVal={startFret}
+            minVal={fretStart}
             max={21}
-            maxVal={endFret}
+            maxVal={fretEnd}
             handleChange={handleChange}
           />
         </div>

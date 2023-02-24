@@ -5,10 +5,10 @@ import { FretData } from "ts/stringedInstrument";
 
 describe("getFretDataArray()", () => {
   it(`should fail with less than ${MIN_NECK_LENGTH} frets`, () => {
-    const startFret = 0;
-    const endFret = 1;
+    const fretStart = 0;
+    const fretEnd = 1;
     // @ts-ignore
-    expect(() => getFretDataArray("c4", startFret, endFret, "dim")).to.throw();
+    expect(() => getFretDataArray("c4", fretStart, fretEnd, "dim")).to.throw();
   });
 
   it("should generate frets with aug 4 interval", () => {

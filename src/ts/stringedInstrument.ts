@@ -68,9 +68,13 @@ export interface StringedInstrumentState {
   instrumentType: StringedInstrumentName;
   tuningName: TuningName;
   strings: Tuning;
-  totalFrets: NrRange<6, 22>;
-  startFret: NrRange<0, 22>;
-  endFret: NrRange<6, 22>;
+  fretTotal: NrRange<6, 22>;
+  fretStart: NrRange<0, 16>;
+  fretEnd: NrRange<6, 22>;
   markedNotes: NoteName[];
   dimensions: StringedInstrumentDimensions;
 }
+
+export type FretStart = StringedInstrumentState["fretStart"];
+export type FretEnd = StringedInstrumentState["fretEnd"];
+export type FretTotal = StringedInstrumentState["fretTotal"];

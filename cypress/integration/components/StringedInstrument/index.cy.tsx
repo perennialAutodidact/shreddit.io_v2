@@ -12,7 +12,7 @@ let initialState: RootState = buildInitialState({
     tuningName: "standard",
     strings: tunings["guitar"]["standard"],
     currentKey: "c1",
-    totalFrets: 12,
+    fretTotal: 12,
     scale: {
       name: "chromatic",
       intervals: teoria.note("c").scale("chromatic").scale,

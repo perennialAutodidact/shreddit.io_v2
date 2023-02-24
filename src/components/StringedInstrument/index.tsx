@@ -16,13 +16,16 @@ import styles from "./StringedInstrument.module.scss";
 
 const StringedInstrument: React.FC = () => {
   const appDispatch = useAppDispatch();
-  const { instrumentType, strings, startFret, endFret } = useAppSelector(
+  const { instrumentType, strings, fretStart, fretEnd } = useAppSelector(
     (appState) => appState.instrument
   );
   const { scale, currentKey } = useAppSelector(
     (appState) => appState.musicTheory
   );
-  const totalFrets = useMemo(() => endFret - startFret, [endFret, startFret]);
+  const fretTotal = useMemo(
+    () => fretEnd - fretStart - 1,
+    [fretEnd, fretStart]
+  );
   const instrumentRef = useRef<HTMLDivElement>(null);
   const { breakpoint, isMobile, orientation } =
     useContext<BreakpointState>(BreakpointContext);
@@ -32,9 +35,10 @@ const StringedInstrument: React.FC = () => {
     if (instrumentRef.current) {
       let { height, width } = instrumentRef.current.getBoundingClientRect();
 
-      if (!isMobile) {
-        height *= 0.9;
-      }
+      console.log(instrumentRef.current.getBoundingClientRect());
+      // if (!isMobile) {
+      //   height *= 0.9;
+      // }
 
       let neckHeight = height * 0.92;
       let neckWidth = width * 0.84;
@@ -42,11 +46,9 @@ const StringedInstrument: React.FC = () => {
       let stringHeight = isMobile ? neckHeight : neckHeight / strings.length;
       let stringWidth = isMobile ? neckWidth / strings.length : neckWidth;
 
-      // totalFrets + 2 to accomodate for fret 0 and the string label
-      let fretHeight = isMobile
-        ? stringHeight / (totalFrets + 2)
-        : stringHeight;
-      let fretWidth = isMobile ? stringWidth : stringWidth / (totalFrets + 2);
+      // fretTotal + 2 to accomodate for fret 0 and the string label
+      let fretHeight = isMobile ? stringHeight / (fretTotal + 2) : stringHeight;
+      let fretWidth = isMobile ? stringWidth : stringWidth / (fretTotal + 2);
 
       appDispatch(
         setInstrumentDimensions({
@@ -72,7 +74,7 @@ const StringedInstrument: React.FC = () => {
     orientation,
     windowSize,
     strings.length,
-    totalFrets,
+    fretTotal,
     appDispatch,
   ]);
 

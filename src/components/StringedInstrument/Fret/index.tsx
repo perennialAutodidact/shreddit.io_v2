@@ -20,8 +20,8 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
   const { isMobile } = useContext<BreakpointState>(BreakpointContext);
   const {
     dimensions: { fret },
-    startFret,
-    endFret,
+    fretStart,
+    fretEnd,
     strings,
   } = useAppSelector((appState) => appState.instrument);
   const { currentKey, scale } = useAppSelector(
@@ -99,9 +99,9 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
 
   const isLastFretOnString = useMemo<boolean>(
     () =>
-      (isMobile && fretNumber === endFret) ||
-      (!isMobile && fretNumber === endFret && isLastStringFret),
-    [isMobile, fretNumber, endFret, isLastStringFret]
+      (isMobile && fretNumber === fretEnd) ||
+      (!isMobile && fretNumber === fretEnd && isLastStringFret),
+    [isMobile, fretNumber, fretEnd, isLastStringFret]
   );
 
   // apply border style
@@ -109,12 +109,12 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     () =>
       fretNumber === 0
         ? styles.openFret
-        : fretNumber === startFret || fretNumber === 1
+        : fretNumber === fretStart || fretNumber === 1
         ? styles.firstFret
         : fretNumber > 1
         ? styles.fret
         : "",
-    [fretNumber, startFret]
+    [fretNumber, fretStart]
   );
 
   // determine size of fret marker
@@ -151,15 +151,15 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
         ${isFirstStringFret ? styles.firstStringFret : ""}
         ${isLastStringFret && fretNumber > 0 ? styles.lastStringFret : ""}
         ${fretNumber > 0 ? (isInlay ? "bg-inlay-fret" : "bg-fret") : ""}
-        ${fretNumber === startFret ? "start-fret" : ""}
+        ${fretNumber === fretStart ? "start-fret" : ""}
         ${fretBorders}
         ${
-          startFret > 0 && fretNumber === startFret
+          fretStart > 0 && fretNumber === fretStart
             ? "mt-3 mt-lg-0 ms-lg-3"
             : ""
         }
         ${isMobile && isLastFretOnString ? "mb-3" : ""}
-        `}
+      `}
       ref={fretRef}
     >
       {showMarker ? (

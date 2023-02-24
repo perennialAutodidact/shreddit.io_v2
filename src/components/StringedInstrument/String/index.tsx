@@ -14,7 +14,7 @@ const String: React.FC<StringProps> = ({
   rootNote,
   stringNumber,
 }: StringProps) => {
-  const { startFret, endFret } = useAppSelector(
+  const { fretStart, fretEnd } = useAppSelector(
     (appState) => appState.instrument
   );
   const { scale } = useAppSelector((appState) => appState.musicTheory);
@@ -24,12 +24,12 @@ const String: React.FC<StringProps> = ({
     () =>
       getFretDataArray(
         rootNote,
-        startFret,
-        endFret,
+        fretStart,
+        fretEnd,
 
         scale.intervals.includes("A4") ? "aug" : "dim"
       ),
-    [rootNote, startFret, endFret, scale.intervals]
+    [rootNote, fretStart, fretEnd, scale.intervals]
   );
 
   return (
@@ -44,7 +44,7 @@ const String: React.FC<StringProps> = ({
         <Fret
           {...fret}
           stringNumber={stringNumber}
-          fretNumber={(startFret + i) as FretNumber}
+          fretNumber={(fretStart + i) as FretNumber}
           key={`string-${stringNumber}-fret-${i}`}
         />
       ))}

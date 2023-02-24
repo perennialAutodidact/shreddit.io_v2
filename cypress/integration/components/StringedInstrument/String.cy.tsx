@@ -9,9 +9,9 @@ describe("<String/>", () => {
   it("should render a string label and Fret component for each fret on the string", () => {
     let initialState: RootState = buildInitialState<RootState>({
       instrument: {
-        // totalFrets: 12,
-        startFret: 0,
-        endFret: 12,
+        // fretTotal: 12,
+        fretStart: 0,
+        fretEnd: 12,
       },
     });
 
@@ -24,11 +24,11 @@ describe("<String/>", () => {
     cy.findAllByTestId("Fret").should("have.length", 13);
   });
 
-  it("should render string with no open fret or double border if startFret > 0", () => {
+  it("should render string with no open fret or double border if fretStart > 0", () => {
     let initialState = buildInitialState<RootState>({
       instrument: {
-        startFret: 6,
-        endFret: 12,
+        fretStart: 6,
+        fretEnd: 12,
       },
     });
 
