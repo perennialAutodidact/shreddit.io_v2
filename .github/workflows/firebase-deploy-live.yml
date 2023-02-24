@@ -5,7 +5,11 @@ name: Deploy to Firebase Hosting on merge
 "on":
   push:
     branches:
-      - dev
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   e2e:
     name: End-to-end
@@ -42,16 +46,28 @@ jobs:
           start: yarn start
 
     env:
-      # Authorize Firebase CLI
-      # FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
       # Cypress Variables
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # CYPRESS_BASE_URL: http://localhost:3021
       # CYPRESS_CACHE_FOLDER: /github/home/.cache
 
       # Authorization for firebase-admin
+  deploy_live:
+    name: "Deploy to production"
+    runs-on: ubuntu-latest
+    env:
+      FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+      FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+      FIREBASE_EMULATOR_HOST: localhost:8080
+      # Authorize Firebase CLI
+      # FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-      # FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-      # FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-      # FIREBASE_EMULATOR_HOST: localhost:8080
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          projectId: shreddit-v2
+          channelId: live
