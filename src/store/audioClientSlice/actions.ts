@@ -14,7 +14,7 @@ export const _setAudioData: CaseReducer<
 
 export const _setActivePitch: CaseReducer<
   AudioClientState,
-  PayloadAction<AudioClientState["activePitch"]>
+  PayloadAction<AudioClientState["activePitch"] | null>
 > = (state, action) => ({
   ...state,
   activePitch: action.payload,

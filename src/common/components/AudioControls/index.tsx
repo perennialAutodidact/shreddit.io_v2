@@ -64,23 +64,22 @@ const AudioControls = ({ audioClient, isLoaded }: AudioControlsProps) => {
 
   const stopAudio = async (): Promise<void> => {
     if (audioClient) {
-      setIsPlaying(false);
       audioClient.stop();
+      setIsPlaying(false);
+      appDispatch(setActivePitch(null));
     }
   };
 
   if (!isLoaded) return <LoadingIndicator />;
 
   return (
-    <div>
-      <div className="fs-1">
-        <span data-test-id="PlayAudioButton" onClick={togglePlayAudio}>
-          {isPlaying ? <TfiControlPause /> : <TfiControlPlay />}
-        </span>
-        <span data-test-id="StopAudioButton" onClick={stopAudio}>
-          <TfiControlStop />
-        </span>
-      </div>
+    <div className="fs-1">
+      <span data-test-id="PlayAudioButton" onClick={togglePlayAudio}>
+        {isPlaying ? <TfiControlPause /> : <TfiControlPlay />}
+      </span>
+      <span data-test-id="StopAudioButton" onClick={stopAudio}>
+        <TfiControlStop />
+      </span>
     </div>
   );
 };
