@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
 import {
   setInstrumentDimensions,
@@ -16,12 +16,13 @@ import styles from "./StringedInstrument.module.scss";
 
 const StringedInstrument: React.FC = () => {
   const appDispatch = useAppDispatch();
-  const { instrumentType, strings, totalFrets } = useAppSelector(
+  const { instrumentType, strings, startFret, endFret } = useAppSelector(
     (appState) => appState.instrument
   );
   const { scale, currentKey } = useAppSelector(
     (appState) => appState.musicTheory
   );
+  const totalFrets = useMemo(() => endFret - startFret, [endFret, startFret]);
   const instrumentRef = useRef<HTMLDivElement>(null);
   const { breakpoint, isMobile, orientation } =
     useContext<BreakpointState>(BreakpointContext);
