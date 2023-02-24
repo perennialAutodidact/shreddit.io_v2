@@ -18,7 +18,7 @@ env:
 
 jobs:
   build_test_deploy-preview:
-    name: End-to-end
+    name: Build app, run tests, deploy to Firebase preview channel
     runs-on: ubuntu-latest
     container:
       image: cypress/browsers:node18.12.0-chrome106-ff106
