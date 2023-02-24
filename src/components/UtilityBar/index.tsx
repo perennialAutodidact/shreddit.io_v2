@@ -20,9 +20,15 @@ const UtilityBar = () => {
   };
 
   return (
-    <div className="container-fluid mb-5 mb-lg-0" data-test-id="UtilityBar">
-      <SettingsMenu />
-      <div className="row my-3 d-flex justify-content-center justify-content-lg-start">
+    <div className="container-fluid" data-test-id="UtilityBar">
+      <div
+        className="
+          row 
+          d-flex 
+          justify-content-center
+          justify-content-lg-start
+        "
+      >
         <div className="col-4 col-lg-2 offset-lg-1 position-relative">
           <MusicKeySelect />
         </div>
@@ -30,6 +36,7 @@ const UtilityBar = () => {
           <MusicScaleSelect />
         </div>
         <div className="col-16 col-lg-5">
+          <div className={`fw-bold mb-3`}>Fret Range</div>
           <MultiRangeSlider
             min={0}
             minVal={startFret}
@@ -38,7 +45,15 @@ const UtilityBar = () => {
             handleChange={handleChange}
           />
         </div>
-        <div className="col-4">
+        <div
+          className="
+            mt-5 mt-lg-0
+            col-4 col-lg-2 
+            d-flex
+            justify-content-center
+            align-items-lg-end justify-content-lg-end
+          "
+        >
           <AudioControls
             audioClient={audioClient}
             isLoaded={audioClientLoaded}
