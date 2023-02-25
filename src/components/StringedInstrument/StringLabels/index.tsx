@@ -23,8 +23,8 @@ const StringLabels = () => {
   useLayoutEffect(() => {
     if (labelContainerRef.current) {
       if (isMobile) {
-        labelContainerRef.current.style.height = `100%`;
         labelContainerRef.current.style.width = "100%";
+        labelContainerRef.current.style.height = `${neck.height * 0.1}px`;
       } else {
         labelContainerRef.current.style.height = `${neck.height * 1.1}px`;
       }
