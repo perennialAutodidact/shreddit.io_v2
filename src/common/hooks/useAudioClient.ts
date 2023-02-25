@@ -3,7 +3,7 @@ import * as Tone from "tone";
 import AudioClient from "common/services/AudioClient";
 
 export const useAudioClient = () => {
-  const [audioClientLoaded, setAudioClientLoaded] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   const audioClientRef = useRef<AudioClient>();
 
@@ -13,7 +13,7 @@ export const useAudioClient = () => {
         Tone,
         instrument: "salamander",
         onLoad: () => {
-          setAudioClientLoaded(true);
+          setIsLoaded(true);
         },
       });
     }
@@ -21,7 +21,7 @@ export const useAudioClient = () => {
   }, []);
 
   return {
-    audioClientLoaded,
+    isLoaded,
     audioClient: audioClientRef.current ? audioClientRef.current : null,
   };
 };

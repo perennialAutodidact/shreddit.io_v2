@@ -13,7 +13,6 @@ function App() {
       <TeoriaProvider>
         <SettingsMenuToggle />
         <SettingsMenu />
-        <UtilityBar />
         <Routes>
           <Route path="/" element={<ScaleExplorerPage />} />
         </Routes>

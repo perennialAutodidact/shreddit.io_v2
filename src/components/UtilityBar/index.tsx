@@ -12,7 +12,6 @@ const UtilityBar = () => {
   const { fretStart, fretEnd } = useAppSelector(
     (appState) => appState.instrument
   );
-  const { audioClientLoaded, audioClient } = useAudioClient();
 
   const handleChange: HandleChange = ({ min, max }) => {
     appDispatch(setFretRange({ fretStart: min, fretEnd: max }));
@@ -44,20 +43,6 @@ const UtilityBar = () => {
             max={21}
             maxVal={fretEnd}
             handleChange={handleChange}
-          />
-        </div>
-        <div
-          className="
-            mt-5 mt-lg-0
-            col-4 col-lg-2 
-            d-flex
-            justify-content-center
-            align-items-lg-end justify-content-lg-end
-          "
-        >
-          <AudioControls
-            audioClient={audioClient}
-            isLoaded={audioClientLoaded}
           />
         </div>
       </div>
