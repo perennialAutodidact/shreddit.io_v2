@@ -29,26 +29,21 @@ const StringedInstrument: React.FC = () => {
   const instrumentRef = useRef<HTMLDivElement>(null);
   const { breakpoint, isMobile, orientation } =
     useContext<BreakpointState>(BreakpointContext);
-  const windowSize = useWindowSize();
 
+  const windowSize = useWindowSize();
   useEffect(() => {
     if (instrumentRef.current) {
-      let { height, width } = instrumentRef.current.getBoundingClientRect();
+      let { height, width } = windowSize;
 
-      console.log(instrumentRef.current.getBoundingClientRect());
-      // if (!isMobile) {
-      //   height *= 0.9;
-      // }
-
-      let neckHeight = height * 0.92;
-      let neckWidth = width * 0.84;
+      let neckHeight = isMobile ? height * 0.9 : height * 0.5;
+      let neckWidth = isMobile ? width * 0.9 : width * 0.7;
 
       let stringHeight = isMobile ? neckHeight : neckHeight / strings.length;
       let stringWidth = isMobile ? neckWidth / strings.length : neckWidth;
 
       // fretTotal + 2 to accomodate for fret 0 and the string label
-      let fretHeight = isMobile ? stringHeight / (fretTotal + 2) : stringHeight;
-      let fretWidth = isMobile ? stringWidth : stringWidth / (fretTotal + 2);
+      let fretHeight = isMobile ? stringHeight / (fretTotal + 1) : stringHeight;
+      let fretWidth = isMobile ? stringWidth : stringWidth / (fretTotal + 1);
 
       appDispatch(
         setInstrumentDimensions({
