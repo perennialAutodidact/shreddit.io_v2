@@ -1,3 +1,5 @@
+import { buildInitialState } from "../support/utils/buildInitialState";
+
 describe("Scale explorer page", () => {
   const sliderLabelLeft = "MultiSliderLabelLeft";
   const sliderThumbLeft = "MultiSliderThumbLeft";
@@ -18,6 +20,33 @@ describe("Scale explorer page", () => {
 
     frets = cy.findAllByTestId("String").first().findAllByTestId("Fret");
     frets.should("have.length", 12);
+  });
+
+  it("should toggle the settings menu when the toggle is clicked", () => {
+    const initialState = buildInitialState({
+      app: { showSettingsMenu: false },
+    });
+
+    cy.visit("http://localhost:3000/");
+
+    const settingsMenuToggle = cy.findByTestId("SettingsMenuToggle");
+
+    settingsMenuToggle.should("exist");
+
+    const settingsMenu = cy.findByTestId("SettingsMenu");
+    settingsMenu.should("not.exist");
+
+    settingsMenuToggle.click();
+
+    settingsMenu.should("exist");
+
+    const settingsMenuCloseButton = cy.findByTestId("SettingsMenuCloseButton");
+
+    settingsMenuCloseButton.should("exist");
+
+    settingsMenuCloseButton.click();
+
+    settingsMenu.should("not.exist");
   });
 });
 

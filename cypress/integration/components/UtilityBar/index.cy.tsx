@@ -12,31 +12,4 @@ describe("<UtilityBar />", () => {
 
     cy.findByTestId("UtilityBar").should("exist");
   });
-
-  it("should toggle the settings menu when the toggle is clicked", () => {
-    const initialState: RootState = _.merge(rootState, {
-      app: { showSettingsMenu: false },
-    });
-
-    cy.mount(<UtilityBar />, { initialState });
-
-    const settingsMenuToggle = cy.findByTestId("SettingsMenuToggle");
-
-    settingsMenuToggle.should("exist");
-
-    const settingsMenu = cy.findByTestId("SettingsMenu");
-    settingsMenu.should("not.exist");
-
-    settingsMenuToggle.click();
-
-    settingsMenu.should("exist");
-
-    const settingsMenuCloseButton = cy.findByTestId("SettingsMenuCloseButton");
-
-    settingsMenuCloseButton.should("exist");
-
-    settingsMenuCloseButton.click();
-
-    settingsMenu.should("not.exist");
-  });
 });
