@@ -151,7 +151,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
         ${isFirstStringFret ? styles.firstStringFret : ""}
         ${isLastStringFret && fretNumber > 0 ? styles.lastStringFret : ""}
         ${fretNumber > 0 ? (isInlay ? "bg-inlay-fret" : "bg-fret") : ""}
-        ${fretNumber === fretStart ? "start-fret" : ""}
+        ${fretNumber === fretStart ? "fret-start" : ""}
         ${fretBorders}
         ${
           fretStart > 0 && fretNumber === fretStart
