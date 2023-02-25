@@ -1,6 +1,6 @@
 import { tunings } from "common/constants/stringedInstruments";
 import { initialState, RootState } from "store";
-import { buildInitialState } from "../../support/utils/buildInitialState";
+import { buildInitialState } from "../../../support/utils/buildInitialState";
 
 describe("buildInitialState()", () => {
   it("should return an updated state object", () => {
