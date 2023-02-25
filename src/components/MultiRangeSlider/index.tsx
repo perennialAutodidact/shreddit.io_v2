@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useMemo,
   useCallback,
+  ChangeEvent,
 } from "react";
 import { FretNumber } from "ts/stringedInstrument";
 import Slider from "./Slider";
@@ -37,18 +38,17 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
     [min, max]
   );
 
-  const minHasChanged = useMemo<boolean>(
-    () => _minVal !== minVal,
-    [_minVal, minVal]
-  );
-  const maxHasChanged = useMemo<boolean>(
-    () => _maxVal !== maxVal,
-    [_maxVal, maxVal]
-  );
-  const sliderHasChanged = useMemo<boolean>(
-    () => minHasChanged || maxHasChanged,
-    [minHasChanged, maxHasChanged]
-  );
+  const preChange = (minOrMax: "min" | "max", value: number): void => {
+    if (minOrMax === "min" && value <= _maxVal - 6) {
+      setMinVal(value as FretNumber);
+    } else if (minOrMax === "max" && value >= _minVal + 6) {
+      setMaxVal(value as FretNumber);
+    }
+  };
+
+  useEffect(() => {
+    handleChange({ min: _minVal, max: _maxVal });
+  }, [_minVal, _maxVal]);
 
   useEffect(() => {
     if (minValRef.current) {
@@ -74,27 +74,6 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
     }
   }, [_minVal, _maxVal, getPercent]);
 
-  useEffect(() => {
-    if (sliderHasChanged) {
-      if (minHasChanged && _minVal > maxVal - 6) {
-        setMinVal((maxVal - 6) as FretNumber);
-      } else if (maxHasChanged && _maxVal < minVal + 6) {
-        setMaxVal((minVal + 6) as FretNumber);
-      } else {
-        handleChange({ min: _minVal, max: _maxVal });
-      }
-    }
-  }, [
-    minVal,
-    _minVal,
-    maxVal,
-    _maxVal,
-    sliderHasChanged,
-    minHasChanged,
-    maxHasChanged,
-    handleChange,
-  ]);
-
   return (
     <div
       className={`
@@ -106,7 +85,7 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
     >
       <div
         className={`${styles.sliderContainer}
-         d-flex position-relative w-100 border-danger border-3
+         d-flex position-relative w-100
       `}
       >
         <input
@@ -116,7 +95,7 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
           max={max}
           value={_minVal}
           ref={minValRef}
-          onChange={(e) => setMinVal(+e.target.value as FretNumber)}
+          onChange={(e) => preChange("min", +e.target.value as FretNumber)}
           className={`${styles.thumb} ${styles.thumbIndex4}`}
         />
         <input
@@ -126,7 +105,7 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
           max={max}
           value={_maxVal}
           ref={maxValRef}
-          onChange={(e) => setMaxVal(+e.target.value as FretNumber)}
+          onChange={(e) => preChange("max", +e.target.value as FretNumber)}
           className={`${styles.thumb} ${styles.thumbIndex5}`}
         />
         <Slider ref={sliderRef} minVal={_minVal} maxVal={_maxVal} />
