@@ -9,7 +9,9 @@ import { titleize } from "common/utils/titleize";
 
 const SettingsMenu = () => {
   const appDispatch = useAppDispatch();
-  const { instrumentType } = useAppSelector((appState) => appState.instrument);
+  const { instrumentType, tuningName } = useAppSelector(
+    (appState) => appState.instrument
+  );
   const { showSettingsMenu } = useAppSelector((appState) => appState.app);
 
   if (!showSettingsMenu) return <></>;
@@ -48,12 +50,10 @@ const SettingsMenu = () => {
             <select
               className="form-select"
               onChange={(e) => appDispatch(setInstrumentType(e.target.value))}
+              value={instrumentType}
             >
               {ALL_INSTRUMENTS.map((instrument) => (
-                <option
-                  value={instrument}
-                  selected={instrumentType === instrument}
-                >
+                <option key={instrument} value={instrument}>
                   {titleize(instrument)}
                 </option>
               ))}
@@ -63,10 +63,13 @@ const SettingsMenu = () => {
             <h3>Tuning</h3>
             <select
               className="form-select"
+              value={tuningName}
               onChange={(e) => appDispatch(setTuning(e.target.value))}
             >
               {Object.keys(tunings[instrumentType]).map((tuning) => (
-                <option value={tuning}>{titleize(tuning)}</option>
+                <option key={tuning} value={tuning}>
+                  {titleize(tuning)}
+                </option>
               ))}
             </select>
           </div>
