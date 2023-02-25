@@ -40,7 +40,7 @@
     "cypress open": "./node_modules/.bin/cypress open",
     "cypress run": "./node_modules/.bin/cypress run",
     "cypress": "./node_modules/.bin/cypress",
-    "ci": "./node_modules/.bin/cypress run && ./node_modules/.bin/cypress run --component",
+    "ci": "./node_modules/.bin/cypress run && ./node_modules/.bin/cypress run --component --spec './cypress/integration/all.cy.ts'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
