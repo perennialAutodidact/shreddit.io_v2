@@ -6,7 +6,9 @@ import {
   StringNumber,
   FretNumber,
   FretData,
-  StringedInstrumentState,
+  FretTotal,
+  FretStart,
+  FretEnd,
 } from "ts/stringedInstrument";
 import { Note } from "ts/musicTheory";
 import { getFretDataArray } from "common/utils";
@@ -20,12 +22,20 @@ const FRET_CLASS = "bg-fret";
 const FRET_INLAY_CLASS = "bg-inlay-fret";
 
 describe("<Fret />", () => {
+  let initialState: RootState;
+  let stringNumber: StringNumber;
+  let fretNumber: FretNumber;
+  let fretStart: FretStart = 0;
+  let fretEnd: FretEnd = 12;
+  let frets: FretData[];
+  let _fret: FretData;
+
   it("should render non-inlay fret", () => {
-    let initialState = { ...rootState };
-    let stringNumber: StringNumber = 0;
-    let fretNumber: FretNumber = 1;
-    let frets: FretData[] = getFretDataArray("c#4", 0, 12, "aug");
-    let _fret: FretData = frets[fretNumber];
+    initialState = { ...rootState };
+    stringNumber = 0;
+    fretNumber = 1;
+    frets = getFretDataArray("c#4", fretStart, fretEnd, "aug");
+    _fret = frets[fretNumber];
 
     cy.mount(
       <Fret {..._fret} stringNumber={stringNumber} fretNumber={fretNumber} />,
@@ -38,11 +48,11 @@ describe("<Fret />", () => {
   });
 
   it("should render inlay-fret", () => {
-    let initialState = { ...rootState };
-    let stringNumber: StringNumber = 0;
-    let fretNumber: FretNumber = 3;
-    let frets: FretData[] = getFretDataArray("e2", 0, 12, "aug");
-    let _fret: FretData = frets[fretNumber];
+    initialState = { ...rootState };
+    stringNumber = 0;
+    fretNumber = 3;
+    frets = getFretDataArray("e2", fretStart, fretEnd, "aug");
+    _fret = frets[fretNumber];
 
     cy.mount(
       <Fret {..._fret} stringNumber={stringNumber} fretNumber={fretNumber} />,
@@ -51,22 +61,19 @@ describe("<Fret />", () => {
       }
     );
 
-    let fret = cy
-      .findByTestId("Fret")
-      .should("exist")
-      .and("have.class", FRET_INLAY_CLASS);
+    cy.findByTestId("Fret").should("exist").and("have.class", FRET_INLAY_CLASS);
   });
 
   it("should render note marker if fret note is in marked notes array", () => {
-    let initialState = buildInitialState<RootState>({
+    initialState = buildInitialState<RootState>({
       musicTheory: { scale: { notes: ["g", "b", "d"] } },
       instrument: { markedNotes: ["g"] },
     });
 
-    let frets: FretData[] = getFretDataArray("e2", 0, 12, "aug");
-    let stringNumber: StringNumber = 0;
-    let fretNumber: FretNumber = 3;
-    let _fret: FretData = frets[fretNumber];
+    stringNumber = 0;
+    fretNumber = 3;
+    frets = getFretDataArray("e2", fretStart, fretEnd, "aug");
+    _fret = frets[fretNumber];
 
     cy.mount(
       <Fret {..._fret} stringNumber={stringNumber} fretNumber={fretNumber} />,
@@ -79,7 +86,7 @@ describe("<Fret />", () => {
   });
 
   it("should not render note marker if fret not is note in marked notes array", () => {
-    let initialState = buildInitialState<RootState>({
+    initialState = buildInitialState<RootState>({
       instrument: {
         markedNotes: teoria.note("c").scale("major").simple(),
       },
@@ -95,10 +102,10 @@ describe("<Fret />", () => {
       },
     });
 
-    let frets: FretData[] = getFretDataArray("e2", 0, 12, "aug");
-    let stringNumber: StringNumber = 0;
-    let fretNumber: FretNumber = 1;
-    let _fret: FretData = frets[fretNumber];
+    stringNumber = 0;
+    fretNumber = 1;
+    frets = getFretDataArray("e2", fretStart, fretEnd, "aug");
+    _fret = frets[fretNumber];
 
     cy.mount(
       <Fret {..._fret} stringNumber={stringNumber} fretNumber={fretNumber} />,
@@ -111,7 +118,7 @@ describe("<Fret />", () => {
   });
 
   it("should render larger marker when fret note is the active pitch", () => {
-    let initialState = buildInitialState<RootState>({
+    initialState = buildInitialState<RootState>({
       musicTheory: { scale: getScaleData("c1", "major") },
       instrument: {
         markedNotes: ["g", "c"],
@@ -122,9 +129,8 @@ describe("<Fret />", () => {
       audioClient: { activePitch: "c3" },
     });
 
-    let frets: FretData[] = getFretDataArray("e2", 0, 12, "aug");
-
-    let stringNumber: StringNumber = 0;
+    stringNumber = 0;
+    frets = getFretDataArray("e2", fretStart, fretEnd, "aug");
 
     let activeFretNumber: FretNumber = 8;
     let _activeFret: FretData = frets[activeFretNumber];
@@ -159,18 +165,17 @@ describe("<Fret />", () => {
       });
   });
 
-  it("should render start fret with first fret style if startFret is 1", () => {
-    const startFret: StringedInstrumentState["startFret"] = 1;
-    const endFret: StringedInstrumentState["endFret"] = 12;
-    let initialState = buildInitialState<RootState>({
+  it("should render start fret with first fret style if fretStart is 1", () => {
+    fretStart = 1;
+    initialState = buildInitialState<RootState>({
       instrument: {
-        startFret,
-        endFret,
+        fretStart,
+        fretEnd,
       },
     });
 
-    const frets: FretData[] = getFretDataArray("e2", startFret, endFret, "dim");
-    const stringNumber: StringNumber = 0;
+    frets = getFretDataArray("e2", fretStart, fretEnd, "dim");
+    stringNumber = 0;
 
     cy.mount(
       <div>
@@ -178,14 +183,14 @@ describe("<Fret />", () => {
           <Fret
             {...fret}
             stringNumber={stringNumber}
-            fretNumber={(startFret + i) as FretNumber}
+            fretNumber={(fretStart + i) as FretNumber}
           />
         ))}
       </div>,
       { initialState }
     );
 
-    cy.get(".start-fret").first().should("not.have.class", styles.openFret);
-    cy.get(".start-fret").first().should("have.class", styles.firstFret);
+    cy.get(".fret-start").first().should("not.have.class", styles.openFret);
+    cy.get(".fret-start").first().should("have.class", styles.firstFret);
   });
 });
