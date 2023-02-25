@@ -7,7 +7,7 @@ export const initialState: AppState = {
   isPlayingAudio: false,
   showSettingsMenu: false,
   versionNumbers: {
-    scaleExplorer: "0.0.1",
+    scaleExplorer: "1.0.0-alpha",
   },
 };
 
