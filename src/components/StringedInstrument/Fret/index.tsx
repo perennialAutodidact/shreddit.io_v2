@@ -120,7 +120,8 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
   // determine size of fret marker
   const markerScalar = useMemo(
     () =>
-      activePitch && activePitch.toString().toLowerCase().startsWith(noteName)
+      activePitch &&
+      activePitch.toString().slice(0, -1).toLowerCase() === noteName
         ? 0.66
         : 0.5,
     [activePitch, noteName]
