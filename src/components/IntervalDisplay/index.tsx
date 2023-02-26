@@ -10,12 +10,12 @@ const IntervalDisplay = ({ markerSize }: IntervalDisplayProps) => {
 
   return (
     <div className={`container`} data-test-id="IntervalDisplay">
-      <div className="row">
+      <div className="row mt-3">
         <div
           className="
-            col-14 offset-1 
+            col-14 offset-1
             col-lg-6 offset-lg-5
-            d-flex justify-content-between"
+            d-flex flex-wrap justify-content-center"
         >
           {scale.intervals.map((interval, index) => (
             <div
@@ -23,7 +23,11 @@ const IntervalDisplay = ({ markerSize }: IntervalDisplayProps) => {
               key={interval}
             >
               <div
-                className={`bg-${interval} border border-2 border-dark rounded-circle`}
+                className={`
+                  bg-${interval}
+                  border border-2 border-dark rounded-circle
+                  mx-2
+                `}
                 style={{ height: `${markerSize}px`, width: `${markerSize}px` }}
                 data-test-id={`IntervalDisplayMarker-${interval}`}
               ></div>

@@ -22,6 +22,33 @@
   border-bottom: 1px solid $custom-dark;
 }
 
+// @media screen and (orientation: landscape) {
+//   .fret {
+//   }
+
+//   .openFret {
+//     border-right: 6px double $custom-dark;
+//     border-bottom: none;
+//   }
+
+//   .firstStringFret {
+//     border-top: 1px solid $custom-dark;
+//     border-left: none;
+//   }
+
+//   .lastStringFret {
+//     border-bottom: 1px solid $custom-dark;
+//   }
+
+//   .firstFret {
+//     border-left: 1px solid $custom-dark;
+//   }
+
+//   .lastFret {
+//     // border-bottom: none;
+//   }
+// }
+
 @media screen and (min-width: 992px) {
   .fret {
   }
