@@ -12,5 +12,6 @@ export type BreakpointState = {
   breakpoint: Breakpoint;
   isMobile: boolean;
   orientation: OrientationType;
+  isLandscape: boolean;
   isPortrait: boolean;
 };

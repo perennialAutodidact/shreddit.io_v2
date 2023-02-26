@@ -38,13 +38,19 @@ const BreakpointProvider = ({ children }: Props) => {
     [breakpoint]
   );
 
+  const isLandscape = useMemo(
+    () => orientation && orientation.startsWith("landscape"),
+    [orientation]
+  );
+
   const isPortrait = useMemo(
     () => orientation && orientation.startsWith("portrait"),
     [orientation]
   );
+
   return (
     <BreakpointContext.Provider
-      value={{ breakpoint, isMobile, orientation, isPortrait }}
+      value={{ breakpoint, isMobile, orientation, isLandscape, isPortrait }}
     >
       {children}
     </BreakpointContext.Provider>
