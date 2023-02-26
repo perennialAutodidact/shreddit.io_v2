@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { useAppSelector } from "store/hooks";
 import { Note } from "ts/musicTheory";
 import { StringNumber, FretData, FretNumber } from "ts/stringedInstrument";
@@ -26,7 +26,6 @@ const String: React.FC<StringProps> = ({
         rootNote,
         fretStart,
         fretEnd,
-
         scale.intervals.includes("A4") ? "aug" : "dim"
       ),
     [rootNote, fretStart, fretEnd, scale.intervals]
@@ -35,7 +34,10 @@ const String: React.FC<StringProps> = ({
   return (
     <div
       className={`
-        d-flex flex-column flex-lg-row my-2 my-lg-0 me-lg-3
+        d-flex 
+        flex-column
+        flex-lg-row
+        my-2 my-lg-0 me-lg-3
       `}
       ref={stringRef}
       data-test-id={"String"}

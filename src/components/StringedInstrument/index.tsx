@@ -27,21 +27,25 @@ const StringedInstrument: React.FC = () => {
     [fretEnd, fretStart]
   );
   const instrumentRef = useRef<HTMLDivElement>(null);
-  const { breakpoint, isMobile, orientation } =
-    useContext<BreakpointState>(BreakpointContext);
+  const { isMobile } = useContext<BreakpointState>(BreakpointContext);
 
   const windowSize = useWindowSize();
   useEffect(() => {
     if (instrumentRef.current) {
       let { height, width } = windowSize;
 
-      let neckHeight = isMobile ? height * 0.9 : height * 0.5;
-      let neckWidth = isMobile ? width * 0.9 : width * 0.7;
+      width = isMobile ? width : width * 0.75;
+      height = isMobile ? height * 0.8 : height * 0.45;
+
+      instrumentRef.current.style.width = `${width}px`;
+      instrumentRef.current.style.height = `${height}px`;
+
+      let neckHeight = isMobile ? height * 0.8 : height;
+      let neckWidth = isMobile ? width * 0.9 : width * 0.8;
 
       let stringHeight = isMobile ? neckHeight : neckHeight / strings.length;
       let stringWidth = isMobile ? neckWidth / strings.length : neckWidth;
 
-      // fretTotal + 2 to accomodate for fret 0 and the string label
       let fretHeight = isMobile ? stringHeight / (fretTotal + 1) : stringHeight;
       let fretWidth = isMobile ? stringWidth : stringWidth / (fretTotal + 1);
 
@@ -65,8 +69,6 @@ const StringedInstrument: React.FC = () => {
   }, [
     instrumentType,
     isMobile,
-    breakpoint,
-    orientation,
     windowSize,
     strings.length,
     fretTotal,
@@ -84,7 +86,7 @@ const StringedInstrument: React.FC = () => {
 
   return (
     <div
-      className={`container ${styles.stringedInstrument}`}
+      className={`container-fluid ${styles.stringedInstrument}`}
       id="instrument-container"
       ref={instrumentRef}
     >
