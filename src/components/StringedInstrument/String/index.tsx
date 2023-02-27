@@ -1,4 +1,6 @@
-import React, { useMemo, useRef } from "react";
+import React, { useContext, useMemo, useRef } from "react";
+import { BreakpointContext } from "common/components/BreakpointProvider/context";
+import { BreakpointState } from "ts/breakpoints";
 import { useAppSelector } from "store/hooks";
 import { Note } from "ts/musicTheory";
 import { StringNumber, FretData, FretNumber } from "ts/stringedInstrument";
@@ -18,6 +20,8 @@ const String: React.FC<StringProps> = ({
     (appState) => appState.instrument
   );
   const { scale } = useAppSelector((appState) => appState.musicTheory);
+  const { isMobile, isLandscape } =
+    useContext<BreakpointState>(BreakpointContext);
   const stringRef = useRef<HTMLDivElement>(null);
 
   const frets = useMemo<FretData[]>(
@@ -35,9 +39,7 @@ const String: React.FC<StringProps> = ({
     <div
       className={`
         d-flex 
-        flex-column
-        flex-lg-row
-        my-2 my-lg-0 me-lg-3
+        ${isLandscape ? "flex-row me-3" : "flex-column"}
       `}
       ref={stringRef}
       data-test-id={"String"}

@@ -27,27 +27,32 @@ const StringedInstrument: React.FC = () => {
     [fretEnd, fretStart]
   );
   const instrumentRef = useRef<HTMLDivElement>(null);
-  const { isMobile } = useContext<BreakpointState>(BreakpointContext);
+  const { isMobile, isPortrait } =
+    useContext<BreakpointState>(BreakpointContext);
 
   const windowSize = useWindowSize();
   useEffect(() => {
     if (instrumentRef.current) {
       let { height, width } = windowSize;
 
-      width = isMobile ? width : width * 0.75;
-      height = isMobile ? height * 0.8 : height * 0.45;
+      width *= isPortrait ? (isMobile ? 0.9 : 0.9) : 0.8;
+      height *= isPortrait ? (isMobile ? 0.75 : 0.6) : isMobile ? 0.6 : 0.45;
 
       instrumentRef.current.style.width = `${width}px`;
       instrumentRef.current.style.height = `${height}px`;
 
-      let neckHeight = isMobile ? height * 0.8 : height;
-      let neckWidth = isMobile ? width * 0.9 : width * 0.8;
+      let neckHeight = height * (isPortrait ? (isMobile ? 0.9 : 0.8) : 1);
+      let neckWidth = width * (isPortrait ? 0.9 : 0.8);
 
-      let stringHeight = isMobile ? neckHeight : neckHeight / strings.length;
-      let stringWidth = isMobile ? neckWidth / strings.length : neckWidth;
+      let stringHeight =
+        isPortrait && isMobile ? neckHeight : neckHeight / strings.length;
+      let stringWidth =
+        isPortrait && isMobile ? neckWidth / strings.length : neckWidth;
 
-      let fretHeight = isMobile ? stringHeight / (fretTotal + 1) : stringHeight;
-      let fretWidth = isMobile ? stringWidth : stringWidth / (fretTotal + 1);
+      let fretHeight =
+        isPortrait && isMobile ? stringHeight / fretTotal : stringHeight;
+      let fretWidth =
+        isPortrait && isMobile ? stringWidth : stringWidth / fretTotal;
 
       appDispatch(
         setInstrumentDimensions({
@@ -69,6 +74,7 @@ const StringedInstrument: React.FC = () => {
   }, [
     instrumentType,
     isMobile,
+    isPortrait,
     windowSize,
     strings.length,
     fretTotal,

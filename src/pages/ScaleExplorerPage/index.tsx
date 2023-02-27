@@ -17,10 +17,10 @@ const ScaleExplorerPage = () => {
 
   const audioClientProps = useAudioClient();
 
-  const { isMobile } = useContext<BreakpointState>(BreakpointContext);
+  const { isPortrait } = useContext<BreakpointState>(BreakpointContext);
   const intervalMarkerSize = useMemo(
-    () => (isMobile ? neck.width : neck.height) / scale.notes.length / 2,
-    [isMobile, neck]
+    () => (isPortrait ? neck.width : neck.height) / scale.notes.length / 2,
+    [isPortrait, neck]
   );
 
   return (
@@ -28,7 +28,7 @@ const ScaleExplorerPage = () => {
       <div className="row my-2">
         <AudioControls {...audioClientProps} />
       </div>
-      <div className="row mb-lg-5">
+      <div className="row mb-3 mb-lg-5">
         <StringedInstrument />
       </div>
       <div className="row mb-lg-3">

@@ -12,7 +12,7 @@ const StringLabels = () => {
     strings,
     dimensions: { fret, neck },
   } = useAppSelector((appState) => appState.instrument);
-  const { isMobile } = useContext(BreakpointContext);
+  const { isPortrait } = useContext(BreakpointContext);
 
   const addRef = useCallback((el: HTMLDivElement) => {
     if (stringLabelRefs.current) {
@@ -22,7 +22,7 @@ const StringLabels = () => {
 
   useLayoutEffect(() => {
     if (labelContainerRef.current) {
-      if (isMobile) {
+      if (isPortrait) {
         labelContainerRef.current.style.width = "100%";
         labelContainerRef.current.style.height = `${neck.height * 0.1}px`;
       } else {
@@ -32,7 +32,7 @@ const StringLabels = () => {
     if (stringLabelRefs.current) {
       stringLabelRefs.current.forEach((stringLabel) => {
         if (stringLabel) {
-          if (isMobile) {
+          if (isPortrait) {
             stringLabel.style.width = `${fret.width}px`;
           } else {
             stringLabel.style.height = `${fret.height}px`;
@@ -41,16 +41,18 @@ const StringLabels = () => {
         }
       });
     }
-  }, [isMobile, neck, fret]);
+  }, [isPortrait, neck, fret]);
 
   return (
     <div
-      className="
-        d-flex flex-lg-column align-items-center justify-content-center
+      className={`
+        d-flex
+        ${isPortrait ? "" : "flex-column"}
+        flex-lg-column align-items-center justify-content-center
         text-center fs-4 fw-bolder
         bg-light bg-opacity-75
         rounded-start
-      "
+      `}
       ref={labelContainerRef}
     >
       {strings.map((string) => (

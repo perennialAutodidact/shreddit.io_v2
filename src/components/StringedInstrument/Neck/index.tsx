@@ -1,4 +1,6 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useContext, useLayoutEffect, useRef } from "react";
+import { BreakpointContext } from "common/components/BreakpointProvider/context";
+import { BreakpointState } from "ts/breakpoints";
 import { useAppSelector } from "store/hooks";
 import StringLabels from "../StringLabels";
 import styles from "./Neck.module.scss";
@@ -10,6 +12,9 @@ interface NeckProps {
 const Neck: React.FC<NeckProps> = ({ children }: NeckProps) => {
   const { neck } = useAppSelector((appState) => appState.instrument.dimensions);
   const stringContainerRef = useRef<HTMLDivElement>(null);
+
+  const { isMobile, isPortrait } =
+    useContext<BreakpointState>(BreakpointContext);
 
   useLayoutEffect(() => {
     if (stringContainerRef.current) {
@@ -23,14 +28,19 @@ const Neck: React.FC<NeckProps> = ({ children }: NeckProps) => {
       className={`row justify-content-center ${styles.neck}`}
       id="instrument-neck"
     >
-      <div className="col-16 col-lg-1 p-0">
+      <div
+        className={`
+          p-0
+          ${isPortrait ? "col-16" : "col-1"}
+        `}
+      >
         <StringLabels />
       </div>
       <div
         className={`
           col-12 col-lg-10 p-0
           d-flex justify-content-center 
-          flex-lg-column
+          ${isPortrait ? "flex-row" : "flex-column"}
           ${styles.stringContainer}
         `}
         ref={stringContainerRef}

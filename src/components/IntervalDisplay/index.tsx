@@ -1,4 +1,5 @@
-import React from "react";
+import { BreakpointContext } from "common/components/BreakpointProvider/context";
+import React, { useContext } from "react";
 import { useAppSelector } from "store/hooks";
 
 type IntervalDisplayProps = {
@@ -8,14 +9,22 @@ type IntervalDisplayProps = {
 const IntervalDisplay = ({ markerSize }: IntervalDisplayProps) => {
   const { scale } = useAppSelector((appState) => appState.musicTheory);
 
+  const { isMobile, isLandscape } = useContext(BreakpointContext);
+
   return (
-    <div className={`container`} data-test-id="IntervalDisplay">
-      <div className="row mt-3">
+    <div
+      className={`container ${
+        isMobile ? (isLandscape ? "mt-0" : "mt-5") : "mt-0"
+      }`}
+      data-test-id="IntervalDisplay"
+    >
+      <div className={`row ${isMobile && isLandscape ? "mt-4" : "mt-5"}`}>
         <div
           className="
             col-14 offset-1
             col-lg-6 offset-lg-5
-            d-flex flex-wrap justify-content-center"
+            d-flex flex-wrap justify-content-center
+          "
         >
           {scale.intervals.map((interval, index) => (
             <div
