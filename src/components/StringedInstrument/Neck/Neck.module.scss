@@ -23,6 +23,12 @@
   z-index: -1;
 }
 
+@media screen and (max-width: 992px) and (orientation: landscape) {
+  .neck {
+    background-image: url("../../../../public/images/woodGrainBGDesktop.png");
+  }
+}
+
 @media screen and (min-width: 992px) {
   .stringContainer::before {
     width: 100%;
