@@ -26,10 +26,10 @@ const UtilityBar = () => {
           justify-content-center
           align-items-start
           justify-content-lg-start
-          mb-3
+          my-5
         "
       >
-        <div className="col-4 col-lg-2 offset-lg-1 position-relative">
+        <div className="col-4 col-lg-2 offset-lg-2 position-relative">
           <MusicKeySelect />
         </div>
         <div className="col-9 col-lg-5 mb-3 mb-lg-0">
