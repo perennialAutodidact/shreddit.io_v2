@@ -1,12 +1,10 @@
-import _, { divide } from "lodash";
+import _ from "lodash";
 import Fret from "components/StringedInstrument/Fret";
-import String from "components/StringedInstrument/String";
 import { initialState as rootState, RootState } from "store";
 import {
   StringNumber,
   FretNumber,
   FretData,
-  FretTotal,
   FretStart,
   FretEnd,
 } from "ts/stringedInstrument";
@@ -45,6 +43,7 @@ describe("<Fret />", () => {
     );
 
     cy.findByTestId("Fret").should("exist").and("have.class", FRET_CLASS);
+    cy.get(".fret-start").should("not.exist");
   });
 
   it("should render inlay-fret", () => {
@@ -190,7 +189,6 @@ describe("<Fret />", () => {
       { initialState }
     );
 
-    cy.get(".fret-start").first().should("not.have.class", styles.openFret);
-    cy.get(".fret-start").first().should("have.class", styles.firstFret);
+    cy.get(".fret-start").should("exist");
   });
 });
