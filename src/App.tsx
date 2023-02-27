@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router";
 import "styles/App.scss";
 import ScaleExplorerPage from "pages/ScaleExplorerPage";
 import TeoriaProvider from "common/components/TeoriaProvider";
-import UtilityBar from "components/UtilityBar";
 import SettingsMenuToggle from "components/UtilityBar/SettingsMenuToggle";
 import SettingsMenu from "common/components/SettingsMenu";
 
