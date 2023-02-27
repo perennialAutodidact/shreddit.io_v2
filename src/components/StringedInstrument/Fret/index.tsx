@@ -1,4 +1,5 @@
 import React, { useMemo, useRef, useEffect, useContext } from "react";
+import CSS from "csstype";
 import { useAppSelector } from "store/hooks";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
 import { BreakpointState } from "ts/breakpoints";
@@ -6,7 +7,7 @@ import { Interval, NoteName } from "ts/musicTheory";
 import { FretData, FretNumber, StringNumber } from "ts/stringedInstrument";
 import { INLAY_FRET_INDICES } from "common/constants/stringedInstruments";
 import NoteMarker from "components/NoteMarker";
-import styles from "./Fret.module.scss";
+import { fretStyles } from "./styles";
 
 const teoria = require("teoria");
 
@@ -17,7 +18,8 @@ interface FretProps extends FretData {
 }
 
 const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
-  const { isMobile } = useContext<BreakpointState>(BreakpointContext);
+  const { isMobile, isPortrait, isLandscape } =
+    useContext<BreakpointState>(BreakpointContext);
   const {
     dimensions: { fret },
     fretStart,
@@ -81,41 +83,55 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     () => fretInterval && scale.intervals.includes(fretInterval),
     [scale.intervals, fretInterval]
   );
+  // const showMarker = false;
 
   const isInlay = useMemo<boolean>(
     () => INLAY_FRET_INDICES.includes(fretNumber),
     [fretNumber]
   );
 
+  const isOpenFret = useMemo<boolean>(() => fretNumber === 0, [fretNumber]);
+
+  const isFirstFretOnString = useMemo<boolean>(
+    () => fretStart > 0 && fretNumber === fretStart,
+    [fretStart, fretNumber]
+  );
   const isFirstStringFret = useMemo<boolean>(
     () => stringNumber === 0 && fretNumber > 0,
     [stringNumber, fretNumber]
   );
 
   const isLastStringFret = useMemo<boolean>(
-    () => stringNumber === strings.length - 1,
+    () => stringNumber === strings.length - 1 && fretNumber > 0,
     [stringNumber, strings]
   );
 
   const isLastFretOnString = useMemo<boolean>(
-    () =>
-      (isMobile && fretNumber === fretEnd) ||
-      (!isMobile && fretNumber === fretEnd && isLastStringFret),
-    [isMobile, fretNumber, fretEnd, isLastStringFret]
+    () => fretNumber === fretEnd,
+    [fretNumber, fretEnd]
   );
 
   // apply border style
-  const fretBorders = useMemo<string>(
-    () =>
-      fretNumber === 0
-        ? styles.openFret
-        : fretNumber === fretStart || fretNumber === 1
-        ? styles.firstFret
-        : fretNumber > 1
-        ? styles.fret
-        : "",
-    [fretNumber, fretStart]
-  );
+  const fretBorders = useMemo(() => {
+    const styles = fretStyles[isPortrait ? "portrait" : "landscape"];
+
+    let _fretBorders: CSS.Properties = styles.fret;
+
+    if (isOpenFret) {
+      _fretBorders = styles.fretOpen;
+    }
+    if (isFirstFretOnString) {
+      _fretBorders = { ..._fretBorders, ...styles.fretFirst };
+    }
+    if (isFirstStringFret) {
+      _fretBorders = { ..._fretBorders, ...styles.fretFirstString };
+    }
+    if (isLastStringFret) {
+      _fretBorders = { ..._fretBorders, ...styles.fretLastString };
+    }
+
+    return _fretBorders;
+  }, [isPortrait, fretNumber, fretStart]);
 
   // determine size of fret marker
   const markerScalar = useMemo(
@@ -144,22 +160,15 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     <div
       id={`${stringNumber}${fretNumber}`}
       data-test-id="Fret"
+      style={fretBorders}
       className={`
         d-flex justify-content-center align-items-center
         position-relative bg-opacity-75
-        ${!isMobile ? "w-100" : ""}
-        ${isLastFretOnString ? styles.lastFret : ""}
-        ${isFirstStringFret ? styles.firstStringFret : ""}
-        ${isLastStringFret && fretNumber > 0 ? styles.lastStringFret : ""}
-        ${fretNumber > 0 ? (isInlay ? "bg-inlay-fret" : "bg-fret") : ""}
         ${fretNumber === fretStart ? "fret-start" : ""}
-        ${fretBorders}
-        ${
-          fretStart > 0 && fretNumber === fretStart
-            ? "mt-3 mt-lg-0 ms-lg-3"
-            : ""
-        }
-        ${isMobile && isLastFretOnString ? "mb-3" : ""}
+        ${fretNumber > 0 ? (isInlay ? "bg-inlay-fret" : "bg-fret") : ""}
+        ${!isMobile ? "w-100" : ""}
+        ${isFirstFretOnString ? "mt-3 mt-lg-0 ms-lg-3" : ""}
+        ${isMobile && isPortrait && isLastFretOnString ? "mb-3" : ""}
       `}
       ref={fretRef}
     >
