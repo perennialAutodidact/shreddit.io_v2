@@ -16,7 +16,17 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["cypress", "@testing-library/cypress", "cypress-real-events"]
+    "types": [
+      "node",
+      "filesystem",
+      "cypress",
+      "@testing-library/cypress",
+      "cypress-real-events"
+    ]
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   },
   "include": ["src", "src/**/*", "cypress"]
 }
