@@ -20,7 +20,7 @@ const ScaleExplorerPage = () => {
   const { isPortrait } = useContext<BreakpointState>(BreakpointContext);
   const intervalMarkerSize = useMemo(
     () => (isPortrait ? neck.width : neck.height) / scale.notes.length / 2,
-    [isPortrait, neck]
+    [isPortrait, neck, scale.notes.length]
   );
 
   return (

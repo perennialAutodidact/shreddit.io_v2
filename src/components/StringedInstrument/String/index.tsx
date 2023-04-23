@@ -20,8 +20,7 @@ const String: React.FC<StringProps> = ({
     (appState) => appState.instrument
   );
   const { scale } = useAppSelector((appState) => appState.musicTheory);
-  const { isMobile, isLandscape } =
-    useContext<BreakpointState>(BreakpointContext);
+  const { isLandscape } = useContext<BreakpointState>(BreakpointContext);
   const stringRef = useRef<HTMLDivElement>(null);
 
   const frets = useMemo<FretData[]>(

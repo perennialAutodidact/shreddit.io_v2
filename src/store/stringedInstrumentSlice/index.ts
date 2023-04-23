@@ -10,7 +10,6 @@ import {
   TuningName,
   StringedInstrumentName,
   StringedInstrumentState,
-  FretNumber,
   FretStart,
   FretEnd,
   FretTotal,

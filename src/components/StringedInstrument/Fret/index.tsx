@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useEffect, useContext } from "react";
+import { useMemo, useRef, useEffect, useContext } from "react";
 import CSS from "csstype";
 import { useAppSelector } from "store/hooks";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
@@ -18,7 +18,7 @@ interface FretProps extends FretData {
 }
 
 const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
-  const { isMobile, isPortrait, isLandscape } =
+  const { isMobile, isPortrait } =
     useContext<BreakpointState>(BreakpointContext);
   const {
     dimensions: { fret },
@@ -103,7 +103,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
 
   const isLastStringFret = useMemo<boolean>(
     () => stringNumber === strings.length - 1 && fretNumber > 0,
-    [stringNumber, strings]
+    [stringNumber, strings, fretNumber]
   );
 
   const isLastFretOnString = useMemo<boolean>(
@@ -131,7 +131,13 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     }
 
     return _fretBorders;
-  }, [isPortrait, fretNumber, fretStart]);
+  }, [
+    isPortrait,
+    isFirstFretOnString,
+    isFirstStringFret,
+    isLastStringFret,
+    isOpenFret,
+  ]);
 
   // determine size of fret marker
   const markerScalar = useMemo(

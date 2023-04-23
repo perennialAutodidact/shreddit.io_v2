@@ -13,8 +13,7 @@ const Neck: React.FC<NeckProps> = ({ children }: NeckProps) => {
   const { neck } = useAppSelector((appState) => appState.instrument.dimensions);
   const stringContainerRef = useRef<HTMLDivElement>(null);
 
-  const { isMobile, isPortrait } =
-    useContext<BreakpointState>(BreakpointContext);
+  const { isPortrait } = useContext<BreakpointState>(BreakpointContext);
 
   useLayoutEffect(() => {
     if (stringContainerRef.current) {

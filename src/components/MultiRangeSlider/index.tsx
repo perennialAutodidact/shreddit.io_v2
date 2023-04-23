@@ -1,11 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-  ChangeEvent,
-} from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { FretNumber } from "ts/stringedInstrument";
 import Slider from "./Slider";
 import styles from "./MultiRangeSlider.module.scss";
@@ -48,7 +41,7 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
 
   useEffect(() => {
     handleChange({ min: _minVal, max: _maxVal });
-  }, [_minVal, _maxVal]);
+  }, [_minVal, _maxVal, handleChange]);
 
   useEffect(() => {
     if (minValRef.current) {
