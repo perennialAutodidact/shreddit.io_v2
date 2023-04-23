@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import MusicKeySelect from "components/UtilityBar/MusicKeySelect";
 import MusicScaleSelect from "components/UtilityBar/MusicScaleSelect";
 import MultiRangeSlider from "components/MultiRangeSlider";
@@ -11,9 +12,12 @@ const UtilityBar = () => {
     (appState) => appState.instrument
   );
 
-  const handleChange: HandleChange = ({ min, max }) => {
-    appDispatch(setFretRange({ fretStart: min, fretEnd: max }));
-  };
+  const handleChange: HandleChange = useCallback(
+    ({ min, max }) => {
+      appDispatch(setFretRange({ fretStart: min, fretEnd: max }));
+    },
+    [appDispatch]
+  );
 
   return (
     <div className="container-fluid" data-test-id="UtilityBar">

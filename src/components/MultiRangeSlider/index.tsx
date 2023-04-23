@@ -41,7 +41,7 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps<FretNumber>> = ({
 
   useEffect(() => {
     handleChange({ min: _minVal, max: _maxVal });
-  }, [_minVal, _maxVal, handleChange]);
+  }, [handleChange, _minVal, _maxVal]);
 
   useEffect(() => {
     if (minValRef.current) {
