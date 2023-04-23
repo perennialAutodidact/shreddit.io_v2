@@ -36,8 +36,6 @@ class AudioClient {
       onLoad: options.onLoad,
     });
 
-    console.log({ instruments, currentInstrument: options.instrument });
-
     this.instruments = instruments;
     this.currentInstrument = options.instrument;
   }
