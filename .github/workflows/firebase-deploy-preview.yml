@@ -12,6 +12,7 @@ env:
   # CYPRESS_BASE_URL: http://localhost:3021
   # CYPRESS_CACHE_FOLDER: /github/home/.cache
 
+  REACT_APP_AUDIO_SAMPLE_URL: "https://tonejs.github.io/audio"
   FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
   FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
   FIREBASE_EMULATOR_HOST: localhost:8080
