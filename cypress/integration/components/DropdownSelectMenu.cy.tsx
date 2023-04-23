@@ -11,7 +11,7 @@ describe("<DropdownSelectMenu />", () => {
   beforeEach(() => {
     cy.mount(
       <div data-test-id="Wrapper">
-        <div data-test-id="OtherElement"></div>
+        <div data-test-id="OtherElement" style={{ marginTop: "100px" }}></div>
         <DropdownSelectMenu
           labelText={labelText}
           options={options}
@@ -64,10 +64,9 @@ describe("<DropdownSelectMenu />", () => {
     menuToggle.click().then(() => {
       cy.findByTestId("DropdownOptionsContainer").should("exist");
 
-      const menuOption = cy.contains(options[2].label);
-      menuOption.should("exist");
+      cy.contains(options[2].label).should("exist");
 
-      menuOption.click();
+      cy.contains(options[2].label).click();
       cy.get("@appStateSetter").should("have.been.called");
       cy.findByTestId("DropdownOptionsContainer").should("not.exist");
     });
