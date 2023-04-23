@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
 import { setInstrumentType, setTuning } from "store/stringedInstrumentSlice";
 import { BsXLg } from "react-icons/bs";

@@ -1,20 +1,19 @@
-import { KeyboardEvent, useEffect } from "react";
+import { useEffect } from "react";
 
 export const useOnKeyUp = (
   targetKey: globalThis.KeyboardEvent["key"],
   callback: () => void
 ) => {
-  const handleKeyUp = (e: globalThis.KeyboardEvent) => {
-    if (e.key === targetKey) {
-      callback();
-    }
-  };
-
   useEffect(() => {
+    const handleKeyUp = (e: globalThis.KeyboardEvent) => {
+      if (e.key === targetKey) {
+        callback();
+      }
+    };
     document.addEventListener("keydown", handleKeyUp);
 
     return () => {
       document.removeEventListener("keyup", handleKeyUp);
     };
-  }, [callback]);
+  }, [callback, targetKey]);
 };

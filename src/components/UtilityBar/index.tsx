@@ -1,11 +1,9 @@
 import MusicKeySelect from "components/UtilityBar/MusicKeySelect";
 import MusicScaleSelect from "components/UtilityBar/MusicScaleSelect";
 import MultiRangeSlider from "components/MultiRangeSlider";
-import AudioControls from "common/components/AudioControls";
 import { useAppSelector, useAppDispatch } from "store/hooks";
 import { setFretRange } from "store/stringedInstrumentSlice";
 import { HandleChange } from "components/MultiRangeSlider";
-import { useAudioClient } from "common/hooks/useAudioClient";
 
 const UtilityBar = () => {
   const appDispatch = useAppDispatch();

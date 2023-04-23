@@ -31,9 +31,9 @@ const DropdownSelectMenu = <T,>({
 }: React.PropsWithChildren<DropdownSelectMenuProps<T>>) => {
   const ref = useRef<HTMLDivElement>(null);
   const optionsRef = useRef<HTMLDivElement>(null);
-  const { isMobile, isPortrait } = useContext(BreakpointContext);
+  const { isMobile } = useContext(BreakpointContext);
 
-  const { width: windowWidth, height: windowHeight } = useWindowSize();
+  const { width: windowWidth } = useWindowSize();
 
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
@@ -59,7 +59,7 @@ const DropdownSelectMenu = <T,>({
 
   useEffect(() => {
     if (showOptions && optionsRef.current && ref.current) {
-      const { left, top, width } = ref.current.getBoundingClientRect();
+      const { left, width } = ref.current.getBoundingClientRect();
       const { height } = optionsRef.current.getBoundingClientRect();
       if (isMobile) {
         const xOffset = 20;
@@ -70,9 +70,8 @@ const DropdownSelectMenu = <T,>({
         optionsRef.current.style.width = `${width * 2}px`;
         optionsRef.current.style.top = `-${height - 20}px`;
       }
-      console.log({ height });
     }
-  }, [showOptions, windowWidth, isPortrait]);
+  }, [showOptions, windowWidth, isMobile]);
 
   useEffect(() => {
     setSelectedOption(defaultOption);
