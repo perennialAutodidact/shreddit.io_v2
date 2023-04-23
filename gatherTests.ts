@@ -1,4 +1,3 @@
-import { Dirent } from "fs";
 import { appendFile, readdir, writeFile } from "fs/promises";
 
 class testGatherer {
@@ -33,16 +32,11 @@ class testGatherer {
   }
 
   async gather() {
-    // create all.cy.ts for integration tests
+    // create all.cy.ts for integration and e2e tests
     this._writeFile("integration", "all");
     this._writeFile("e2e", "all");
 
     const path = `cypress/${this.rootDir}`;
-    let folders = await readdir(path, {
-      withFileTypes: true,
-    });
-
-    folders = folders.filter((dirent) => dirent.isDirectory());
 
     this._readImports(path);
   }
