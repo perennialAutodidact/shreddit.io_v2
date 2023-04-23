@@ -31,9 +31,9 @@ const DropdownSelectMenu = <T,>({
 }: React.PropsWithChildren<DropdownSelectMenuProps<T>>) => {
   const ref = useRef<HTMLDivElement>(null);
   const optionsRef = useRef<HTMLDivElement>(null);
-  const { isMobile } = useContext(BreakpointContext);
+  const { isMobile, isPortrait } = useContext(BreakpointContext);
 
-  const { width: windowWidth } = useWindowSize();
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
 
   const [showOptions, setShowOptions] = useState<boolean>(false);
 
@@ -58,13 +58,21 @@ const DropdownSelectMenu = <T,>({
   useOnClickOutside([ref], clickOutsideHandler);
 
   useEffect(() => {
-    if (isMobile && showOptions && optionsRef.current && ref.current) {
-      const left = ref.current?.getBoundingClientRect().left;
-      const xOffset = 20;
-      optionsRef.current.style.width = `${windowWidth - xOffset}px`;
-      optionsRef.current.style.left = `-${left - xOffset / 2}px`;
+    if (showOptions && optionsRef.current && ref.current) {
+      const { left, top, width } = ref.current.getBoundingClientRect();
+      const { height } = optionsRef.current.getBoundingClientRect();
+      if (isMobile) {
+        const xOffset = 20;
+        optionsRef.current.style.width = `${windowWidth - xOffset}px`;
+        optionsRef.current.style.left = `-${left - xOffset / 2}px`;
+        optionsRef.current.style.top = `-${height - 20}px `;
+      } else {
+        optionsRef.current.style.width = `${width * 2}px`;
+        optionsRef.current.style.top = `-${height - 20}px`;
+      }
+      console.log({ height });
     }
-  }, [showOptions, windowWidth, isMobile]);
+  }, [showOptions, windowWidth, isPortrait]);
 
   useEffect(() => {
     setSelectedOption(defaultOption);
@@ -85,6 +93,33 @@ const DropdownSelectMenu = <T,>({
       >
         {labelText}
       </label>
+      {showOptions ? (
+        <div
+          className={`
+            ${styles.optionsContainer}
+            mt-1
+            bg-light
+            border border-dark
+            rounded shadow
+            position-absolute
+            d-flex flex-wrap justify-content-center
+          `}
+          data-test-id="DropdownOptionsContainer"
+          ref={optionsRef}
+        >
+          {options.map((option) => (
+            <div
+              className={`${styles.menuOption} p-3`}
+              onClick={() => handleOptionClick(option)}
+              key={option.label}
+            >
+              {option.label}
+            </div>
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
       {!selectedOption ? (
         <LoadingIndicator />
       ) : (
@@ -101,34 +136,6 @@ const DropdownSelectMenu = <T,>({
         >
           {selectedOption.label}
         </div>
-      )}
-      {showOptions ? (
-        <div
-          className={`
-            ${styles.optionsContainer}
-            mt-1
-            bg-light
-            border border-dark
-            rounded shadow
-            position-absolute
-            top-100
-            d-flex flex-wrap justify-content-center
-          `}
-          data-test-id="DropdownOptionsContainer"
-          ref={optionsRef}
-        >
-          {options.map((option: any) => (
-            <div
-              className={`${styles.menuOption} p-3`}
-              onClick={() => handleOptionClick(option)}
-              key={option.label}
-            >
-              {option.label}
-            </div>
-          ))}
-        </div>
-      ) : (
-        ""
       )}
     </div>
   );

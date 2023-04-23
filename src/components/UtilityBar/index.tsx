@@ -25,17 +25,17 @@ const UtilityBar = () => {
           d-flex 
           justify-content-center
           align-items-start
-          justify-content-lg-start
-          my-5
+          justify-content-xl-start
+          my-3
         "
       >
-        <div className="col-4 col-lg-2 offset-lg-2 position-relative">
+        <div className="col-5 col-xl-3 offset-xl-4 mb-3">
           <MusicKeySelect />
         </div>
-        <div className="col-9 col-lg-5 mb-3 mb-lg-0">
+        <div className="col-8 col-xl-5 mb-3">
           <MusicScaleSelect />
         </div>
-        <div className="col-16 col-lg-5">
+        <div className="col-14 col-lg-8 offset-xl-4">
           <div className={`fw-bold mb-3`}>Fret Range</div>
           <MultiRangeSlider
             min={0}

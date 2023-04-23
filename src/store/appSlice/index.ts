@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppState } from "ts/app";
-import { _toggleIsPlayingAudio, _toggleShowSettingsMenu } from "./actions";
+import {
+  _setShowSettingsMenu,
+  _toggleIsPlayingAudio,
+  _toggleShowSettingsMenu,
+} from "./actions";
 
 export const initialState: AppState = {
   currentInstrument: "guitar-acoustic",
@@ -16,11 +20,15 @@ const appSlice = createSlice({
   initialState,
   reducers: {
     toggleShowSettingsMenu: _toggleShowSettingsMenu,
+    setShowSettingsMenu: _setShowSettingsMenu,
     toggleIsPlayingAudio: _toggleIsPlayingAudio,
   },
   extraReducers: (builder) => {},
 });
 
-export const { toggleShowSettingsMenu, toggleIsPlayingAudio } =
-  appSlice.actions;
+export const {
+  toggleShowSettingsMenu,
+  setShowSettingsMenu,
+  toggleIsPlayingAudio,
+} = appSlice.actions;
 export default appSlice.reducer;

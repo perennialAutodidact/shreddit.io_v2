@@ -13,9 +13,9 @@ const SettingsMenuToggle = () => {
         ${styles.settingsMenuToggle}
         fs-3
         d-flex align-items-center
-        px-3 px-lg-0 pt-3 
+        px-3 pt-3 
         position-absolute
-        top-0 left-0
+        top-0 end-0
       `}
       data-test-id="SettingsMenuToggle"
       onClick={() => appDispatch(toggleShowSettingsMenu())}

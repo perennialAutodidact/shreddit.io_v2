@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useAppSelector, useAppDispatch } from "store/hooks";
 import { setInstrumentType, setTuning } from "store/stringedInstrumentSlice";
 import { BsXLg } from "react-icons/bs";
 import { ALL_INSTRUMENTS, tunings } from "common/constants/stringedInstruments";
 import styles from "./SettingsMenu.module.scss";
-import { toggleShowSettingsMenu } from "store/appSlice";
+import { toggleShowSettingsMenu, setShowSettingsMenu } from "store/appSlice";
 import { titleize } from "common/utils/titleize";
+import { useOnClickOutside } from "common/hooks/useOnClickOutside";
+import { useOnKeyUp } from "common/hooks/useOnKeyUp";
 
 const SettingsMenu = () => {
   const appDispatch = useAppDispatch();
@@ -13,7 +15,28 @@ const SettingsMenu = () => {
     (appState) => appState.instrument
   );
   const { showSettingsMenu } = useAppSelector((appState) => appState.app);
+  const menuRef = useRef<HTMLDivElement>(null);
 
+  useOnClickOutside([menuRef], (e) => {
+    appDispatch(toggleShowSettingsMenu());
+  });
+
+  const handleKeyUp = () => {
+    if (showSettingsMenu) {
+      appDispatch(setShowSettingsMenu(false));
+    }
+  };
+
+  useOnKeyUp("Escape", handleKeyUp);
+  useEffect(() => {
+    if (showSettingsMenu) {
+      document.body.style.overflow = "hidden";
+
+      return () => {
+        document.body.style.overflow = "unset";
+      };
+    }
+  }, [showSettingsMenu]);
   if (!showSettingsMenu) return <></>;
 
   return (
@@ -22,31 +45,37 @@ const SettingsMenu = () => {
       className={`
         ${styles.settingsMenuContainer}
         container-fluid
+        p-0
         bg-dark
-        vh-100 max-vw-100
+        min-vh-100 max-vw-100
         position-absolute top-0 start-0
         bg-opacity-75
       `}
     >
       <div
         className={`
-        container-fluid
-        bg-light 
-        position-absolute top-0 start-50 translate-middle-x
-        vh-100 vw-100 vw-lg-50
-      `}
+          container-fluid
+          bg-light
+          position-absolute top-0 end-0
+          min-vh-100 vw-100 vw-lg-33
+        `}
+        ref={menuRef}
       >
         <div
-          className={`${styles.xIcon} position-absolute top-0 start-0 ms-2 fs-1`}
+          className={`row mt-3 fs-1 fs-lg-5`}
           onClick={() => appDispatch(toggleShowSettingsMenu())}
           data-test-id="SettingsMenuCloseButton"
         >
-          <BsXLg />
+          <div className="col-14 d-flex align-items-center">
+            <h1 className="text-start m-0">Settings</h1>
+          </div>
+          <div className={`${styles.xIcon} col-2 d-flex align-items-center`}>
+            <BsXLg />
+          </div>
         </div>
-        <h1>Settings</h1>
-        <div className="row gy-5">
-          <div className="col-6 offset-3">
-            <h3>Instrument</h3>
+        <div className="row gy-5 mt-3">
+          <div className="col-8">
+            <h4 className="text-start">Instrument</h4>
             <select
               className="form-select"
               onChange={(e) => appDispatch(setInstrumentType(e.target.value))}
@@ -59,8 +88,8 @@ const SettingsMenu = () => {
               ))}
             </select>
           </div>
-          <div className="col-6 offset-3">
-            <h3>Tuning</h3>
+          <div className="col-8">
+            <h4 className="text-start">Tuning</h4>
             <select
               className="form-select"
               value={tuningName}

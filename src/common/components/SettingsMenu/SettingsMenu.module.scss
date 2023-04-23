@@ -10,5 +10,10 @@
 }
 
 .xIcon {
-  //   z-index: 1;
+  transition: all 0.1s ease-in-out;
+}
+
+.xIcon:hover {
+  cursor: pointer;
+  color: $custom-info;
 }

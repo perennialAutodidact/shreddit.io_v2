@@ -1,4 +1,4 @@
-import { CaseReducer } from "@reduxjs/toolkit";
+import { CaseReducer, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from "ts/app";
 
 export const _toggleShowSettingsMenu: CaseReducer<AppState> = (
@@ -7,6 +7,14 @@ export const _toggleShowSettingsMenu: CaseReducer<AppState> = (
 ) => ({
   ...state,
   showSettingsMenu: !state.showSettingsMenu,
+});
+
+export const _setShowSettingsMenu: CaseReducer<
+  AppState,
+  PayloadAction<AppState["showSettingsMenu"]>
+> = (state, action) => ({
+  ...state,
+  showSettingsMenu: action.payload,
 });
 
 export const _toggleIsPlayingAudio: CaseReducer<AppState> = (
