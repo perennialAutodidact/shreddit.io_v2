@@ -1,11 +1,10 @@
-import "./components/StringedInstrument/index.cy";
-import "./components/StringedInstrument/String.cy";
-import "./components/StringedInstrument/Fret.cy";
-
-import "./components/UtilityBar/index.cy";
-
-import "./components/AudioControls.cy";
-import "./components/DropdownSelectMenu.cy";
-import "./components/IntervalDisplay.cy";
-import "./components/MultiRangeSlider.cy";
-import "./components/NoteMarker.cy";
+import "./components/app.cy.tsx"
+import "./components/AudioControls.cy.tsx"
+import "./components/DropdownSelectMenu.cy.tsx"
+import "./components/IntervalDisplay.cy.tsx"
+import "./components/MultiRangeSlider.cy.tsx"
+import "./components/NoteMarker.cy.tsx"
+import "./components/StringedInstrument/Fret.cy.tsx"
+import "./components/StringedInstrument/index.cy.tsx"
+import "./components/StringedInstrument/String.cy.tsx"
+import "./components/StringedInstrument/StringLabels.cy.tsx"
