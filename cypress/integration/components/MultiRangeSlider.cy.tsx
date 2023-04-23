@@ -1,5 +1,4 @@
 import MultiRangeSlider from "components/MultiRangeSlider";
-import { buildInitialState } from "../../support/utils/buildInitialState";
 
 describe("<MultiRangeSlider />", () => {
   const thumbLeft = "MultiSliderThumbLeft";
