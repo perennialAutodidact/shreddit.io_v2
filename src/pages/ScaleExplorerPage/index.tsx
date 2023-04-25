@@ -9,7 +9,6 @@ import UtilityBar from "components/UtilityBar";
 import { BreakpointState } from "ts/breakpoints";
 
 const ScaleExplorerPage = () => {
-  const { versionNumbers } = useAppSelector((appState) => appState.app);
   const {
     dimensions: { neck },
   } = useAppSelector((appState) => appState.instrument);
@@ -37,7 +36,6 @@ const ScaleExplorerPage = () => {
       <div className="row my-3">
         <UtilityBar />
       </div>
-      <div className="row text-muted">v{versionNumbers.scaleExplorer}</div>
     </div>
   );
 };

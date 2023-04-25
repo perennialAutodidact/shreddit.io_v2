@@ -10,9 +10,6 @@ export const initialState: AppState = {
   currentInstrument: "guitar-acoustic",
   isPlayingAudio: false,
   showSettingsMenu: false,
-  versionNumbers: {
-    scaleExplorer: "1.0.0-alpha",
-  },
 };
 
 const appSlice = createSlice({
