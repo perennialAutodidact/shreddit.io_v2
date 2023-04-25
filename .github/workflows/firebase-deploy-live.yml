@@ -59,6 +59,7 @@ jobs:
       FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
       FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
       FIREBASE_EMULATOR_HOST: localhost:8080
+      REACT_APP_AUDIO_SAMPLE_URL: "https://tonejs.github.io/audio"
       # Authorize Firebase CLI
       # FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
