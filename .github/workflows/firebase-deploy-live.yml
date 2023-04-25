@@ -57,8 +57,6 @@ jobs:
           start: yarn start
 
       - name: Deploy Firebase Live
-        uses: actions/checkout@v2
-        run: yarn build
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
