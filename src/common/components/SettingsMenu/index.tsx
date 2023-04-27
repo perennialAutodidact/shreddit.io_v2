@@ -9,6 +9,8 @@ import { titleize } from "common/utils/titleize";
 import { useOnClickOutside } from "common/hooks/useOnClickOutside";
 import { useOnKeyUp } from "common/hooks/useOnKeyUp";
 
+import NoteMarkerRangeSelector from "components/NoteMarkerRangeSelector";
+
 const SettingsMenu = () => {
   const appDispatch = useAppDispatch();
   const { instrumentType, tuningName } = useAppSelector(
@@ -103,7 +105,9 @@ const SettingsMenu = () => {
             </select>
           </div>
         </div>
-        <div className="d-flex flex-column"></div>
+        <div className="d-flex flex-column">
+          <NoteMarkerRangeSelector />
+        </div>
       </div>
     </div>
   );
