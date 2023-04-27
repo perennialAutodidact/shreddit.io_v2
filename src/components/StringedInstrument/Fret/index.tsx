@@ -164,7 +164,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
 
   return (
     <div
-      id={`${stringNumber}${fretNumber}`}
+      id={`${stringNumber}_${fretNumber}`}
       data-test-id="Fret"
       style={fretBorders}
       className={`
