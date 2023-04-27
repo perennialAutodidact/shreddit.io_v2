@@ -1,6 +1,6 @@
-import { createRef, RefObject, useEffect, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 import { useAppSelector } from "store/hooks";
-import { FretNumber, StringNumber } from "ts/stringedInstrument";
+import { FretNumber, Frets, StringNumber } from "ts/stringedInstrument";
 
 const NoteMarkerRangeSelector = () => {
   const { fretTotal, strings } = useAppSelector(
@@ -8,33 +8,6 @@ const NoteMarkerRangeSelector = () => {
   );
 
   const containerRef = createRef<HTMLDivElement>();
-
-  type GridKey = `${StringNumber}_${FretNumber}`;
-  type Grid = {
-    [key in GridKey]: Cell;
-  };
-  type Cell = {
-    string: StringNumber;
-    fret: FretNumber;
-    ref: RefObject<HTMLDivElement>;
-    enabled: boolean;
-  };
-
-  const generateGrid = (): Grid => {
-    const items = [...Array(strings.length)].flatMap((_, string) =>
-      [...Array(fretTotal + 1)].map((_, fret) => [
-        `${string}_${fret}`,
-        {
-          string,
-          fret,
-          enabled: true,
-        },
-      ])
-    );
-
-    const grid = Object.fromEntries(items);
-    return grid;
-  };
 
   const [grid, setGrid] = useState<Grid>(generateGrid());
 

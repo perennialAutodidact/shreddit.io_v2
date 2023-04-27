@@ -9,7 +9,7 @@ import {
 export const initialState: AppState = {
   currentInstrument: "guitar-acoustic",
   isPlayingAudio: false,
-  showSettingsMenu: false,
+  showSettingsMenu: true,
 };
 
 const appSlice = createSlice({

@@ -44,6 +44,7 @@ export const initialState: StringedInstrumentState = {
       width: 0,
     },
   },
+  frets: {},
 };
 
 export const InstrumentSlice: Slice<StringedInstrumentState> = createSlice({

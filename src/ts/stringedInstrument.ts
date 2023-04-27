@@ -1,12 +1,8 @@
+import { RefObject } from "react";
 import { NrRange, NumbersToN } from "ts-number-range";
-import {
-  NoteName,
-  ScaleName,
-  Interval,
-  Note,
-  OctaveNumber,
-} from "ts/musicTheory";
+import { NoteName, Interval, Note, OctaveNumber } from "ts/musicTheory";
 
+// Tunings
 export type Tunings = {
   guitar: {
     standard: ["e2", "a3", "d3", "g3", "b4", "e4"];
@@ -26,14 +22,6 @@ export type Tunings = {
   };
 };
 
-export interface FretData {
-  noteName: NoteName;
-  octave: OctaveNumber;
-  interval: Interval;
-  markerEnabled: boolean;
-}
-export type StringedInstrumentName = keyof Tunings;
-
 export type GuitarTuningName = keyof Tunings["guitar"];
 export type MandolinTuningName = keyof Tunings["mandolin"];
 export type UkuleleTuningName = keyof Tunings["ukulele"];
@@ -50,14 +38,37 @@ export type TuningName =
 // instead of general arrays of Notes
 export type Tuning = Note[];
 
+// Strings
 export interface StringData {
   rootNote: NoteName;
   frets: FretData[];
 }
 
 export type StringNumber = NumbersToN<6>;
+
+// Frets
 export type FretNumber = NumbersToN<22>;
 
+export interface FretData {
+  noteName: NoteName;
+  octave: OctaveNumber;
+  interval: Interval;
+  markerEnabled: boolean;
+  ref: RefObject<HTMLDivElement>;
+}
+
+export type FretCoords = `${StringNumber}_${FretNumber}`;
+
+export type Frets = {
+  [key in FretCoords]?: FretData;
+};
+
+export type FretStart = StringedInstrumentState["fretStart"];
+export type FretEnd = StringedInstrumentState["fretEnd"];
+export type FretTotal = StringedInstrumentState["fretTotal"];
+
+// Instrument
+export type StringedInstrumentName = keyof Tunings;
 export type StringedInstrumentDimensions = {
   [key in "neck" | "string" | "fret"]: {
     height: number;
@@ -74,8 +85,5 @@ export interface StringedInstrumentState {
   fretEnd: NrRange<6, 22>;
   markedNotes: NoteName[];
   dimensions: StringedInstrumentDimensions;
+  frets: Frets;
 }
-
-export type FretStart = StringedInstrumentState["fretStart"];
-export type FretEnd = StringedInstrumentState["fretEnd"];
-export type FretTotal = StringedInstrumentState["fretTotal"];

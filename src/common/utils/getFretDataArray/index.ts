@@ -1,3 +1,4 @@
+import { createRef } from "react";
 import { Note, Interval, NoteName, OctaveNumber } from "ts/musicTheory";
 import { FretEnd, FretData, FretStart } from "ts/stringedInstrument";
 import {
@@ -42,8 +43,9 @@ export const getFretDataArray = (
     let noteName: NoteName = note.slice(0, -1) as NoteName;
     let octave: OctaveNumber = note[note.length - 1] as OctaveNumber;
     let markerEnabled = true;
+    let ref = createRef<HTMLDivElement>();
 
-    return { noteName, octave, interval, markerEnabled };
+    return { noteName, octave, interval, markerEnabled, ref };
   });
 
   return frets;
