@@ -30,6 +30,7 @@ export interface FretData {
   noteName: NoteName;
   octave: OctaveNumber;
   interval: Interval;
+  markerEnabled: boolean;
 }
 export type StringedInstrumentName = keyof Tunings;
 

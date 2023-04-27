@@ -41,8 +41,9 @@ export const getFretDataArray = (
 
     let noteName: NoteName = note.slice(0, -1) as NoteName;
     let octave: OctaveNumber = note[note.length - 1] as OctaveNumber;
+    let markerEnabled = true;
 
-    return { noteName, octave, interval };
+    return { noteName, octave, interval, markerEnabled };
   });
 
   return frets;
