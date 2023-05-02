@@ -1,7 +1,5 @@
 import { getScalePitches } from "common/utils/getScalePitches";
 
-const teoria = require("teoria");
-
 describe("getScalePitches()", () => {
   it("should return Notes based on a scale", () => {
     const key = "c3";
@@ -10,8 +8,6 @@ describe("getScalePitches()", () => {
 
     const pitches = getScalePitches(key, scale);
 
-    expect(pitches).to.deep.eq(expected);
+    expect(pitches).toStrictEqual(expected);
   });
 });
-
-export {};

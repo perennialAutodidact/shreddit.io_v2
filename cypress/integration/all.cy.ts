@@ -1,5 +1,5 @@
-import "./components/app.cy.tsx"
 import "./components/AudioControls.cy.tsx"
+import "./components/app.cy.tsx"
 import "./components/DropdownSelectMenu.cy.tsx"
 import "./components/IntervalDisplay.cy.tsx"
 import "./components/MultiRangeSlider.cy.tsx"

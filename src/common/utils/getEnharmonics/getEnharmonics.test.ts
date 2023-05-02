@@ -1,8 +1,6 @@
 import { getEnharmonics } from "common/utils";
 import { NoteName } from "ts/musicTheory";
 
-const teoria = require("teoria");
-
 describe("getEnharonics", () => {
   it("should throw an error if not an array", () => {
     expect(() => getEnharmonics(0 as any)).toThrow(TypeError);
@@ -29,5 +27,3 @@ describe("getEnharonics", () => {
     expect(getEnharmonics(notes)).toEqual(expectedEnharmonics);
   });
 });
-
-export {};

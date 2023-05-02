@@ -1,5 +1,5 @@
 import { getScaleData } from "common/utils/getScaleData";
-import { ScaleData } from "ts/stringedInstrument";
+import { ScaleData } from "ts/musicTheory";
 
 describe("getScaleData()", () => {
   it("should return scale data", () => {

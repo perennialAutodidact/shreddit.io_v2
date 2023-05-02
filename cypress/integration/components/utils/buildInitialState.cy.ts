@@ -1,4 +1,3 @@
-import { tunings } from "common/constants/stringedInstruments";
 import { initialState, RootState } from "store";
 import { buildInitialState } from "../../../support/utils/buildInitialState";
 
@@ -9,14 +8,12 @@ describe("buildInitialState()", () => {
       instrument: {
         ...initialState.instrument,
         instrumentType: "mandolin",
-        strings: tunings["mandolin"]["standard"],
       },
     };
 
     const actual = buildInitialState<RootState>({
       instrument: {
         instrumentType: "mandolin",
-        strings: tunings["mandolin"]["standard"],
       },
     });
 

@@ -28,5 +28,6 @@
     "esm": true,
     "experimentalSpecifierResolution": "node"
   },
-  "include": ["src", "src/**/*", "cypress"]
+  "include": ["src", "src/**/*", "cypress"],
+  "exclude": ["./node_modules"]
 }

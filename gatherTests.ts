@@ -33,8 +33,8 @@ class testGatherer {
 
   async gather() {
     // create all.cy.ts for integration and e2e tests
-    this._writeFile("integration", "all");
-    this._writeFile("e2e", "all");
+    this._writeFile("integration", "all.cy.ts");
+    this._writeFile("e2e", "all.cy.ts");
 
     const path = `cypress/${this.rootDir}`;
 

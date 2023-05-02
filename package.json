@@ -37,11 +37,12 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "./node_modules/.bin/cypress run -r nyan",
+    "test": "react-scripts test",
     "cypress": "./node_modules/.bin/cypress",
     "cypress:gather": "npx ts-node ./gatherTests.ts",
     "cypress:open": "./node_modules/.bin/cypress open",
-    "cypress:run": "./node_modules/.bin/cypress run --browser chrome",
+    "cypress:run": "yarn cypress:gather && ./node_modules/.bin/cypress run --browser chrome",
+    "cypress:all": "yarn cypress:gather && ./node_modules/.bin/cypress run --browser chrome --spec ./cypress/integration/all.cy.ts",
     "ci": "yarn cypress:gather && ./node_modules/.bin/cypress run --browser chrome && ./node_modules/.bin/cypress run --component --browser chrome --spec './cypress/integration/all.cy.ts'",
     "eject": "react-scripts eject"
   },
@@ -68,12 +69,14 @@
     "@cypress/webpack-dev-server": "^3.1.1",
     "@testing-library/cypress": "^8.0.7",
     "@types/filesystem": "^0.0.32",
+    "@types/jest": "^29.5.1",
     "cypress": "^12.0.2",
     "cypress-log-to-output": "^1.1.2",
     "cypress-real-events": "^1.7.6",
     "fs": "^0.0.1-security",
     "react-scripts": "^5.0.1",
     "standardized-audio-context-mock": "^9.6.8",
+    "ts-node": "^10.9.1",
     "web-audio-test-api": "^0.5.2"
   }
 }
