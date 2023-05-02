@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import { NrRange, NumbersToN } from "ts-number-range";
-import { NoteName, Interval, Note, OctaveNumber } from "ts/musicTheory";
+import { Note, NoteName, Interval, OctaveNumber } from "ts/musicTheory";
 
 // Tunings
 export type Tunings = {
@@ -27,45 +27,57 @@ export type MandolinTuningName = keyof Tunings["mandolin"];
 export type UkuleleTuningName = keyof Tunings["ukulele"];
 export type BassTuningName = keyof Tunings["bass"];
 
-export type TuningName =
-  | GuitarTuningName
-  | MandolinTuningName
-  | UkuleleTuningName
-  | BassTuningName;
+// export type TuningName<I> = I extends "guitar"
+//   ? GuitarTuningName
+//   : I extends "mandolin"
+//   ? MandolinTuningName
+//   : I extends "ukulele"
+//   ? UkuleleTuningName
+//   : I extends "bass"
+//   ? BassTuningName
+//   : never;
 
-// ToDo: Find a way to express the Tunings as a union
-// of all possible values from the Tunings object
-// instead of general arrays of Notes
-export type Tuning = Note[];
+export type TuningName<I> = I extends keyof Tunings ? keyof Tunings[I] : never;
 
-// Strings
-export interface StringData {
-  rootNote: NoteName;
-  frets: FretData[];
-}
+export type Tuning<
+  I extends keyof Tunings,
+  J extends keyof Tunings[I]
+> = Note[] & J extends keyof Tunings[I] ? Tunings[I][J] : never;
 
-export type StringNumber = NumbersToN<6>;
+// Dimensions
+export type Dimension = {
+  height: number;
+  width: number;
+};
 
 // Frets
-export type FretNumber = NumbersToN<22>;
+export type FretNumber = NumbersToN<24>;
+export type FretStart = NrRange<0, 18>;
+export type FretEnd = NrRange<6, 24>;
+export type FretTotal = NrRange<6, 24>;
 
-export interface FretData {
+export type Fret = {
   noteName: NoteName;
   octave: OctaveNumber;
   interval: Interval;
   markerEnabled: boolean;
   ref: RefObject<HTMLDivElement>;
-}
-
-export type FretCoords = `${StringNumber}_${FretNumber}`;
-
-export type Frets = {
-  [key in FretCoords]?: FretData;
 };
 
-export type FretStart = StringedInstrumentState["fretStart"];
-export type FretEnd = StringedInstrumentState["fretEnd"];
-export type FretTotal = StringedInstrumentState["fretTotal"];
+export type Frets = { [key in FretNumber]?: Fret };
+
+// Strings
+export type StringNumber = NumbersToN<6>;
+
+export interface String {
+  rootNote: NoteName;
+  frets: Frets;
+}
+
+export type Strings = StringedInstrumentState["neck"]["strings"];
+
+// Neck
+export type Neck = StringedInstrumentState["neck"];
 
 // Instrument
 export type StringedInstrumentName = keyof Tunings;
@@ -76,14 +88,20 @@ export type StringedInstrumentDimensions = {
   };
 };
 
-export interface StringedInstrumentState {
+export type StringedInstrumentState = {
   instrumentType: StringedInstrumentName;
-  tuningName: TuningName;
-  strings: Tuning;
-  fretTotal: NrRange<6, 22>;
-  fretStart: NrRange<0, 16>;
-  fretEnd: NrRange<6, 22>;
+  tuningName: TuningName<keyof Tunings>;
+  neck: {
+    fretStart: FretStart;
+    fretEnd: FretEnd;
+    fretTotal: FretTotal;
+    strings: {
+      [N in StringNumber]?: {
+        rootNote: Note;
+        frets: { [key in FretNumber]?: Fret };
+      };
+    };
+  };
   markedNotes: NoteName[];
   dimensions: StringedInstrumentDimensions;
-  frets: Frets;
-}
+};

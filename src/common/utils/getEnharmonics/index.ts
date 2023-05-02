@@ -14,14 +14,12 @@ export const getEnharmonics = (notes: NoteName[]): NoteName[] => {
       .toString()
       .replace(/[0-9]/g, "")
       .split(",");
-    // console.log(note.toString(), _enharmonics);
     _enharmonics = _enharmonics.filter(
       (enharmonic: string) => enharmonic.length < 3 && !enharmonic.includes("x")
     );
 
     return _enharmonics as NoteName[];
   });
-  // console.log(enharmonics);
 
   return enharmonics;
 };

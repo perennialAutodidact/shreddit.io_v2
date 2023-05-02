@@ -7,28 +7,16 @@ import {
   _setFretRange,
 } from "./actions";
 import {
-  TuningName,
-  StringedInstrumentName,
-  StringedInstrumentState,
-  FretStart,
-  FretEnd,
-  FretTotal,
-} from "ts/stringedInstrument";
-import { tunings } from "common/constants/stringedInstruments";
-
-const INITIAL_INSTRUMENT: StringedInstrumentName = "guitar";
-const INITIAL_TUNING: TuningName = "standard";
-
-const fretStart: FretStart = 0;
-const fretEnd: FretEnd = 12;
+  INITIAL_INSTRUMENT,
+  INITIAL_NECK,
+  INITIAL_TUNING_NAME,
+} from "common/constants/stringedInstruments";
+import { StringedInstrumentState } from "ts/stringedInstrument";
 
 export const initialState: StringedInstrumentState = {
   instrumentType: INITIAL_INSTRUMENT,
-  tuningName: INITIAL_TUNING,
-  strings: tunings[INITIAL_INSTRUMENT][INITIAL_TUNING],
-  fretStart,
-  fretEnd,
-  fretTotal: (fretEnd - fretStart) as FretTotal,
+  tuningName: INITIAL_TUNING_NAME,
+  neck: INITIAL_NECK,
   markedNotes: [],
   dimensions: {
     neck: {
@@ -44,7 +32,6 @@ export const initialState: StringedInstrumentState = {
       width: 0,
     },
   },
-  frets: {},
 };
 
 export const InstrumentSlice: Slice<StringedInstrumentState> = createSlice({

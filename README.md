@@ -42,6 +42,7 @@ Visualize scales on various stringed instruments. Playback scale audio with visu
 
 ### Resources 
 [Rhythms in ToneJS](https://www.guitarland.com/MusicTheoryWithToneJS/PlayRhythms.html) 
+[Testing Drag'n'Drop Workflows using Cypress](https://reflect.run/articles/testing-drag-and-drop-workflows-using-cypress/)
 
 ### Tests
 
