@@ -14,7 +14,7 @@ import {
 import { StringedInstrumentState } from "ts/stringedInstrument";
 
 export const initialState: StringedInstrumentState = {
-  instrumentType: INITIAL_INSTRUMENT,
+  instrumentName: INITIAL_INSTRUMENT,
   tuningName: INITIAL_TUNING_NAME,
   neck: INITIAL_NECK,
   markedNotes: [],

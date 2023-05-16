@@ -5,6 +5,7 @@ import {
   Neck,
   StringedInstrumentName,
   Strings,
+  StringsTotal,
   Tuning,
   TuningName,
   Tunings,
@@ -57,7 +58,11 @@ export const INITIAL_STRINGS: Strings = generateStringsData(
   INITIAL_FRET_END
 );
 
+export const INITIAL_STRINGS_TOTAL: StringsTotal<typeof INITIAL_INSTRUMENT> =
+  Object.keys(INITIAL_STRINGS).length;
+
 export const INITIAL_NECK: Neck = {
+  stringsTotal: INITIAL_STRINGS_TOTAL,
   fretStart: INITIAL_FRET_START,
   fretEnd: INITIAL_FRET_END,
   fretTotal: INITIAL_FRET_TOTAL,

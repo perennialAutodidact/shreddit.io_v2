@@ -1,7 +1,9 @@
 import {
-  Fret,
+  FretData,
+  FretEnd,
   Frets,
   FretNumber,
+  FretStart,
   Neck,
   Strings,
   Tuning,
@@ -15,18 +17,19 @@ export const generateStringsData = <
   J extends keyof Tunings[I]
 >(
   tuning: Tuning<I, J> & Note[],
-  fretStart: Neck["fretStart"],
-  fretEnd: Neck["fretEnd"]
+  fretStart: FretStart,
+  fretEnd: FretEnd
 ): Strings => {
-  const strings: Strings = {};
+  const strings = {} as Strings;
 
   tuning.forEach((rootNote, i) => {
-    const _frets: [FretNumber, Fret][] = getFretDataArray(
-      rootNote,
-      fretStart,
-      fretEnd,
-      "dim"
-    ).map<[FretNumber, Fret]>((fret, index) => [index as FretNumber, fret]);
+    const _frets: [FretNumber<typeof fretStart, typeof fretEnd>, FretData][] =
+      getFretDataArray(rootNote, fretStart, fretEnd, "dim").map<
+        [FretNumber<typeof fretStart, typeof fretEnd>, FretData]
+      >((fret, index) => [
+        index as FretNumber<typeof fretStart, typeof fretEnd>,
+        fret,
+      ]);
 
     const frets: Frets = Object.fromEntries(_frets);
 

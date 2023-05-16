@@ -37,6 +37,18 @@ export type BassTuningName = keyof Tunings["bass"];
 //   ? BassTuningName
 //   : never;
 
+// export type InstrumentTuning<
+//   T extends keyof Tunings,
+//   J extends keyof Tunings[T]
+// > = keyof Tunings[T][J];
+
+export type InstrumentName = keyof Tunings;
+
+// export type RootNote<
+//   I extends InstrumentName,
+//   T extends TuningName<I>
+// > = keyof Tunings[I][T];
+
 export type TuningName<I> = I extends keyof Tunings ? keyof Tunings[I] : never;
 
 export type Tuning<
@@ -51,12 +63,12 @@ export type Dimension = {
 };
 
 // Frets
-export type FretNumber = NumbersToN<24>;
+export type FretNumber<I extends FretStart, J extends FretEnd> = NrRange<I, J>;
 export type FretStart = NrRange<0, 18>;
 export type FretEnd = NrRange<6, 24>;
 export type FretTotal = NrRange<6, 24>;
 
-export type Fret = {
+export type FretData = {
   noteName: NoteName;
   octave: OctaveNumber;
   interval: Interval;
@@ -64,13 +76,32 @@ export type Fret = {
   ref: RefObject<HTMLDivElement>;
 };
 
-export type Frets = { [key in FretNumber]?: Fret };
+export type Frets = { [key in FretNumber<FretStart, FretEnd>]: FretData };
+
+const _frets: Frets = {
+  0: {},
+};
+
+export enum StringTotals {
+  Six = 6,
+  Four = 4,
+}
+
+export type StringNumber<I extends InstrumentName> = I extends "guitar"
+  ? NumbersToN<6>
+  : I extends "mandolin" | "ukulele" | "bass"
+  ? NumbersToN<4>
+  : never;
 
 // Strings
-export type StringNumber = NumbersToN<6>;
+export type StringsTotal<I extends InstrumentName> = I extends "guitar"
+  ? StringTotals.Six
+  : I extends "mandolin" | "ukulele" | "bass"
+  ? StringTotals.Four
+  : never;
 
-export interface String {
-  rootNote: NoteName;
+export interface StringData {
+  rootNote: Note;
   frets: Frets;
 }
 
@@ -89,16 +120,17 @@ export type StringedInstrumentDimensions = {
 };
 
 export type StringedInstrumentState = {
-  instrumentType: StringedInstrumentName;
+  instrumentName: StringedInstrumentName;
   tuningName: TuningName<keyof Tunings>;
   neck: {
+    stringsTotal: StringsTotal<InstrumentName>;
     fretStart: FretStart;
     fretEnd: FretEnd;
     fretTotal: FretTotal;
     strings: {
-      [N in StringNumber]?: {
+      [N in StringNumber<InstrumentName>]: {
         rootNote: Note;
-        frets: { [key in FretNumber]?: Fret };
+        frets: { [key in FretNumber<FretStart, FretEnd>]: FretData };
       };
     };
   };

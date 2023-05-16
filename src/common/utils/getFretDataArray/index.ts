@@ -1,6 +1,11 @@
 import { createRef } from "react";
 import { Note, Interval, NoteName, OctaveNumber } from "ts/musicTheory";
-import { FretEnd, Fret, FretStart } from "ts/stringedInstrument";
+import {
+  FretData,
+  FretEnd,
+  FretNumber,
+  FretStart,
+} from "ts/stringedInstrument";
 import {
   intervalsWithAug,
   intervalsWithDim,
@@ -21,22 +26,22 @@ export const getFretDataArray = (
   fretStart: FretStart,
   fretEnd: FretEnd,
   augOrDim: "aug" | "dim"
-): Fret[] => {
+): FretData[] => {
   const fretTotal = fretEnd - fretStart;
   if (fretTotal < MIN_NECK_LENGTH) {
     throw new RangeError(`Neck length must be at least ${MIN_NECK_LENGTH}`);
   }
-  let fretNumbers: number[] = [];
+  let fretNumbers: FretNumber<FretStart, FretEnd>[] = [];
 
   for (let i = fretStart; i <= fretEnd; ++i) {
-    fretNumbers.push(i);
+    fretNumbers.push(i as FretNumber<FretStart, FretEnd>);
   }
 
   const intervals: Interval[] =
     augOrDim === "aug" ? intervalsWithAug : intervalsWithDim;
   const rootNote = teoria.note(_rootNote);
 
-  const frets: Fret[] = fretNumbers.map((fretNumber) => {
+  const frets: FretData[] = fretNumbers.map((fretNumber) => {
     const interval = intervals[fretNumber % intervals.length];
     const note: Note = rootNote.interval(interval).toString();
 

@@ -4,7 +4,14 @@ import { useAppSelector } from "store/hooks";
 import { BreakpointContext } from "common/components/BreakpointProvider/context";
 import { BreakpointState } from "ts/breakpoints";
 import { Interval, NoteName } from "ts/musicTheory";
-import { FretData, FretNumber, StringNumber } from "ts/stringedInstrument";
+import {
+  FretData,
+  FretEnd,
+  FretNumber,
+  FretStart,
+  InstrumentName,
+  StringNumber,
+} from "ts/stringedInstrument";
 import { INLAY_FRET_INDICES } from "common/constants/stringedInstruments";
 import NoteMarker from "components/NoteMarker";
 import { fretStyles } from "./styles";
@@ -12,8 +19,8 @@ import { fretStyles } from "./styles";
 const teoria = require("teoria");
 
 interface FretProps extends FretData {
-  stringNumber: StringNumber;
-  fretNumber: FretNumber;
+  stringNumber: StringNumber<InstrumentName>;
+  fretNumber: FretNumber<FretStart, FretEnd>;
   noteName: NoteName;
 }
 
@@ -22,9 +29,7 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     useContext<BreakpointState>(BreakpointContext);
   const {
     dimensions: { fret },
-    fretStart,
-    fretEnd,
-    strings,
+    neck: { fretStart, fretEnd, stringsTotal },
   } = useAppSelector((appState) => appState.instrument);
   const { currentKey, scale } = useAppSelector(
     (appState) => appState.musicTheory
@@ -90,7 +95,10 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
     [fretNumber]
   );
 
-  const isOpenFret = useMemo<boolean>(() => fretNumber === 0, [fretNumber]);
+  const isOpenFret = useMemo<boolean>(
+    () => fretNumber === (0 as FretNumber<FretStart, FretEnd>),
+    [fretNumber]
+  );
 
   const isFirstFretOnString = useMemo<boolean>(
     () => fretStart > 0 && fretNumber === fretStart,
@@ -102,8 +110,8 @@ const Fret = ({ stringNumber, fretNumber, noteName }: FretProps) => {
   );
 
   const isLastStringFret = useMemo<boolean>(
-    () => stringNumber === strings.length - 1 && fretNumber > 0,
-    [stringNumber, strings, fretNumber]
+    () => stringNumber === stringsTotal - 1 && fretNumber > 0,
+    [stringNumber, stringsTotal, fretNumber]
   );
 
   const isLastFretOnString = useMemo<boolean>(

@@ -9,16 +9,24 @@ import { BreakpointContext } from "common/components/BreakpointProvider/context"
 import { getEnharmonics } from "common/utils";
 import { useWindowSize } from "usehooks-ts";
 import { NoteName } from "ts/musicTheory";
-import { StringNumber } from "ts/stringedInstrument";
+import {
+  FretData,
+  FretNumber,
+  StringData,
+  StringNumber,
+} from "ts/stringedInstrument";
+import { getStringNumbers } from "common/utils";
 import Neck from "./Neck";
 import String from "./String";
+import Fret from "./Fret";
 import styles from "./StringedInstrument.module.scss";
 
 const StringedInstrument: React.FC = () => {
   const appDispatch = useAppDispatch();
-  const { instrumentType, strings, fretStart, fretEnd } = useAppSelector(
+  const { instrumentName, neck } = useAppSelector(
     (appState) => appState.instrument
   );
+  const { strings, stringsTotal, fretStart, fretEnd } = neck;
   const { scale, currentKey } = useAppSelector(
     (appState) => appState.musicTheory
   );
@@ -29,6 +37,27 @@ const StringedInstrument: React.FC = () => {
   const instrumentRef = useRef<HTMLDivElement>(null);
   const { isMobile, isPortrait } =
     useContext<BreakpointState>(BreakpointContext);
+
+  const stringNumbers: StringNumber<typeof instrumentName>[] = getStringNumbers(
+    strings,
+    instrumentName
+  );
+
+  const getFretNumbersForString = (
+    string: StringData
+  ): FretNumber<typeof fretStart, typeof fretEnd>[] =>
+    Object.keys(string.frets)
+      .slice()
+      .reverse()
+      .map(
+        (fretNumber) =>
+          parseInt(fretNumber) as FretNumber<typeof fretStart, typeof fretEnd>
+      );
+
+  const getFretData = (
+    stringNumber: StringNumber<typeof instrumentName>,
+    fretNumber: FretNumber<typeof fretStart, typeof fretEnd>
+  ): FretData => strings[stringNumber].frets[fretNumber];
 
   const windowSize = useWindowSize();
   useEffect(() => {
@@ -45,9 +74,9 @@ const StringedInstrument: React.FC = () => {
       let neckWidth = width * (isPortrait ? 0.9 : 0.8);
 
       let stringHeight =
-        isPortrait && isMobile ? neckHeight : neckHeight / strings.length;
+        isPortrait && isMobile ? neckHeight : neckHeight / stringsTotal;
       let stringWidth =
-        isPortrait && isMobile ? neckWidth / strings.length : neckWidth;
+        isPortrait && isMobile ? neckWidth / stringsTotal : neckWidth;
 
       let fretHeight =
         isPortrait && isMobile ? stringHeight / fretTotal : stringHeight;
@@ -72,11 +101,11 @@ const StringedInstrument: React.FC = () => {
       );
     }
   }, [
-    instrumentType,
+    instrumentName,
     isMobile,
     isPortrait,
     windowSize,
-    strings.length,
+    stringsTotal,
     fretTotal,
     appDispatch,
   ]);
@@ -97,16 +126,26 @@ const StringedInstrument: React.FC = () => {
       ref={instrumentRef}
     >
       <Neck>
-        {strings
-          .slice()
-          .reverse()
-          .map((rootNote, index) => (
+        {stringNumbers.map(
+          (stringNumber: StringNumber<typeof instrumentName>) => (
             <String
-              rootNote={rootNote}
-              stringNumber={index as StringNumber}
-              key={rootNote}
-            />
-          ))}
+              rootNote={strings[stringNumber]?.rootNote}
+              stringNumber={stringNumber}
+            >
+              {getFretNumbersForString(strings[stringNumber]).map(
+                (fretNumber) => (
+                  <Fret
+                    stringNumber={stringNumber}
+                    fretNumber={
+                      fretNumber as FretNumber<typeof fretStart, typeof fretEnd>
+                    }
+                    {...getFretData(stringNumber, fretNumber)}
+                  />
+                )
+              )}
+            </String>
+          )
+        )}
       </Neck>
     </div>
   );
